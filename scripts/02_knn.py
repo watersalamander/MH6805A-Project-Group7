@@ -40,18 +40,22 @@ def knn_factory(**params) -> Pipeline:
 def main():
     t0 = time.perf_counter()
     C.set_style()
+    figures_only = "--figures-only" in sys.argv  # reuse results/knn.csv
     data = {}
     all_results = []
     for freq in ("daily", "weekly"):
         df = C.load_data(freq=freq)
         folds = C.make_folds(df)
-        C.baselines(df, folds, freq=freq)
         data[freq] = (df, folds)
+        if figures_only:
+            continue
+        C.baselines(df, folds, freq=freq)
         for fs in FEATURE_SET_NAMES:
             all_results.append(
                 C.run_model(NAME, knn_factory, df, folds, fs, PARAM_GRID, freq))
 
-    res = pd.concat(all_results)
+    res = (pd.read_csv(C.RESULTS_DIR / f"{NAME}.csv") if figures_only
+           else pd.concat(all_results))
     summary = (res.groupby(["freq", "feature_set"], sort=False)
                   [["rmse", "mae", "r2_oos", "spearman"]].mean())
     print("\nKNN mean over folds:")
@@ -77,10 +81,8 @@ def plot_val_curve():
         curve = (val.groupby(["n_neighbors", "weights"])["val_rmse"].mean()
                     .unstack("weights").min(axis=1))
         ax.plot(curve.index, curve.values, marker="o", color=C.PALETTE[i],
-                label=f"{fs} ({len(C.FEATURE_SETS[fs])} features)")
-        ax.annotate(f"{curve.iloc[-1]:.3f}", (curve.index[-1], curve.iloc[-1]),
-                    xytext=(6, 0), textcoords="offset points", va="center",
-                    fontsize=8, color=C.INK_2)
+                label=f"{fs} ({len(C.FEATURE_SETS[fs])} features), "
+                      f"best {curve.min():.4f} at k={curve.idxmin()}")
     ax.set_xscale("log")
     ax.set_xticks(PARAM_GRID["n_neighbors"])
     ax.set_xticklabels(PARAM_GRID["n_neighbors"])
@@ -137,15 +139,12 @@ def neighbour_illustration(df, folds, res, fs="CONTROLS+EMIS5"):
         ax.bar(range(len(shown)), shown[col], color=colors, width=0.7)
         ax.set_title(title, fontsize=10)
         ax.grid(axis="x", visible=False)
-        for x, v in enumerate(shown[col]):
-            if x == 0 or col != "emis_next_30d_pct_float":
-                continue
         ax.text(0, shown[col].iloc[0], f"{shown[col].iloc[0]:.2f}", ha="center",
                 va="bottom", fontsize=8, color=C.INK_2)
     axes[2].axhline(pred, color=C.INK_2, linestyle="--", linewidth=1.2)
-    axes[2].text(len(shown) - 0.5, pred, f"KNN prediction {pred:.2f} "
-                 f"(k={params['n_neighbors']}, {params['weights']})",
-                 ha="right", va="bottom", fontsize=8, color=C.INK_2)
+    axes[2].set_title(f"realized rv_fwd_14d (target, level); dashed = KNN "
+                      f"prediction {pred:.2f} from all k={params['n_neighbors']} "
+                      f"neighbours ({params['weights']} weights)", fontsize=10)
     axes[2].set_xticks(range(len(shown)))
     axes[2].set_xticklabels(labels, fontsize=7)
     qd = shown.loc[0, "date"]
