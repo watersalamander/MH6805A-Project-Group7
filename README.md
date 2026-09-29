@@ -42,6 +42,19 @@ best_params (json), rmse, mae, r2_oos, spearman, rmse_level, subsample`
   robustness targets.
 - `subsample` is `all` unless the run used a filtered panel (e.g. `INTERNAL`).
 
+## Notes on the protocol as implemented
+- The CSV holds 176 tokens (not 177); 101,393 daily / 14,623 weekly rows
+  remain after cleaning.
+- Tuning fits on train minus the validation slice **minus a 30-day purge**
+  before validation (`purge_days` in `run_model`), so validation mimics the
+  embargoed test setting. Set `purge_days=0` for plain "train minus val".
+- Random Forest on the daily panel tunes over a fixed seeded random subset of
+  the 36-config grid (12 configs for the main runs, 6 for robustness runs)
+  because one 400-tree fit takes 20-90 s. Weekly runs use the full grid.
+  Pass `max_configs=` to `run_model` to do the same for a slow model.
+- `python scripts/02_knn.py --figures-only` and
+  `python scripts/03_rf.py --skip-runs` rebuild figures from saved results.
+
 ## Adding a model (teammates)
 ```python
 import sys; sys.path.insert(0, ".")
