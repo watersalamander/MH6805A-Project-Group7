@@ -1,0 +1,347 @@
+budget=2000 already_used=39
+token_list.json exists (629 tokens) - reusing
+candidates with Binance pair & locked supply: 215
+eligible after age filter (probed top 215): 208
+  selected solana: emission 2024-09-14..2027-06-29 (1019 rows); calls 40/2000
+  selected zcash: emission 2024-09-14..2027-06-29 (1019 rows); calls 40/2000
+  selected dogecoin: emission 2024-09-14..2027-06-29 (1019 rows); calls 40/2000
+  selected chainlink: emission 2024-09-14..2024-12-21 (99 rows); calls 43/2000
+  selected litecoin: emission 2024-09-14..2027-06-29 (1019 rows); calls 43/2000
+  selected uniswap: emission 2024-09-14..2024-09-21 (8 rows); calls 46/2000
+  selected avalanche-2: emission 2024-09-14..2027-06-29 (1019 rows); calls 46/2000
+  selected near: emission 2024-09-14..2027-06-29 (1019 rows); calls 46/2000
+  selected sui: emission 2024-09-14..2027-06-29 (1019 rows); calls 47/2000
+  selected bittensor: emission 2024-09-14..2027-06-29 (1019 rows); calls 47/2000
+  selected aave: emission 2024-09-14..2027-06-29 (1019 rows); calls 47/2000
+  selected cosmos: emission 2024-09-14..2027-06-29 (1019 rows); calls 47/2000
+  selected aster-2: emission 2025-09-14..2027-06-29 (654 rows); calls 47/2000
+  selected world-liberty-financial: emission 2025-08-31..2027-06-29 (668 rows); calls 47/2000
+  selected polkadot: emission 2024-09-14..2027-06-29 (1019 rows); calls 50/2000
+  selected ondo-finance: emission 2024-09-14..2027-06-29 (1019 rows); calls 53/2000
+  selected pump-fun: emission 2025-07-06..2027-06-29 (724 rows); calls 56/2000
+  selected morpho: emission 2024-11-17..2027-06-29 (955 rows); calls 59/2000
+  selected ethena: emission 2024-09-14..2027-06-29 (1019 rows); calls 63/2000
+  selected worldcoin-wld: emission 2024-09-14..2027-06-29 (1019 rows); calls 66/2000
+  selected polygon-ecosystem-token: emission 2024-09-14..2027-06-29 (1019 rows); calls 69/2000
+  selected arbitrum: emission 2024-09-14..2027-04-17 (946 rows); calls 72/2000
+  selected filecoin: emission 2024-09-14..2027-06-29 (1019 rows); calls 76/2000
+  selected jupiter-exchange-solana: emission 2024-09-14..2026-02-28 (533 rows); calls 79/2000
+  selected render-token: emission 2024-09-14..2027-06-29 (1019 rows); calls 82/2000
+  selected ether-fi: emission 2024-09-14..2027-03-20 (918 rows); calls 85/2000
+  selected curve-dao-token: emission 2024-09-14..2027-06-29 (1019 rows); calls 89/2000
+  selected official-trump: emission 2025-01-12..2027-06-29 (899 rows); calls 92/2000
+  selected aptos: emission 2024-09-14..2027-06-29 (1019 rows); calls 95/2000
+  selected pyth-network: emission 2024-09-14..2027-05-22 (981 rows); calls 98/2000
+  selected falcon-finance-ff: emission 2025-09-28..2027-06-29 (640 rows); calls 101/2000
+  selected pudgy-penguins: emission 2024-12-15..2027-06-29 (927 rows); calls 104/2000
+  selected fetch-ai: emission 2024-09-14..2027-06-29 (1019 rows); calls 108/2000
+  selected pendle: emission 2024-09-14..2027-06-29 (1019 rows); calls 112/2000
+  selected layerzero: emission 2024-09-14..2027-06-26 (1016 rows); calls 115/2000
+  selected celestia: emission 2024-09-14..2027-06-29 (1019 rows); calls 118/2000
+  selected sei-network: emission 2024-09-14..2027-06-29 (1019 rows); calls 122/2000
+  selected kite-2: emission 2025-11-02..2027-06-29 (605 rows); calls 125/2000
+  selected conflux-token: emission 2024-09-14..2024-11-02 (50 rows); calls 128/2000
+  selected syrup: emission 2024-11-10..2026-09-19 (679 rows); calls 131/2000
+  selected bonk: emission 2024-09-14..2026-01-03 (477 rows); calls 134/2000
+  selected ethereum-name-service: emission 2024-09-14..2025-11-08 (421 rows); calls 137/2000
+  selected jito-governance-token: emission 2024-09-14..2026-12-12 (820 rows); calls 140/2000
+  selected plasma: emission 2025-09-21..2027-06-29 (647 rows); calls 143/2000
+  selected optimism: emission 2024-09-14..2027-06-29 (1019 rows); calls 146/2000
+  selected starknet: emission 2024-09-14..2027-03-20 (918 rows); calls 149/2000
+  selected the-graph: emission 2024-09-14..2027-06-29 (1019 rows); calls 152/2000
+  selected convex-finance: emission 2024-09-14..2025-04-26 (225 rows); calls 156/2000
+  selected iota: emission 2024-09-14..2027-06-29 (1019 rows); calls 159/2000
+  selected kaia: emission 2024-10-27..2027-06-29 (976 rows); calls 162/2000
+  selected eigenlayer: emission 2024-09-29..2027-06-29 (1004 rows); calls 166/2000
+  selected axie-infinity: emission 2024-09-14..2026-03-14 (547 rows); calls 169/2000
+  selected doublezero: emission 2025-09-28..2027-06-29 (640 rows); calls 172/2000
+  selected centrifuge: emission 2024-09-14..2025-07-05 (295 rows); calls 175/2000
+  selected decentraland: emission 2024-09-14..2027-06-29 (1019 rows); calls 179/2000
+  selected kamino: emission 2024-09-14..2027-05-01 (960 rows); calls 182/2000
+  selected apecoin: emission 2024-09-14..2026-02-21 (526 rows); calls 185/2000
+  selected 1inch: emission 2024-09-14..2025-12-13 (456 rows); calls 188/2000
+  selected elrond-erd-2: emission 2024-09-14..2027-06-29 (1019 rows); calls 191/2000
+  selected meteora: emission 2025-10-19..2027-06-29 (619 rows); calls 195/2000
+  selected zama: emission 2026-02-01..2027-06-29 (514 rows); calls 198/2000
+  selected mina-protocol: emission 2024-09-14..2027-06-29 (1019 rows); calls 202/2000
+  selected immutable-x: emission 2024-09-14..2025-11-01 (414 rows); calls 205/2000
+  selected sentient: emission 2026-01-18..2027-06-29 (528 rows); calls 208/2000
+  selected sonic-3: emission 2024-12-15..2027-06-29 (927 rows); calls 211/2000
+  selected the-sandbox: emission 2024-09-14..2025-02-15 (155 rows); calls 214/2000
+  selected zksync: emission 2024-09-14..2027-06-29 (1019 rows); calls 218/2000
+  selected dydx: emission 2024-09-14..2026-08-08 (694 rows); calls 221/2000
+  selected plume: emission 2025-01-19..2027-06-29 (892 rows); calls 225/2000
+  selected gmx: emission 2024-09-14..2027-06-29 (1019 rows); calls 229/2000
+  selected cow-protocol: emission 2024-09-14..2026-01-03 (477 rows); calls 232/2000
+  selected kaito: emission 2025-02-16..2027-06-29 (864 rows); calls 238/2000
+  selected arkham: emission 2024-09-14..2027-06-29 (1019 rows); calls 241/2000
+  selected redstone-oracles: emission 2025-03-02..2027-06-29 (850 rows); calls 245/2000
+  selected wormhole: emission 2024-09-14..2027-06-29 (1019 rows); calls 248/2000
+  selected linea: emission 2025-09-07..2027-06-29 (661 rows); calls 251/2000
+  selected berachain-bera: emission 2025-02-02..2027-06-29 (878 rows); calls 255/2000
+  selected spark-2: emission 2025-06-15..2027-06-29 (745 rows); calls 258/2000
+  selected goplus-security: emission 2025-01-12..2027-06-29 (899 rows); calls 261/2000
+  selected nervos-network: emission 2024-09-14..2027-06-29 (1019 rows); calls 264/2000
+  selected babylon: emission 2025-04-06..2027-06-29 (815 rows); calls 267/2000
+  selected axelar: emission 2024-09-14..2027-01-02 (841 rows); calls 270/2000
+  selected oasis-network: emission 2024-09-14..2027-06-29 (1019 rows); calls 273/2000
+  selected astar: emission 2024-09-14..2027-01-23 (862 rows); calls 276/2000
+  selected bio-protocol: emission 2024-12-29..2027-06-29 (913 rows); calls 279/2000
+  selected blur: emission 2024-09-14..2027-02-20 (890 rows); calls 283/2000
+  selected io: emission 2024-09-14..2027-06-29 (1019 rows); calls 287/2000
+  selected celo: emission 2024-09-14..2027-06-29 (1019 rows); calls 290/2000
+  selected space-id: emission 2024-09-14..2027-06-29 (1019 rows); calls 293/2000
+  selected flow: emission 2024-09-14..2027-06-29 (1019 rows); calls 296/2000
+  selected altlayer: emission 2024-09-14..2027-06-29 (1019 rows); calls 299/2000
+  selected lombard-protocol: emission 2025-09-14..2027-06-29 (654 rows); calls 303/2000
+  selected catizen: emission 2024-09-15..2027-06-29 (1018 rows); calls 306/2000
+  selected zero-gravity: emission 2025-09-21..2027-06-29 (647 rows); calls 309/2000
+  selected edu-coin: emission 2024-09-14..2027-06-29 (1019 rows); calls 312/2000
+  selected magic-eden: emission 2024-12-08..2027-06-29 (934 rows); calls 315/2000
+  selected rocket-pool: emission 2024-09-14..2027-06-29 (1019 rows); calls 318/2000
+  selected huma-finance: emission 2025-05-25..2027-06-29 (766 rows); calls 321/2000
+  selected renzo: emission 2024-09-14..2027-04-03 (932 rows); calls 324/2000
+  selected space-and-time: emission 2025-05-04..2027-06-29 (787 rows); calls 327/2000
+  selected movement: emission 2024-12-08..2027-06-29 (934 rows); calls 331/2000
+  selected succinct: emission 2025-08-03..2027-06-29 (696 rows); calls 334/2000
+  selected avantis: emission 2025-09-07..2027-06-29 (661 rows); calls 337/2000
+  selected memecoin-2: emission 2024-09-14..2027-06-29 (1019 rows); calls 340/2000
+  selected lista: emission 2024-09-14..2027-06-29 (1019 rows); calls 343/2000
+  selected terra-luna-2: emission 2024-09-14..2027-05-29 (988 rows); calls 346/2000
+  selected sahara-ai: emission 2025-06-22..2027-06-29 (738 rows); calls 349/2000
+  selected euler: emission 2024-09-14..2025-12-20 (463 rows); calls 352/2000
+  selected momentum-3: emission 2025-11-02..2027-06-29 (605 rows); calls 355/2000
+  selected manta-network: emission 2024-09-14..2027-06-29 (1019 rows); calls 359/2000
+  selected illuvium: emission 2024-09-14..2025-04-05 (204 rows); calls 362/2000
+  selected sign-global: emission 2025-04-27..2027-06-29 (794 rows); calls 366/2000
+  selected osmosis: emission 2024-09-14..2027-06-29 (1019 rows); calls 369/2000
+  selected frax-share: emission 2024-09-14..2027-06-29 (1019 rows); calls 372/2000
+  selected tensor: emission 2024-09-14..2027-04-10 (939 rows); calls 375/2000
+  selected solv-protocol: emission 2025-01-12..2027-06-29 (899 rows); calls 378/2000
+  selected cartesi: emission 2024-09-14..2025-11-29 (442 rows); calls 381/2000
+  selected fogo: emission 2026-01-11..2027-06-29 (535 rows); calls 384/2000
+  selected metis-token: emission 2024-09-14..2027-06-29 (1019 rows); calls 387/2000
+  selected stepn: emission 2024-09-14..2027-06-29 (1019 rows); calls 390/2000
+  selected hyperlane: emission 2025-04-20..2027-06-29 (801 rows); calls 393/2000
+  selected home: emission 2025-06-08..2027-06-29 (752 rows); calls 396/2000
+  selected skale: emission 2024-09-14..2027-06-29 (1019 rows); calls 399/2000
+  selected usual: emission 2024-11-10..2027-06-29 (962 rows); calls 402/2000
+  selected yield-guild-games: emission 2024-09-14..2027-02-27 (897 rows); calls 405/2000
+  selected stargate-finance: emission 2024-09-14..2025-03-22 (190 rows); calls 408/2000
+  selected liquity: emission 2024-09-14..2027-06-29 (1019 rows); calls 411/2000
+  selected big-time: emission 2024-09-14..2027-06-29 (1019 rows); calls 414/2000
+  selected woo: emission 2024-09-14..2024-12-28 (106 rows); calls 417/2000
+  selected nillion: emission 2025-03-23..2027-06-29 (829 rows); calls 420/2000
+  selected cetus-protocol: emission 2024-09-14..2026-04-04 (568 rows); calls 424/2000
+  selected chaingpt: emission 2024-09-14..2027-06-29 (1019 rows); calls 427/2000
+  selected openeden: emission 2025-09-28..2027-06-29 (640 rows); calls 430/2000
+  selected yield-basis: emission 2025-10-12..2027-06-29 (626 rows); calls 433/2000
+  selected bonfida: emission 2024-09-14..2024-12-28 (106 rows); calls 436/2000
+  selected biconomy: emission 2024-09-14..2025-09-13 (365 rows); calls 439/2000
+  selected dodo: emission 2024-09-14..2025-07-05 (295 rows); calls 442/2000
+  selected sophon: emission 2025-05-25..2027-06-29 (766 rows); calls 445/2000
+  selected anime: emission 2025-01-19..2027-06-29 (892 rows); calls 448/2000
+  selected connect-token-wct: emission 2025-04-13..2027-06-29 (808 rows); calls 451/2000
+  selected portal-2: emission 2024-09-14..2027-06-29 (1019 rows); calls 454/2000
+  selected synfutures: emission 2024-12-01..2027-06-29 (941 rows); calls 457/2000
+  selected endurance: emission 2024-09-14..2027-06-29 (1019 rows); calls 460/2000
+  selected banana-gun: emission 2024-09-14..2027-06-29 (1019 rows); calls 463/2000
+  selected mira-3: emission 2025-09-21..2027-06-29 (647 rows); calls 466/2000
+  selected xai-blockchain: emission 2024-09-14..2027-06-29 (1019 rows); calls 469/2000
+  selected solayer: emission 2025-02-09..2027-06-29 (871 rows); calls 472/2000
+  selected coin98: emission 2024-09-14..2025-06-28 (288 rows); calls 475/2000
+  selected spell-token: emission 2024-09-14..2027-06-29 (1019 rows); calls 478/2000
+  selected katana-network-token: emission 2026-03-15..2027-06-29 (472 rows); calls 481/2000
+  selected radicle: emission 2024-09-14..2025-02-15 (155 rows); calls 485/2000
+  selected initia: emission 2025-04-20..2027-06-29 (801 rows); calls 488/2000
+  selected bubblemaps: emission 2025-03-16..2027-06-29 (836 rows); calls 491/2000
+  selected my-neighbor-alice: emission 2024-09-14..2025-02-15 (155 rows); calls 494/2000
+  selected lagrange: emission 2025-06-01..2027-06-29 (759 rows); calls 497/2000
+  selected dolomite: emission 2025-04-20..2027-06-29 (801 rows); calls 500/2000
+  selected maverick-protocol: emission 2024-09-14..2027-06-29 (1019 rows); calls 503/2000
+  selected kernel-2: emission 2025-04-13..2027-06-29 (808 rows); calls 506/2000
+  selected superrare: emission 2024-09-14..2025-06-28 (288 rows); calls 509/2000
+  selected newton-protocol: emission 2025-06-22..2027-06-29 (738 rows); calls 512/2000
+  selected dymension: emission 2024-09-14..2027-02-06 (876 rows); calls 515/2000
+  selected benqi: emission 2024-09-14..2025-05-10 (239 rows); calls 518/2000
+  selected gunz: emission 2025-03-30..2027-06-29 (822 rows); calls 521/2000
+  selected opinion: emission 2026-03-01..2027-06-29 (486 rows); calls 524/2000
+  selected cookie: emission 2024-09-14..2027-06-29 (1019 rows); calls 527/2000
+  selected resolv: emission 2025-06-08..2027-06-29 (752 rows); calls 530/2000
+  selected saga-2: emission 2024-09-14..2027-04-10 (939 rows); calls 533/2000
+  selected moonbeam: emission 2024-09-14..2027-06-29 (1019 rows); calls 536/2000
+  selected treehouse: emission 2025-07-27..2027-06-29 (703 rows); calls 540/2000
+  selected quickswap: emission 2024-09-14..2024-10-12 (29 rows); calls 543/2000
+  selected myshell: emission 2025-02-09..2027-06-29 (871 rows); calls 546/2000
+  selected particle-network: emission 2025-03-23..2027-06-29 (829 rows); calls 549/2000
+  selected scroll: emission 2024-10-20..2027-06-29 (983 rows); calls 552/2000
+  selected haedal: emission 2025-04-27..2027-06-29 (794 rows); calls 555/2000
+  selected pixels: emission 2024-09-14..2027-06-29 (1019 rows); calls 558/2000
+  selected bouncebit: emission 2024-09-14..2027-06-29 (1019 rows); calls 561/2000
+  selected sleepless-ai: emission 2024-09-14..2027-06-29 (1019 rows); calls 564/2000
+  prices LINKUSDT: 2799 rows from 2019-01-16
+  prices UNIUSDT: 2189 rows from 2020-09-17
+  prices DOTUSDT: 2219 rows from 2020-08-18
+  prices ONDOUSDT: 522 rows from 2025-04-11
+  prices PUMPUSDT: 369 rows from 2025-09-11
+  prices MORPHOUSDT: 347 rows from 2025-10-03
+  prices ENAUSDT: 896 rows from 2024-04-02
+  prices WLDUSDT: 1149 rows from 2023-07-24
+  prices POLUSDT: 732 rows from 2024-09-13
+  prices ARBUSDT: 1272 rows from 2023-03-23
+  prices FILUSDT: 2161 rows from 2020-10-15
+  prices JUPUSDT: 958 rows from 2024-01-31
+  prices RENDERUSDT: 781 rows from 2024-07-26
+  prices ETHFIUSDT: 911 rows from 2024-03-18
+  prices CRVUSDT: 2222 rows from 2020-08-15
+  prices TRUMPUSDT: 604 rows from 2025-01-19
+  prices APTUSDT: 1427 rows from 2022-10-19
+  prices PYTHUSDT: 956 rows from 2024-02-02
+  prices FFUSDT: 351 rows from 2025-09-29
+  prices PENGUUSDT: 637 rows from 2024-12-17
+  prices FETUSDT: 2756 rows from 2019-02-28
+  prices PENDLEUSDT: 1170 rows from 2023-07-03
+  prices ZROUSDT: 817 rows from 2024-06-20
+  prices TIAUSDT: 1050 rows from 2023-10-31
+  prices SEIUSDT: 1127 rows from 2023-08-15
+  prices KITEUSDT: 316 rows from 2025-11-03
+  prices CFXUSDT: 1996 rows from 2021-03-29
+  prices SYRUPUSDT: 497 rows from 2025-05-06
+  prices BONKUSDT: 1005 rows from 2023-12-15
+  prices ENSUSDT: 1770 rows from 2021-11-10
+  prices JTOUSDT: 1013 rows from 2023-12-07
+  prices XPLUSDT: 355 rows from 2025-09-25
+  prices OPUSDT: 1567 rows from 2022-06-01
+  prices STRKUSDT: 938 rows from 2024-02-20
+  prices GRTUSDT: 2098 rows from 2020-12-17
+  prices CVXUSDT: 1727 rows from 2021-12-23
+  prices IOTAUSDT: 3029 rows from 2018-05-31
+  prices KAIAUSDT: 684 rows from 2024-10-31
+  prices EIGENUSDT: 714 rows from 2024-10-01
+  prices AXSUSDT: 2141 rows from 2020-11-04
+  prices 2ZUSDT: 348 rows from 2025-10-02
+  prices CFGUSDT: 183 rows from 2026-03-16
+  prices MANAUSDT: 2231 rows from 2020-08-06
+  prices KMNOUSDT: 497 rows from 2025-05-06
+  prices APEUSDT: 1643 rows from 2022-03-17
+  prices 1INCHUSDT: 2090 rows from 2020-12-25
+  prices EGLDUSDT: 2203 rows from 2020-09-03
+  prices METUSDT: 306 rows from 2025-11-13
+  prices ZAMAUSDT: 225 rows from 2026-02-02
+  prices MINAUSDT: 1862 rows from 2021-08-10
+  prices IMXUSDT: 1709 rows from 2022-01-10
+  prices SENTUSDT: 236 rows from 2026-01-22
+  prices SUSDT: 607 rows from 2025-01-16
+  prices SANDUSDT: 2223 rows from 2020-08-14
+  prices ZKUSDT: 820 rows from 2024-06-17
+  prices DYDXUSDT: 1832 rows from 2021-09-09
+  prices PLUMEUSDT: 393 rows from 2025-08-18
+  prices GMXUSDT: 1441 rows from 2022-10-05
+  prices COWUSDT: 678 rows from 2024-11-06
+  prices KAITOUSDT: 572 rows from 2025-02-20
+  prices ARKMUSDT: 1155 rows from 2023-07-18
+  prices REDUSDT: 564 rows from 2025-02-28
+  prices WUSDT: 895 rows from 2024-04-03
+  prices LINEAUSDT: 370 rows from 2025-09-10
+  prices BERAUSDT: 586 rows from 2025-02-06
+  prices SPKUSDT: 455 rows from 2025-06-17
+  prices GPSUSDT: 560 rows from 2025-03-04
+  prices CKBUSDT: 2058 rows from 2021-01-26
+  prices BABYUSDT: 523 rows from 2025-04-10
+  prices AXLUSDT: 928 rows from 2024-03-01
+  prices ROSEUSDT: 2126 rows from 2020-11-19
+  prices ASTRUSDT: 1660 rows from 2022-02-28
+  prices BIOUSDT: 620 rows from 2025-01-03
+  prices BLURUSDT: 1026 rows from 2023-11-24
+  prices IOUSDT: 826 rows from 2024-06-11
+  prices CELOUSDT: 2079 rows from 2021-01-05
+  prices IDUSDT: 1273 rows from 2023-03-22
+  prices FLOWUSDT: 1873 rows from 2021-07-30
+  prices ALTUSDT: 964 rows from 2024-01-25
+  prices BARDUSDT: 362 rows from 2025-09-18
+  prices CATIUSDT: 725 rows from 2024-09-20
+  prices 0GUSDT: 358 rows from 2025-09-22
+  prices EDUUSDT: 1236 rows from 2023-04-28
+  prices MEUSDT: 644 rows from 2024-12-10
+  prices RPLUSDT: 1336 rows from 2023-01-18
+  prices HUMAUSDT: 477 rows from 2025-05-26
+  prices REZUSDT: 868 rows from 2024-04-30
+  prices SXTUSDT: 495 rows from 2025-05-08
+  prices MOVEUSDT: 645 rows from 2024-12-09
+  prices PROVEUSDT: 406 rows from 2025-08-05
+  prices AVNTUSDT: 365 rows from 2025-09-15
+  prices MEMEUSDT: 1047 rows from 2023-11-03
+  prices LISTAUSDT: 817 rows from 2024-06-20
+  prices LUNAUSDT: 2199 rows from 2020-08-21
+  prices SAHARAUSDT: 446 rows from 2025-06-26
+  prices EULUSDT: 337 rows from 2025-10-13
+  prices MMTUSDT: 315 rows from 2025-11-04
+  prices MANTAUSDT: 971 rows from 2024-01-18
+  prices ILVUSDT: 1819 rows from 2021-09-22
+  prices SIGNUSDT: 505 rows from 2025-04-28
+  prices OSMOUSDT: 1418 rows from 2022-10-28
+  prices FRAXUSDT: 243 rows from 2026-01-15
+  prices TNSRUSDT: 890 rows from 2024-04-08
+  prices SOLVUSDT: 606 rows from 2025-01-17
+  prices CTSIUSDT: 2336 rows from 2020-04-23
+  prices FOGOUSDT: 243 rows from 2026-01-15
+  prices METISUSDT: 918 rows from 2024-03-11
+  prices GMTUSDT: 1651 rows from 2022-03-09
+  prices HYPERUSDT: 511 rows from 2025-04-22
+  prices HOMEUSDT: 460 rows from 2025-06-12
+  prices SKLUSDT: 2114 rows from 2020-12-01
+  prices USUALUSDT: 665 rows from 2024-11-19
+  prices YGGUSDT: 1817 rows from 2021-09-24
+  prices STGUSDT: 1488 rows from 2022-08-19
+  prices LQTYUSDT: 1295 rows from 2023-02-28
+  prices BIGTIMEUSDT: 522 rows from 2025-04-11
+  prices WOOUSDT: 1680 rows from 2022-02-08
+  prices NILUSDT: 540 rows from 2025-03-24
+  prices CETUSUSDT: 678 rows from 2024-11-06
+  prices CGPTUSDT: 613 rows from 2025-01-10
+  prices EDENUSDT: 350 rows from 2025-09-30
+  prices YBUSDT: 335 rows from 2025-10-15
+  prices FIDAUSDT: 1811 rows from 2021-09-30
+  prices BICOUSDT: 1741 rows from 2021-12-09
+  prices DODOUSDT: 2034 rows from 2021-02-19
+  prices SOPHUSDT: 475 rows from 2025-05-28
+  prices ANIMEUSDT: 600 rows from 2025-01-23
+  prices WCTUSDT: 518 rows from 2025-04-15
+  prices PORTALUSDT: 929 rows from 2024-02-29
+  prices FUSDT: 325 rows from 2025-10-25
+  prices ACEUSDT: 1002 rows from 2023-12-18
+  prices BANANAUSDT: 787 rows from 2024-07-20
+  prices MIRAUSDT: 354 rows from 2025-09-26
+  prices XAIUSDT: 980 rows from 2024-01-09
+  prices LAYERUSDT: 581 rows from 2025-02-11
+  prices C98USDT: 1880 rows from 2021-07-23
+  prices SPELLUSDT: 1726 rows from 2021-12-24
+  prices KATUSDT: 181 rows from 2026-03-18
+  prices RADUSDT: 1804 rows from 2021-10-07
+  prices INITUSDT: 509 rows from 2025-04-24
+  prices BMTUSDT: 546 rows from 2025-03-18
+  prices ALICEUSDT: 2010 rows from 2021-03-15
+  prices LAUSDT: 433 rows from 2025-07-09
+  prices DOLOUSDT: 384 rows from 2025-08-27
+  prices MAVUSDT: 1175 rows from 2023-06-28
+  prices KERNELUSDT: 519 rows from 2025-04-14
+  prices RAREUSDT: 1800 rows from 2021-10-11
+  prices NEWTUSDT: 448 rows from 2025-06-24
+  prices DYMUSDT: 952 rows from 2024-02-06
+  prices QIUSDT: 1765 rows from 2021-11-15
+  prices GUNUSDT: 533 rows from 2025-03-31
+  prices OPNUSDT: 194 rows from 2026-03-05
+  prices COOKIEUSDT: 613 rows from 2025-01-10
+  prices RESOLVUSDT: 461 rows from 2025-06-11
+  prices SAGAUSDT: 889 rows from 2024-04-09
+  prices GLMRUSDT: 1708 rows from 2022-01-11
+  prices TREEUSDT: 413 rows from 2025-07-29
+  prices QUICKUSDT: 1856 rows from 2021-08-13
+  prices SHELLUSDT: 565 rows from 2025-02-27
+  prices PARTIUSDT: 539 rows from 2025-03-25
+  prices SCRUSDT: 704 rows from 2024-10-11
+  prices HAEDALUSDT: 482 rows from 2025-05-21
+  prices PIXELUSDT: 939 rows from 2024-02-19
+  prices BBUSDT: 855 rows from 2024-05-13
+  prices AIUSDT: 985 rows from 2024-01-04
+done: 177 selected, 452 excluded, tokenomist calls used 564/2000

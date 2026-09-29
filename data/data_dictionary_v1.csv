@@ -1,0 +1,48 @@
+column,type,unit,source_endpoint_or_derivation,lookahead_safe,reason
+token_id,string,-,Tokenomist token list `id`,yes,identifier
+symbol,string,-,Tokenomist token list `symbol`,yes,identifier
+date,"date (ISO, UTC)",day,panel date D; features use info through Binance close of D,yes,index
+rv_fwd_7d,float,annualized vol (decimal),"sqrt(365/7 * sum r^2), r = daily close-to-close log return over D+1..D+7 (Binance klines)",no,TARGET: uses closes after D
+rv_fwd_14d,float,annualized vol (decimal),"same, D+1..D+14",no,TARGET: uses closes after D
+rv_fwd_30d,float,annualized vol (decimal),"same, D+1..D+30",no,TARGET: uses closes after D
+rv_fwd_14d_parkinson,float,annualized vol (decimal),sqrt(365/(4*14*ln2) * sum ln(H/L)^2) over D+1..D+14 (Binance daily high/low),no,TARGET: uses H/L after D
+fwd_ret_14d,float,log return,ln(close[D+14]/close[D]),no,TARGET: uses close after D
+emis_next_7d,float,tokens,sum of emission daily `unlockAmount` for startDate in D+1..D+7,yes,schedule as curated today; forward window starts D+1 (see caveat: schedule revisions not versioned)
+emis_next_30d,float,tokens,"sum of `unlockAmount`, D+1..D+30",yes,as above
+emis_next_90d,float,tokens,"sum of `unlockAmount`, D+1..D+90",yes,as above
+float_pit,float,tokens,"emission daily `totalCumulativeUnlockedAmount` on row D (end-of-day D, verified inclusive of D's unlock)",yes,cumulative through D only
+emis_next_7d_pct_float,float,ratio (0-1),emis_next_7d / float_pit,yes,both components at D
+emis_next_30d_pct_float,float,ratio (0-1),emis_next_30d / float_pit,yes,both components at D
+emis_next_90d_pct_float,float,ratio (0-1),emis_next_90d / float_pit,yes,both components at D
+emis_next_30d_pct_total,float,ratio (0-1),emis_next_30d / total_supply,yes,denominator is static
+days_to_next_cliff,float,days,"min(unlockDate - D) over unlock events with unlockDate > D (unlock events endpoint, cliff events)",yes,next scheduled event after D; NaN if no future event or token has no events
+next_cliff_pct_float,float,ratio (0-1),cliffAmount of that next event / float_pit,yes,as above
+has_unlock_events,bool,-,unlock events endpoint returned >=1 event in 2024-09-14..2027-06-30,yes,static flag
+emission_schedule_ended,bool,-,True when D is after the last row Tokenomist returned for the token emission schedule; emis_next_* are then 0 by construction (no scheduled unlocks known) and float_pit is carried forward,yes,derived from schedule end date
+emis_next_30d_founderTeam,float,tokens,emis_next_30d restricted to allocations[].standardAllocationName == 'Founder / Team',yes,same window as emis_next_30d
+emis_next_30d_privateInvestors,float,tokens,... == 'Private Investors',yes,same
+emis_next_30d_community,float,tokens,... == 'Community',yes,same
+emis_next_30d_publicInvestors,float,tokens,... == 'Public Investors',yes,same
+emis_next_30d_reserve,float,tokens,... == 'Reserve',yes,same
+emis_next_30d_others,float,tokens,... == 'Others' or any unmapped label,yes,same
+emis_next_30d_unattributed,float,tokens,emis_next_30d minus the sum of the six buckets (row-level unlockAmount not covered by allocations[]),yes,same
+rv_past_7d,float,annualized vol (decimal),sqrt(365/7 * sum r^2) over D-6..D,yes,closes D-7..D only
+rv_past_14d,float,annualized vol (decimal),"same, D-13..D",yes,closes through D
+rv_past_30d,float,annualized vol (decimal),"same, D-29..D",yes,closes through D
+ret_past_7d,float,log return,ln(close[D]/close[D-7]),yes,closes through D
+ret_past_30d,float,log return,ln(close[D]/close[D-30]),yes,closes through D
+btc_rv_past_14d,float,annualized vol (decimal),rv_past_14d of BTCUSDT,yes,closes through D
+eth_rv_past_14d,float,annualized vol (decimal),rv_past_14d of ETHUSDT,yes,closes through D
+log_mcap_pit,float,ln(USDT),ln(float_pit * close[D]),yes,both at D
+days_since_tge,int,days,D - tge_proxy_date,yes,static date
+listedMethod,string,-,Tokenomist token list `listedMethod` (INTERNAL/AI/EXTERNAL),yes,"static; note it is a current curation flag, not historical"
+unlockPrecision,string,-,mode of unlock events allocationBreakdown[].unlockPrecision; NaN when no events,yes,static
+alloc_share_founderTeam,float,ratio (0-1),allocation detail: sum allocationAmount for 'Founder / Team' / sum of all allocationAmount,yes*,static snapshot as of pull date (allocation detail has no history); treated as time-invariant
+alloc_share_privateInvestors,float,ratio (0-1),same for 'Private Investors',yes*,same caveat
+alloc_share_community,float,ratio (0-1),same for 'Community',yes*,same caveat
+alloc_share_publicInvestors,float,ratio (0-1),same for 'Public Investors',yes*,same caveat
+alloc_share_reserve,float,ratio (0-1),same for 'Reserve',yes*,same caveat
+alloc_share_others,float,ratio (0-1),same for 'Others' / unmapped,yes*,same caveat
+total_supply,float,tokens,"allocation detail `maxSupply`, else sum of allocationAmount (see total_supply_basis)",yes*,static snapshot
+total_supply_basis,string,-,which denominator was used for total_supply,yes,metadata
+tge_proxy_date,date,day,"min(Binance first daily candle, first emission row). Lower bound on age for tokens older than their Binance listing",yes,static

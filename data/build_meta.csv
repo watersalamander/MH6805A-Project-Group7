@@ -1,0 +1,177 @@
+token_id,emission_missing_days,rows_with_price_and_emission,dropped_target_na,dropped_float_zero,rows_final,has_unlock_events,n_unlock_events,total_supply_basis
+solana,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+zcash,0,731,30,0,701,False,0,maxSupply
+dogecoin,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+chainlink,0,731,30,0,701,True,20,maxSupply
+litecoin,0,731,30,0,701,False,0,maxSupply
+uniswap,0,731,30,0,701,False,0,maxSupply
+avalanche-2,0,731,30,0,701,True,11,maxSupply
+near,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+sui,0,731,30,0,701,True,33,maxSupply
+bittensor,0,731,30,0,701,False,0,maxSupply
+aave,0,731,30,0,701,False,0,maxSupply
+cosmos,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+aster-2,0,344,30,0,314,True,1,maxSupply
+world-liberty-financial,0,379,30,0,349,True,2,maxSupply
+polkadot,0,731,30,0,701,False,0,maxSupply
+ondo-finance,0,522,30,0,492,True,3,maxSupply
+pump-fun,0,369,30,0,339,True,2,maxSupply
+morpho,0,347,30,0,317,True,1,maxSupply
+ethena,0,731,30,0,701,True,87,maxSupply
+worldcoin-wld,0,731,30,0,701,False,0,maxSupply
+polygon-ecosystem-token,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+arbitrum,0,731,30,0,701,True,31,maxSupply
+filecoin,0,731,30,0,701,False,0,maxSupply
+jupiter-exchange-solana,0,731,30,0,701,True,17,maxSupply
+render-token,0,731,30,0,701,False,0,maxSupply
+ether-fi,0,731,30,0,701,True,6,maxSupply
+curve-dao-token,0,731,30,0,701,False,0,maxSupply
+official-trump,0,604,30,0,574,True,3,maxSupply
+aptos,0,731,30,0,701,True,33,maxSupply
+pyth-network,0,731,30,0,701,True,3,maxSupply
+falcon-finance-ff,0,351,30,0,321,True,21,maxSupply
+pudgy-penguins,0,637,30,0,607,True,1,maxSupply
+fetch-ai,0,731,30,0,701,False,0,maxSupply
+pendle,0,731,30,0,701,False,0,maxSupply
+layerzero,0,731,30,0,701,True,24,maxSupply
+celestia,0,731,30,0,701,True,1,sum_allocationAmount (maxSupply null)
+sei-network,0,731,30,0,701,True,34,sum_allocationAmount (maxSupply null)
+kite-2,0,316,30,0,286,True,2,maxSupply
+conflux-token,0,731,30,0,701,False,0,maxSupply
+syrup,0,497,30,0,467,True,1,sum_allocationAmount (maxSupply null)
+bonk,0,731,30,0,701,False,0,maxSupply
+ethereum-name-service,0,731,30,0,701,False,0,maxSupply
+jito-governance-token,0,731,30,0,701,True,1,sum_allocationAmount (maxSupply null)
+plasma,0,355,30,0,325,True,23,sum_allocationAmount (maxSupply null)
+optimism,0,731,30,0,701,True,40,maxSupply
+starknet,0,731,30,0,701,True,31,maxSupply
+the-graph,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+convex-finance,0,731,30,0,701,False,0,maxSupply
+iota,0,731,30,0,701,True,86,maxSupply
+kaia,0,684,30,0,654,True,1,sum_allocationAmount (maxSupply null)
+eigenlayer,0,714,30,0,684,True,67,sum_allocationAmount (maxSupply null)
+axie-infinity,0,731,30,0,701,True,19,maxSupply
+doublezero,0,348,30,0,318,True,2,maxSupply
+decentraland,0,731,30,0,701,False,0,maxSupply
+kamino,0,497,30,0,467,True,27,maxSupply
+apecoin,0,731,30,0,701,True,18,maxSupply
+1inch,0,731,30,0,701,True,55,maxSupply
+elrond-erd-2,0,731,30,0,701,False,0,maxSupply
+meteora,0,306,30,0,276,True,21,maxSupply
+zama,0,225,30,0,195,True,2,sum_allocationAmount (maxSupply null)
+mina-protocol,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+immutable-x,0,731,30,0,701,True,15,maxSupply
+sentient,0,236,30,0,206,True,2,maxSupply
+sonic-3,0,607,30,0,577,True,3,sum_allocationAmount (maxSupply null)
+the-sandbox,0,731,30,0,701,True,1,maxSupply
+zksync,0,731,30,0,701,True,25,maxSupply
+dydx,0,731,30,0,701,True,21,maxSupply
+plume,0,393,30,0,363,True,2,maxSupply
+gmx,0,731,30,0,701,False,0,maxSupply
+cow-protocol,0,678,30,0,648,False,0,maxSupply
+kaito,0,572,30,0,542,True,24,maxSupply
+arkham,0,731,30,0,701,False,0,maxSupply
+redstone-oracles,0,562,30,4,528,True,1,maxSupply
+wormhole,0,731,30,0,701,True,47,maxSupply
+linea,0,370,30,0,340,True,22,maxSupply
+berachain-bera,0,586,30,0,556,True,3,sum_allocationAmount (maxSupply null)
+spark-2,0,455,30,0,425,True,2,maxSupply
+goplus-security,0,560,30,0,530,True,24,maxSupply
+nervos-network,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+babylon,0,523,30,0,493,True,16,sum_allocationAmount (maxSupply null)
+axelar,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+oasis-network,0,731,30,0,701,True,11,maxSupply
+astar,0,731,30,0,701,True,29,maxSupply
+bio-protocol,0,620,30,0,590,True,2,maxSupply
+blur,0,731,30,0,701,False,0,maxSupply
+io,0,731,30,0,701,True,33,maxSupply
+celo,0,731,30,0,701,True,53,maxSupply
+space-id,0,731,30,0,701,True,32,maxSupply
+flow,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+altlayer,0,731,30,0,701,True,30,maxSupply
+lombard-protocol,0,362,30,0,332,True,3,maxSupply
+catizen,0,725,30,0,695,True,8,maxSupply
+zero-gravity,0,358,30,0,328,True,1,sum_allocationAmount (maxSupply null)
+edu-coin,0,731,30,0,701,False,0,maxSupply
+magic-eden,0,644,30,0,614,True,31,maxSupply
+rocket-pool,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+huma-finance,0,477,30,0,447,True,9,maxSupply
+renzo,0,731,30,0,701,True,24,maxSupply
+space-and-time,0,495,30,0,465,True,26,maxSupply
+movement,0,645,30,0,615,True,31,maxSupply
+succinct,0,406,30,0,376,True,3,maxSupply
+avantis,0,365,30,0,335,True,1,maxSupply
+memecoin-2,0,731,30,0,701,True,3,maxSupply
+lista,0,731,30,0,701,True,12,maxSupply
+terra-luna-2,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+sahara-ai,0,446,30,0,416,True,25,maxSupply
+euler,0,337,30,0,307,True,33,maxSupply
+momentum-3,0,315,30,0,285,True,20,maxSupply
+manta-network,0,731,30,0,701,True,23,maxSupply
+illuvium,0,731,30,0,701,False,0,sum_allocationAmount (maxSupply null)
+sign-global,0,505,30,0,475,True,19,maxSupply
+osmosis,0,731,30,0,701,False,0,maxSupply
+frax-share,0,243,30,0,213,False,0,maxSupply
+tensor,0,731,30,0,701,True,1,maxSupply
+solv-protocol,0,606,30,0,576,True,28,maxSupply
+cartesi,0,731,30,0,701,False,0,maxSupply
+fogo,0,243,30,0,213,True,11,sum_allocationAmount (maxSupply null)
+metis-token,0,731,30,0,701,False,0,maxSupply
+stepn,0,731,30,0,701,False,0,maxSupply
+hyperlane,0,511,30,0,481,True,2,maxSupply
+home,0,460,30,0,430,True,3,maxSupply
+skale,0,731,30,0,701,True,6,maxSupply
+usual,0,665,30,0,635,True,2,maxSupply
+yield-guild-games,0,731,30,0,701,True,30,maxSupply
+stargate-finance,0,731,30,0,701,False,0,maxSupply
+liquity,0,731,30,0,701,True,8,maxSupply
+big-time,0,522,30,0,492,True,6,maxSupply
+woo,0,731,30,0,701,False,0,maxSupply
+nillion,0,540,30,0,510,True,23,sum_allocationAmount (maxSupply null)
+cetus-protocol,0,678,30,0,648,True,20,maxSupply
+chaingpt,0,613,30,0,583,False,0,maxSupply
+openeden,0,350,30,0,320,True,1,maxSupply
+yield-basis,0,335,30,0,305,True,1,maxSupply
+bonfida,0,731,30,0,701,False,0,maxSupply
+biconomy,0,731,30,0,701,True,13,maxSupply
+dodo,0,731,30,0,701,True,10,maxSupply
+sophon,0,475,30,0,445,True,26,maxSupply
+anime,0,600,30,0,570,True,30,maxSupply
+connect-token-wct,0,518,30,0,488,True,21,maxSupply
+portal-2,0,731,30,0,701,False,0,maxSupply
+synfutures,0,325,30,0,295,True,1,maxSupply
+endurance,0,731,30,0,701,True,91,maxSupply
+banana-gun,0,731,30,0,701,True,6,maxSupply
+mira-3,0,354,30,0,324,True,22,maxSupply
+xai-blockchain,0,731,30,0,701,False,0,maxSupply
+solayer,0,581,30,0,551,True,10,maxSupply
+coin98,0,731,30,0,701,True,10,maxSupply
+spell-token,0,731,30,0,701,True,7,maxSupply
+katana-network-token,0,181,30,0,151,True,16,maxSupply
+radicle,0,731,30,0,701,False,0,maxSupply
+initia,0,509,30,0,479,True,17,maxSupply
+bubblemaps,0,546,30,0,516,True,50,maxSupply
+my-neighbor-alice,0,731,30,0,701,True,6,maxSupply
+lagrange,0,433,30,0,403,True,1,maxSupply
+dolomite,0,384,30,0,354,True,27,maxSupply
+maverick-protocol,0,731,30,0,701,True,11,maxSupply
+kernel-2,0,519,30,0,489,True,4,maxSupply
+superrare,0,731,30,0,701,True,10,maxSupply
+newton-protocol,0,448,30,0,418,True,25,maxSupply
+dymension,0,731,30,0,701,False,0,maxSupply
+benqi,0,731,30,0,701,True,6,maxSupply
+gunz,0,533,30,0,503,True,30,maxSupply
+opinion,0,194,30,0,164,True,16,maxSupply
+cookie,0,613,30,0,583,True,9,maxSupply
+resolv,0,461,30,0,431,True,6,maxSupply
+saga-2,0,731,30,0,701,True,1,sum_allocationAmount (maxSupply null)
+moonbeam,0,731,30,0,701,True,16,sum_allocationAmount (maxSupply null)
+treehouse,0,413,30,0,383,True,39,maxSupply
+quickswap,0,731,30,0,701,False,0,maxSupply
+myshell,0,565,30,0,535,True,3,maxSupply
+particle-network,0,539,30,0,509,True,23,maxSupply
+scroll,0,695,30,2,663,True,3,maxSupply
+haedal,0,482,30,0,452,True,1,maxSupply
+pixels,0,731,30,0,701,True,34,maxSupply
+bouncebit,0,731,30,0,701,True,28,maxSupply
+sleepless-ai,0,731,30,0,701,True,33,maxSupply

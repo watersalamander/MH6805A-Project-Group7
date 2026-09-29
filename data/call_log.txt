@@ -1,0 +1,578 @@
+# Tokenomist API call log (this run + reruns append)
+# timestamp | command | token | endpoint | exit_status | note
+2026-09-14T09:48:41Z | tok token list -o json | - | token list | exit=0 | non-JSON response: 
+# NOTE 2026-09-14: first 'tok token list' attempt above returned data but the local decoder crashed (cp874); the call was repeated once below. Count it as 1 wasted credit.
+2026-09-14T09:48:53Z | tok token list -o json | - | token list | exit=0 | ok records=629 bytes=391273 calls_used=2/40
+2026-09-14T09:48:56Z | tok emission daily bitcoin --start 2017-01-01 --end 2027-06-30 --page-size 10000 -o json | bitcoin | emission daily | exit=1 | error: UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-14 - 2027-06-30
+2026-09-14T09:48:56Z | tok emission daily ethereum --start 2017-01-01 --end 2027-06-30 --page-size 10000 -o json | ethereum | emission daily | exit=1 | error: UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-14 - 2027-06-30
+2026-09-14T09:48:56Z | tok emission daily solana --start 2017-01-01 --end 2027-06-30 --page-size 10000 -o json | solana | emission daily | exit=1 | error: UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-14 - 2027-06-30
+2026-09-14T09:50:31Z | tok emission daily solana --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solana | emission daily | exit=0 | ok records=1019 bytes=621436 calls_used=3/40
+2026-09-14T09:50:33Z | tok allocation detail solana -o json | solana | allocation detail | exit=0 | ok records=1 bytes=3427 calls_used=4/40
+2026-09-14T09:50:33Z | tok unlock events solana --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solana | unlock events | exit=0 | ok records=0 bytes=3 calls_used=5/40
+2026-09-14T09:50:34Z | tok emission daily zcash --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zcash | emission daily | exit=0 | ok records=1019 bytes=904143 calls_used=6/40
+2026-09-14T09:50:35Z | tok allocation detail zcash -o json | zcash | allocation detail | exit=0 | ok records=1 bytes=3333 calls_used=7/40
+2026-09-14T09:50:35Z | tok unlock events zcash --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zcash | unlock events | exit=0 | ok records=0 bytes=3 calls_used=8/40
+2026-09-14T09:50:36Z | tok emission daily dogecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dogecoin | emission daily | exit=0 | ok records=1019 bytes=633105 calls_used=9/40
+2026-09-14T09:50:37Z | tok allocation detail dogecoin -o json | dogecoin | allocation detail | exit=0 | ok records=1 bytes=630 calls_used=10/40
+2026-09-14T09:50:37Z | tok unlock events dogecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dogecoin | unlock events | exit=0 | ok records=0 bytes=3 calls_used=11/40
+2026-09-14T09:50:38Z | tok emission daily cardano --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cardano | emission daily | exit=0 | ok records=0 bytes=3 calls_used=12/40
+2026-09-14T09:51:35Z | tok emission daily litecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | litecoin | emission daily | exit=0 | ok records=1019 bytes=596498 calls_used=13/40
+2026-09-14T09:51:36Z | tok allocation detail litecoin -o json | litecoin | allocation detail | exit=0 | ok records=1 bytes=601 calls_used=14/40
+2026-09-14T09:51:36Z | tok unlock events litecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | litecoin | unlock events | exit=0 | ok records=0 bytes=3 calls_used=15/40
+2026-09-14T09:51:37Z | tok emission daily avalanche-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | avalanche-2 | emission daily | exit=0 | ok records=1019 bytes=581619 calls_used=16/40
+2026-09-14T09:51:37Z | tok allocation detail avalanche-2 -o json | avalanche-2 | allocation detail | exit=0 | ok records=1 bytes=3927 calls_used=17/40
+2026-09-14T09:51:38Z | tok unlock events avalanche-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | avalanche-2 | unlock events | exit=0 | ok records=11 bytes=9764 calls_used=18/40
+2026-09-14T09:51:39Z | tok emission daily near --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | near | emission daily | exit=0 | ok records=1019 bytes=904428 calls_used=19/40
+2026-09-14T09:51:47Z | tok allocation detail near -o json | near | allocation detail | exit=0 | ok records=1 bytes=3377 calls_used=20/40
+2026-09-14T09:51:48Z | tok unlock events near --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | near | unlock events | exit=0 | ok records=0 bytes=3 calls_used=21/40
+2026-09-14T09:51:49Z | tok emission daily sui --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sui | emission daily | exit=0 | ok records=1019 bytes=637494 calls_used=22/40
+2026-09-14T09:51:49Z | tok allocation detail sui -o json | sui | allocation detail | exit=0 | ok records=1 bytes=2973 calls_used=23/40
+2026-09-14T09:51:50Z | tok unlock events sui --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sui | unlock events | exit=0 | ok records=33 bytes=69488 calls_used=24/40
+2026-09-14T09:51:51Z | tok emission daily bittensor --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bittensor | emission daily | exit=0 | ok records=1019 bytes=594194 calls_used=25/40
+2026-09-14T09:51:51Z | tok allocation detail bittensor -o json | bittensor | allocation detail | exit=0 | ok records=1 bytes=611 calls_used=26/40
+2026-09-14T09:51:52Z | tok unlock events bittensor --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bittensor | unlock events | exit=0 | ok records=0 bytes=3 calls_used=27/40
+2026-09-14T09:51:52Z | tok emission daily aave --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aave | emission daily | exit=0 | ok records=1019 bytes=635830 calls_used=28/40
+2026-09-14T09:51:53Z | tok allocation detail aave -o json | aave | allocation detail | exit=0 | ok records=1 bytes=935 calls_used=29/40
+2026-09-14T09:51:54Z | tok unlock events aave --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aave | unlock events | exit=0 | ok records=0 bytes=3 calls_used=30/40
+2026-09-14T09:51:54Z | tok emission daily cosmos --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cosmos | emission daily | exit=0 | ok records=1019 bytes=631472 calls_used=31/40
+2026-09-14T09:51:55Z | tok allocation detail cosmos -o json | cosmos | allocation detail | exit=0 | ok records=1 bytes=2282 calls_used=32/40
+2026-09-14T09:51:56Z | tok unlock events cosmos --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cosmos | unlock events | exit=0 | ok records=0 bytes=3 calls_used=33/40
+2026-09-14T09:51:56Z | tok emission daily aster-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aster-2 | emission daily | exit=0 | ok records=654 bytes=463916 calls_used=34/40
+2026-09-14T09:51:57Z | tok allocation detail aster-2 -o json | aster-2 | allocation detail | exit=0 | ok records=1 bytes=1818 calls_used=35/40
+2026-09-14T09:51:58Z | tok unlock events aster-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aster-2 | unlock events | exit=0 | ok records=1 bytes=1722 calls_used=36/40
+2026-09-14T09:51:58Z | tok emission daily world-liberty-financial --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | world-liberty-financial | emission daily | exit=0 | ok records=668 bytes=247634 calls_used=37/40
+2026-09-14T09:51:59Z | tok allocation detail world-liberty-financial -o json | world-liberty-financial | allocation detail | exit=0 | ok records=1 bytes=3211 calls_used=38/40
+2026-09-14T09:51:59Z | tok unlock events world-liberty-financial --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | world-liberty-financial | unlock events | exit=0 | ok records=2 bytes=3186 calls_used=39/40
+# 2026-09-14 user raised budget to 5M calls/month at 120 calls/min; second pass runs with --budget 2000 --probe-all --include-fully-unlocked, paced at <=100/min
+2026-09-14T10:19:59Z | tok emission daily binancecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | binancecoin | emission daily | exit=0 | ok records=0 bytes=3 calls_used=40/2000
+2026-09-14T10:20:01Z | tok emission daily chainlink --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | chainlink | emission daily | exit=0 | ok records=99 bytes=35137 calls_used=41/2000
+2026-09-14T10:20:12Z | tok allocation detail chainlink -o json | chainlink | allocation detail | exit=0 | ok records=1 bytes=1221 calls_used=42/2000
+2026-09-14T10:20:13Z | tok unlock events chainlink --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | chainlink | unlock events | exit=0 | ok records=20 bytes=18118 calls_used=43/2000
+2026-09-14T10:20:14Z | tok emission daily uniswap --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | uniswap | emission daily | exit=0 | ok records=8 bytes=4357 calls_used=44/2000
+2026-09-14T10:20:15Z | tok allocation detail uniswap -o json | uniswap | allocation detail | exit=0 | ok records=1 bytes=1551 calls_used=45/2000
+2026-09-14T10:20:16Z | tok unlock events uniswap --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | uniswap | unlock events | exit=0 | ok records=0 bytes=3 calls_used=46/2000
+2026-09-14T10:20:16Z | tok emission daily shiba-inu --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | shiba-inu | emission daily | exit=0 | ok records=0 bytes=3 calls_used=47/2000
+2026-09-14T10:20:17Z | tok emission daily polkadot --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | polkadot | emission daily | exit=0 | ok records=1019 bytes=632261 calls_used=48/2000
+2026-09-14T10:20:18Z | tok allocation detail polkadot -o json | polkadot | allocation detail | exit=0 | ok records=1 bytes=1603 calls_used=49/2000
+2026-09-14T10:20:19Z | tok unlock events polkadot --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | polkadot | unlock events | exit=0 | ok records=0 bytes=3 calls_used=50/2000
+2026-09-14T10:20:19Z | tok emission daily ondo-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ondo-finance | emission daily | exit=0 | ok records=1019 bytes=400000 calls_used=51/2000
+2026-09-14T10:20:20Z | tok allocation detail ondo-finance -o json | ondo-finance | allocation detail | exit=0 | ok records=1 bytes=1609 calls_used=52/2000
+2026-09-14T10:20:21Z | tok unlock events ondo-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ondo-finance | unlock events | exit=0 | ok records=3 bytes=5288 calls_used=53/2000
+2026-09-14T10:20:21Z | tok emission daily pump-fun --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pump-fun | emission daily | exit=0 | ok records=724 bytes=434682 calls_used=54/2000
+2026-09-14T10:20:22Z | tok allocation detail pump-fun -o json | pump-fun | allocation detail | exit=0 | ok records=1 bytes=2797 calls_used=55/2000
+2026-09-14T10:20:22Z | tok unlock events pump-fun --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pump-fun | unlock events | exit=0 | ok records=2 bytes=3901 calls_used=56/2000
+2026-09-14T10:20:23Z | tok emission daily morpho --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | morpho | emission daily | exit=0 | ok records=955 bytes=915845 calls_used=57/2000
+2026-09-14T10:20:24Z | tok allocation detail morpho -o json | morpho | allocation detail | exit=0 | ok records=1 bytes=2523 calls_used=58/2000
+2026-09-14T10:20:25Z | tok unlock events morpho --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | morpho | unlock events | exit=0 | ok records=1 bytes=906 calls_used=59/2000
+2026-09-14T10:20:25Z | tok emission daily pepe --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pepe | emission daily | exit=0 | ok records=0 bytes=3 calls_used=60/2000
+2026-09-14T10:20:26Z | tok emission daily ethena --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ethena | emission daily | exit=0 | ok records=1019 bytes=383528 calls_used=61/2000
+2026-09-14T10:20:27Z | tok allocation detail ethena -o json | ethena | allocation detail | exit=0 | ok records=1 bytes=2162 calls_used=62/2000
+2026-09-14T10:20:27Z | tok unlock events ethena --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ethena | unlock events | exit=0 | ok records=87 bytes=91726 calls_used=63/2000
+2026-09-14T10:20:28Z | tok emission daily worldcoin-wld --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | worldcoin-wld | emission daily | exit=0 | ok records=1019 bytes=1266422 calls_used=64/2000
+2026-09-14T10:20:29Z | tok allocation detail worldcoin-wld -o json | worldcoin-wld | allocation detail | exit=0 | ok records=1 bytes=1636 calls_used=65/2000
+2026-09-14T10:20:30Z | tok unlock events worldcoin-wld --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | worldcoin-wld | unlock events | exit=0 | ok records=0 bytes=3 calls_used=66/2000
+2026-09-14T10:20:31Z | tok emission daily polygon-ecosystem-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | polygon-ecosystem-token | emission daily | exit=0 | ok records=1019 bytes=875802 calls_used=67/2000
+2026-09-14T10:20:33Z | tok allocation detail polygon-ecosystem-token -o json | polygon-ecosystem-token | allocation detail | exit=0 | ok records=1 bytes=1300 calls_used=68/2000
+2026-09-14T10:20:33Z | tok unlock events polygon-ecosystem-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | polygon-ecosystem-token | unlock events | exit=0 | ok records=0 bytes=3 calls_used=69/2000
+2026-09-14T10:20:34Z | tok emission daily arbitrum --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | arbitrum | emission daily | exit=0 | ok records=946 bytes=606605 calls_used=70/2000
+2026-09-14T10:20:35Z | tok allocation detail arbitrum -o json | arbitrum | allocation detail | exit=0 | ok records=1 bytes=2226 calls_used=71/2000
+2026-09-14T10:20:35Z | tok unlock events arbitrum --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | arbitrum | unlock events | exit=0 | ok records=31 bytes=41844 calls_used=72/2000
+2026-09-14T10:20:36Z | tok emission daily algorand --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | algorand | emission daily | exit=0 | ok records=0 bytes=3 calls_used=73/2000
+2026-09-14T10:20:37Z | tok emission daily filecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | filecoin | emission daily | exit=0 | ok records=1019 bytes=1397922 calls_used=74/2000
+2026-09-14T10:20:47Z | tok allocation detail filecoin -o json | filecoin | allocation detail | exit=0 | ok records=1 bytes=3626 calls_used=75/2000
+2026-09-14T10:20:47Z | tok unlock events filecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | filecoin | unlock events | exit=0 | ok records=0 bytes=3 calls_used=76/2000
+2026-09-14T10:20:48Z | tok emission daily jupiter-exchange-solana --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | jupiter-exchange-solana | emission daily | exit=0 | ok records=533 bytes=193782 calls_used=77/2000
+2026-09-14T10:20:49Z | tok allocation detail jupiter-exchange-solana -o json | jupiter-exchange-solana | allocation detail | exit=0 | ok records=1 bytes=4363 calls_used=78/2000
+2026-09-14T10:20:51Z | tok unlock events jupiter-exchange-solana --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | jupiter-exchange-solana | unlock events | exit=0 | ok records=17 bytes=21046 calls_used=79/2000
+2026-09-14T10:21:40Z | tok emission daily render-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | render-token | emission daily | exit=0 | ok records=1019 bytes=435271 calls_used=80/2000
+2026-09-14T10:21:42Z | tok allocation detail render-token -o json | render-token | allocation detail | exit=0 | ok records=1 bytes=2535 calls_used=81/2000
+2026-09-14T10:21:45Z | tok unlock events render-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | render-token | unlock events | exit=0 | ok records=0 bytes=3 calls_used=82/2000
+2026-09-14T10:21:48Z | tok emission daily ether-fi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ether-fi | emission daily | exit=0 | ok records=918 bytes=611493 calls_used=83/2000
+2026-09-14T11:26:51Z | tok allocation detail ether-fi -o json | ether-fi | allocation detail | exit=timeout | timed out after 300s
+2026-09-14T11:26:55Z | tok allocation detail ether-fi -o json | ether-fi | allocation detail | exit=0 | ok records=1 bytes=2205 calls_used=84/2000
+2026-09-14T11:26:56Z | tok unlock events ether-fi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ether-fi | unlock events | exit=0 | ok records=6 bytes=5416 calls_used=85/2000
+2026-09-14T11:26:57Z | tok emission daily injective-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | injective-protocol | emission daily | exit=0 | ok records=0 bytes=3 calls_used=86/2000
+2026-09-14T11:26:58Z | tok emission daily curve-dao-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | curve-dao-token | emission daily | exit=0 | ok records=1019 bytes=627472 calls_used=87/2000
+2026-09-14T11:26:59Z | tok allocation detail curve-dao-token -o json | curve-dao-token | allocation detail | exit=0 | ok records=1 bytes=2325 calls_used=88/2000
+2026-09-14T11:26:59Z | tok unlock events curve-dao-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | curve-dao-token | unlock events | exit=0 | ok records=0 bytes=3 calls_used=89/2000
+2026-09-14T11:27:00Z | tok emission daily official-trump --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | official-trump | emission daily | exit=0 | ok records=899 bytes=1283675 calls_used=90/2000
+2026-09-14T11:27:01Z | tok allocation detail official-trump -o json | official-trump | allocation detail | exit=0 | ok records=1 bytes=2905 calls_used=91/2000
+2026-09-14T11:27:02Z | tok unlock events official-trump --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | official-trump | unlock events | exit=0 | ok records=3 bytes=4863 calls_used=92/2000
+2026-09-14T11:27:48Z | tok emission daily aptos --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aptos | emission daily | exit=0 | ok records=1019 bytes=531207 calls_used=93/2000
+2026-09-14T11:27:49Z | tok allocation detail aptos -o json | aptos | allocation detail | exit=0 | ok records=1 bytes=1592 calls_used=94/2000
+2026-09-14T11:27:49Z | tok unlock events aptos --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aptos | unlock events | exit=0 | ok records=33 bytes=64041 calls_used=95/2000
+2026-09-14T11:27:50Z | tok emission daily pyth-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pyth-network | emission daily | exit=0 | ok records=981 bytes=353076 calls_used=96/2000
+2026-09-14T11:27:51Z | tok allocation detail pyth-network -o json | pyth-network | allocation detail | exit=0 | ok records=1 bytes=1841 calls_used=97/2000
+2026-09-14T11:27:51Z | tok unlock events pyth-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pyth-network | unlock events | exit=0 | ok records=3 bytes=5263 calls_used=98/2000
+2026-09-14T11:27:52Z | tok emission daily falcon-finance-ff --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | falcon-finance-ff | emission daily | exit=0 | ok records=640 bytes=244991 calls_used=99/2000
+2026-09-14T11:27:52Z | tok allocation detail falcon-finance-ff -o json | falcon-finance-ff | allocation detail | exit=0 | ok records=1 bytes=4218 calls_used=100/2000
+2026-09-14T11:27:53Z | tok unlock events falcon-finance-ff --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | falcon-finance-ff | unlock events | exit=0 | ok records=21 bytes=35668 calls_used=101/2000
+2026-09-14T11:27:54Z | tok emission daily pudgy-penguins --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pudgy-penguins | emission daily | exit=0 | ok records=927 bytes=615776 calls_used=102/2000
+2026-09-14T11:27:54Z | tok allocation detail pudgy-penguins -o json | pudgy-penguins | allocation detail | exit=0 | ok records=1 bytes=2845 calls_used=103/2000
+2026-09-14T11:27:55Z | tok unlock events pudgy-penguins --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pudgy-penguins | unlock events | exit=0 | ok records=1 bytes=3024 calls_used=104/2000
+2026-09-14T11:27:56Z | tok emission daily virtual-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | virtual-protocol | emission daily | exit=0 | ok records=0 bytes=3 calls_used=105/2000
+2026-09-14T11:27:58Z | tok emission daily fetch-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | fetch-ai | emission daily | exit=0 | ok records=1019 bytes=698730 calls_used=106/2000
+2026-09-14T11:28:09Z | tok allocation detail fetch-ai -o json | fetch-ai | allocation detail | exit=0 | ok records=1 bytes=3654 calls_used=107/2000
+2026-09-14T11:28:09Z | tok unlock events fetch-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | fetch-ai | unlock events | exit=0 | ok records=0 bytes=3 calls_used=108/2000
+2026-09-14T11:28:10Z | tok emission daily raydium --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | raydium | emission daily | exit=0 | ok records=0 bytes=3 calls_used=109/2000
+2026-09-14T11:28:11Z | tok emission daily pendle --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pendle | emission daily | exit=0 | ok records=1019 bytes=632640 calls_used=110/2000
+2026-09-14T11:28:12Z | tok allocation detail pendle -o json | pendle | allocation detail | exit=0 | ok records=1 bytes=2209 calls_used=111/2000
+2026-09-14T11:28:13Z | tok unlock events pendle --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pendle | unlock events | exit=0 | ok records=0 bytes=3 calls_used=112/2000
+2026-09-14T11:28:13Z | tok emission daily layerzero --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | layerzero | emission daily | exit=0 | ok records=1016 bytes=373130 calls_used=113/2000
+2026-09-14T11:28:14Z | tok allocation detail layerzero -o json | layerzero | allocation detail | exit=0 | ok records=1 bytes=1862 calls_used=114/2000
+2026-09-14T11:28:15Z | tok unlock events layerzero --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | layerzero | unlock events | exit=0 | ok records=24 bytes=42007 calls_used=115/2000
+2026-09-14T11:28:32Z | tok emission daily celestia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | celestia | emission daily | exit=0 | ok records=1019 bytes=1198963 calls_used=116/2000
+2026-09-14T11:28:44Z | tok allocation detail celestia -o json | celestia | allocation detail | exit=0 | ok records=1 bytes=2683 calls_used=117/2000
+2026-09-14T11:28:44Z | tok unlock events celestia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | celestia | unlock events | exit=0 | ok records=1 bytes=1774 calls_used=118/2000
+2026-09-14T11:28:45Z | tok emission daily lido-dao --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lido-dao | emission daily | exit=0 | ok records=0 bytes=3 calls_used=119/2000
+2026-09-14T11:28:46Z | tok emission daily sei-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sei-network | emission daily | exit=0 | ok records=1019 bytes=952193 calls_used=120/2000
+2026-09-14T11:28:54Z | tok allocation detail sei-network -o json | sei-network | allocation detail | exit=0 | ok records=1 bytes=1876 calls_used=121/2000
+2026-09-14T11:28:54Z | tok unlock events sei-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sei-network | unlock events | exit=0 | ok records=34 bytes=30949 calls_used=122/2000
+2026-09-14T11:28:55Z | tok emission daily kite-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kite-2 | emission daily | exit=0 | ok records=605 bytes=621113 calls_used=123/2000
+2026-09-14T11:28:56Z | tok allocation detail kite-2 -o json | kite-2 | allocation detail | exit=0 | ok records=1 bytes=1505 calls_used=124/2000
+2026-09-14T11:28:56Z | tok unlock events kite-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kite-2 | unlock events | exit=0 | ok records=2 bytes=2639 calls_used=125/2000
+2026-09-14T11:28:57Z | tok emission daily conflux-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | conflux-token | emission daily | exit=0 | ok records=50 bytes=50063 calls_used=126/2000
+2026-09-14T11:28:58Z | tok allocation detail conflux-token -o json | conflux-token | allocation detail | exit=0 | ok records=1 bytes=1934 calls_used=127/2000
+2026-09-14T11:28:58Z | tok unlock events conflux-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | conflux-token | unlock events | exit=0 | ok records=0 bytes=3 calls_used=128/2000
+2026-09-14T11:28:59Z | tok emission daily syrup --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | syrup | emission daily | exit=0 | ok records=679 bytes=424306 calls_used=129/2000
+2026-09-14T11:28:59Z | tok allocation detail syrup -o json | syrup | allocation detail | exit=0 | ok records=1 bytes=1895 calls_used=130/2000
+2026-09-14T11:29:00Z | tok unlock events syrup --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | syrup | unlock events | exit=0 | ok records=1 bytes=2147 calls_used=131/2000
+2026-09-14T11:29:01Z | tok emission daily bonk --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bonk | emission daily | exit=0 | ok records=477 bytes=298036 calls_used=132/2000
+2026-09-14T11:29:01Z | tok allocation detail bonk -o json | bonk | allocation detail | exit=0 | ok records=1 bytes=2919 calls_used=133/2000
+2026-09-14T11:29:02Z | tok unlock events bonk --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bonk | unlock events | exit=0 | ok records=0 bytes=3 calls_used=134/2000
+2026-09-14T11:29:02Z | tok emission daily ethereum-name-service --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ethereum-name-service | emission daily | exit=0 | ok records=421 bytes=354801 calls_used=135/2000
+2026-09-14T11:29:03Z | tok allocation detail ethereum-name-service -o json | ethereum-name-service | allocation detail | exit=0 | ok records=1 bytes=1246 calls_used=136/2000
+2026-09-14T11:29:04Z | tok unlock events ethereum-name-service --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | ethereum-name-service | unlock events | exit=0 | ok records=0 bytes=3 calls_used=137/2000
+2026-09-14T11:29:04Z | tok emission daily jito-governance-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | jito-governance-token | emission daily | exit=0 | ok records=820 bytes=861614 calls_used=138/2000
+2026-09-14T11:29:07Z | tok allocation detail jito-governance-token -o json | jito-governance-token | allocation detail | exit=0 | ok records=1 bytes=1921 calls_used=139/2000
+2026-09-14T11:29:08Z | tok unlock events jito-governance-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | jito-governance-token | unlock events | exit=0 | ok records=1 bytes=1312 calls_used=140/2000
+2026-09-14T11:29:08Z | tok emission daily plasma --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | plasma | emission daily | exit=0 | ok records=647 bytes=236440 calls_used=141/2000
+2026-09-14T11:29:09Z | tok allocation detail plasma -o json | plasma | allocation detail | exit=0 | ok records=1 bytes=1496 calls_used=142/2000
+2026-09-14T11:29:09Z | tok unlock events plasma --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | plasma | unlock events | exit=0 | ok records=23 bytes=29844 calls_used=143/2000
+2026-09-14T11:29:10Z | tok emission daily optimism --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | optimism | emission daily | exit=0 | ok records=1019 bytes=379385 calls_used=144/2000
+2026-09-14T11:29:11Z | tok allocation detail optimism -o json | optimism | allocation detail | exit=0 | ok records=1 bytes=4740 calls_used=145/2000
+2026-09-14T11:29:11Z | tok unlock events optimism --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | optimism | unlock events | exit=0 | ok records=40 bytes=45830 calls_used=146/2000
+2026-09-14T11:29:12Z | tok emission daily starknet --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | starknet | emission daily | exit=0 | ok records=918 bytes=344362 calls_used=147/2000
+2026-09-14T11:29:13Z | tok allocation detail starknet -o json | starknet | allocation detail | exit=0 | ok records=1 bytes=3373 calls_used=148/2000
+2026-09-14T11:29:13Z | tok unlock events starknet --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | starknet | unlock events | exit=0 | ok records=31 bytes=41814 calls_used=149/2000
+2026-09-14T11:29:14Z | tok emission daily the-graph --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | the-graph | emission daily | exit=0 | ok records=1019 bytes=1009277 calls_used=150/2000
+2026-09-14T11:29:23Z | tok allocation detail the-graph -o json | the-graph | allocation detail | exit=0 | ok records=1 bytes=4349 calls_used=151/2000
+2026-09-14T11:29:24Z | tok unlock events the-graph --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | the-graph | unlock events | exit=0 | ok records=0 bytes=3 calls_used=152/2000
+2026-09-14T11:29:25Z | tok emission daily compound-governance-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | compound-governance-token | emission daily | exit=0 | ok records=0 bytes=3 calls_used=153/2000
+2026-09-14T11:29:26Z | tok emission daily convex-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | convex-finance | emission daily | exit=0 | ok records=225 bytes=138542 calls_used=154/2000
+2026-09-14T11:29:27Z | tok allocation detail convex-finance -o json | convex-finance | allocation detail | exit=0 | ok records=1 bytes=2487 calls_used=155/2000
+2026-09-14T11:29:27Z | tok unlock events convex-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | convex-finance | unlock events | exit=0 | ok records=0 bytes=3 calls_used=156/2000
+2026-09-14T11:29:28Z | tok emission daily iota --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | iota | emission daily | exit=0 | ok records=1019 bytes=420260 calls_used=157/2000
+2026-09-14T11:29:29Z | tok allocation detail iota -o json | iota | allocation detail | exit=0 | ok records=1 bytes=2848 calls_used=158/2000
+2026-09-14T11:29:30Z | tok unlock events iota --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | iota | unlock events | exit=0 | ok records=86 bytes=151292 calls_used=159/2000
+2026-09-14T11:29:30Z | tok emission daily kaia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kaia | emission daily | exit=0 | ok records=976 bytes=1074044 calls_used=160/2000
+2026-09-14T11:29:34Z | tok allocation detail kaia -o json | kaia | allocation detail | exit=0 | ok records=1 bytes=2319 calls_used=161/2000
+2026-09-14T11:29:34Z | tok unlock events kaia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kaia | unlock events | exit=0 | ok records=1 bytes=2593 calls_used=162/2000
+2026-09-14T11:29:35Z | tok emission daily dogwifcoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dogwifcoin | emission daily | exit=0 | ok records=0 bytes=3 calls_used=163/2000
+2026-09-14T11:29:36Z | tok emission daily eigenlayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | eigenlayer | emission daily | exit=0 | ok records=1004 bytes=399161 calls_used=164/2000
+2026-09-14T11:29:36Z | tok allocation detail eigenlayer -o json | eigenlayer | allocation detail | exit=0 | ok records=1 bytes=2565 calls_used=165/2000
+2026-09-14T11:29:37Z | tok unlock events eigenlayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | eigenlayer | unlock events | exit=0 | ok records=67 bytes=71784 calls_used=166/2000
+2026-09-14T11:29:37Z | tok emission daily axie-infinity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | axie-infinity | emission daily | exit=0 | ok records=547 bytes=197749 calls_used=167/2000
+2026-09-14T11:29:38Z | tok allocation detail axie-infinity -o json | axie-infinity | allocation detail | exit=0 | ok records=1 bytes=2701 calls_used=168/2000
+2026-09-14T11:29:39Z | tok unlock events axie-infinity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | axie-infinity | unlock events | exit=0 | ok records=19 bytes=18643 calls_used=169/2000
+2026-09-14T11:29:40Z | tok emission daily doublezero --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | doublezero | emission daily | exit=0 | ok records=640 bytes=605167 calls_used=170/2000
+2026-09-14T11:29:41Z | tok allocation detail doublezero -o json | doublezero | allocation detail | exit=0 | ok records=1 bytes=2749 calls_used=171/2000
+2026-09-14T11:29:41Z | tok unlock events doublezero --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | doublezero | unlock events | exit=0 | ok records=2 bytes=5112 calls_used=172/2000
+2026-09-14T11:29:42Z | tok emission daily centrifuge --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | centrifuge | emission daily | exit=0 | ok records=295 bytes=109347 calls_used=173/2000
+2026-09-14T11:29:43Z | tok allocation detail centrifuge -o json | centrifuge | allocation detail | exit=0 | ok records=1 bytes=2232 calls_used=174/2000
+2026-09-14T11:29:43Z | tok unlock events centrifuge --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | centrifuge | unlock events | exit=0 | ok records=10 bytes=9646 calls_used=175/2000
+2026-09-14T11:29:44Z | tok emission daily chiliz --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | chiliz | emission daily | exit=0 | ok records=0 bytes=3 calls_used=176/2000
+2026-09-14T11:29:45Z | tok emission daily decentraland --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | decentraland | emission daily | exit=0 | ok records=1019 bytes=896559 calls_used=177/2000
+2026-09-14T11:29:45Z | tok allocation detail decentraland -o json | decentraland | allocation detail | exit=0 | ok records=1 bytes=1646 calls_used=178/2000
+2026-09-14T11:29:46Z | tok unlock events decentraland --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | decentraland | unlock events | exit=0 | ok records=0 bytes=3 calls_used=179/2000
+2026-09-14T11:29:47Z | tok emission daily kamino --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kamino | emission daily | exit=0 | ok records=960 bytes=350156 calls_used=180/2000
+2026-09-14T11:29:47Z | tok allocation detail kamino -o json | kamino | allocation detail | exit=0 | ok records=1 bytes=3028 calls_used=181/2000
+2026-09-14T11:29:48Z | tok unlock events kamino --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kamino | unlock events | exit=0 | ok records=27 bytes=35465 calls_used=182/2000
+2026-09-14T11:29:49Z | tok emission daily apecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | apecoin | emission daily | exit=0 | ok records=526 bytes=211214 calls_used=183/2000
+2026-09-14T11:29:49Z | tok allocation detail apecoin -o json | apecoin | allocation detail | exit=0 | ok records=1 bytes=2768 calls_used=184/2000
+2026-09-14T11:29:50Z | tok unlock events apecoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | apecoin | unlock events | exit=0 | ok records=18 bytes=52596 calls_used=185/2000
+2026-09-14T11:29:51Z | tok emission daily 1inch --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | 1inch | emission daily | exit=0 | ok records=456 bytes=173808 calls_used=186/2000
+2026-09-14T11:29:51Z | tok allocation detail 1inch -o json | 1inch | allocation detail | exit=0 | ok records=1 bytes=963 calls_used=187/2000
+2026-09-14T11:29:52Z | tok unlock events 1inch --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | 1inch | unlock events | exit=0 | ok records=55 bytes=49688 calls_used=188/2000
+2026-09-14T11:29:52Z | tok emission daily elrond-erd-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | elrond-erd-2 | emission daily | exit=0 | ok records=1019 bytes=635100 calls_used=189/2000
+2026-09-14T11:30:02Z | tok allocation detail elrond-erd-2 -o json | elrond-erd-2 | allocation detail | exit=0 | ok records=1 bytes=3111 calls_used=190/2000
+2026-09-14T11:30:02Z | tok unlock events elrond-erd-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | elrond-erd-2 | unlock events | exit=0 | ok records=0 bytes=3 calls_used=191/2000
+2026-09-14T11:30:03Z | tok emission daily golem --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | golem | emission daily | exit=0 | ok records=0 bytes=3 calls_used=192/2000
+2026-09-14T11:30:04Z | tok emission daily meteora --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | meteora | emission daily | exit=0 | ok records=619 bytes=232367 calls_used=193/2000
+2026-09-14T11:30:04Z | tok allocation detail meteora -o json | meteora | allocation detail | exit=0 | ok records=1 bytes=3325 calls_used=194/2000
+2026-09-14T11:30:05Z | tok unlock events meteora --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | meteora | unlock events | exit=0 | ok records=21 bytes=31438 calls_used=195/2000
+2026-09-14T11:30:06Z | tok emission daily zama --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zama | emission daily | exit=0 | ok records=514 bytes=523841 calls_used=196/2000
+2026-09-14T11:30:13Z | tok allocation detail zama -o json | zama | allocation detail | exit=0 | ok records=1 bytes=2684 calls_used=197/2000
+2026-09-14T11:30:13Z | tok unlock events zama --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zama | unlock events | exit=0 | ok records=2 bytes=3454 calls_used=198/2000
+2026-09-14T11:30:14Z | tok emission daily stp-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | stp-network | emission daily | exit=0 | ok records=0 bytes=3 calls_used=199/2000
+2026-09-14T11:30:16Z | tok emission daily mina-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | mina-protocol | emission daily | exit=0 | ok records=1019 bytes=721438 calls_used=200/2000
+2026-09-14T11:30:17Z | tok allocation detail mina-protocol -o json | mina-protocol | allocation detail | exit=0 | ok records=1 bytes=2031 calls_used=201/2000
+2026-09-14T11:30:18Z | tok unlock events mina-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | mina-protocol | unlock events | exit=0 | ok records=0 bytes=3 calls_used=202/2000
+2026-09-14T11:30:19Z | tok emission daily immutable-x --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | immutable-x | emission daily | exit=0 | ok records=414 bytes=152369 calls_used=203/2000
+2026-09-14T11:30:20Z | tok allocation detail immutable-x -o json | immutable-x | allocation detail | exit=0 | ok records=1 bytes=1798 calls_used=204/2000
+2026-09-14T11:30:20Z | tok unlock events immutable-x --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | immutable-x | unlock events | exit=0 | ok records=15 bytes=19904 calls_used=205/2000
+2026-09-14T11:30:21Z | tok emission daily sentient --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sentient | emission daily | exit=0 | ok records=528 bytes=528074 calls_used=206/2000
+2026-09-14T11:30:22Z | tok allocation detail sentient -o json | sentient | allocation detail | exit=0 | ok records=1 bytes=1962 calls_used=207/2000
+2026-09-14T11:30:22Z | tok unlock events sentient --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sentient | unlock events | exit=0 | ok records=2 bytes=3180 calls_used=208/2000
+2026-09-14T11:30:23Z | tok emission daily sonic-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sonic-3 | emission daily | exit=0 | ok records=927 bytes=810927 calls_used=209/2000
+2026-09-14T11:30:25Z | tok allocation detail sonic-3 -o json | sonic-3 | allocation detail | exit=0 | ok records=1 bytes=3184 calls_used=210/2000
+2026-09-14T11:30:26Z | tok unlock events sonic-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sonic-3 | unlock events | exit=0 | ok records=3 bytes=2705 calls_used=211/2000
+2026-09-14T11:30:27Z | tok emission daily the-sandbox --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | the-sandbox | emission daily | exit=0 | ok records=155 bytes=55825 calls_used=212/2000
+2026-09-14T11:30:27Z | tok allocation detail the-sandbox -o json | the-sandbox | allocation detail | exit=0 | ok records=1 bytes=2375 calls_used=213/2000
+2026-09-14T11:30:28Z | tok unlock events the-sandbox --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | the-sandbox | unlock events | exit=0 | ok records=1 bytes=1736 calls_used=214/2000
+2026-09-14T11:30:29Z | tok emission daily qtum --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | qtum | emission daily | exit=0 | ok records=0 bytes=3 calls_used=215/2000
+2026-09-14T11:30:29Z | tok emission daily zksync --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zksync | emission daily | exit=0 | ok records=1019 bytes=367915 calls_used=216/2000
+2026-09-14T11:30:30Z | tok allocation detail zksync -o json | zksync | allocation detail | exit=0 | ok records=1 bytes=1831 calls_used=217/2000
+2026-09-14T11:30:31Z | tok unlock events zksync --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zksync | unlock events | exit=0 | ok records=25 bytes=33304 calls_used=218/2000
+2026-09-14T11:30:31Z | tok emission daily dydx --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dydx | emission daily | exit=0 | ok records=694 bytes=455410 calls_used=219/2000
+2026-09-14T11:30:32Z | tok allocation detail dydx -o json | dydx | allocation detail | exit=0 | ok records=1 bytes=3516 calls_used=220/2000
+2026-09-14T11:30:33Z | tok unlock events dydx --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dydx | unlock events | exit=0 | ok records=21 bytes=37317 calls_used=221/2000
+2026-09-14T11:30:33Z | tok emission daily 0x --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | 0x | emission daily | exit=0 | ok records=0 bytes=3 calls_used=222/2000
+2026-09-14T11:30:34Z | tok emission daily plume --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | plume | emission daily | exit=0 | ok records=892 bytes=992213 calls_used=223/2000
+2026-09-14T11:30:35Z | tok allocation detail plume -o json | plume | allocation detail | exit=0 | ok records=1 bytes=1903 calls_used=224/2000
+2026-09-14T11:30:36Z | tok unlock events plume --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | plume | unlock events | exit=0 | ok records=2 bytes=3040 calls_used=225/2000
+2026-09-14T11:30:37Z | tok emission daily orca --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | orca | emission daily | exit=0 | ok records=0 bytes=3 calls_used=226/2000
+2026-09-14T11:30:39Z | tok emission daily gmx --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | gmx | emission daily | exit=0 | ok records=1019 bytes=622348 calls_used=227/2000
+2026-09-14T11:30:50Z | tok allocation detail gmx -o json | gmx | allocation detail | exit=0 | ok records=1 bytes=2222 calls_used=228/2000
+2026-09-14T11:30:51Z | tok unlock events gmx --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | gmx | unlock events | exit=0 | ok records=0 bytes=3 calls_used=229/2000
+2026-09-14T11:30:51Z | tok emission daily cow-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cow-protocol | emission daily | exit=0 | ok records=477 bytes=833414 calls_used=230/2000
+2026-09-14T11:30:52Z | tok allocation detail cow-protocol -o json | cow-protocol | allocation detail | exit=0 | ok records=1 bytes=3718 calls_used=231/2000
+2026-09-14T11:30:53Z | tok unlock events cow-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cow-protocol | unlock events | exit=0 | ok records=0 bytes=3 calls_used=232/2000
+2026-09-14T11:30:54Z | tok emission daily rif-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | rif-token | emission daily | exit=0 | ok records=0 bytes=3 calls_used=233/2000
+2026-09-14T11:30:55Z | tok emission daily yearn-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | yearn-finance | emission daily | exit=0 | ok records=0 bytes=3 calls_used=234/2000
+2026-09-14T11:30:56Z | tok emission daily superfarm --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | superfarm | emission daily | exit=0 | ok records=0 bytes=3 calls_used=235/2000
+2026-09-14T11:30:56Z | tok emission daily kaito --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kaito | emission daily | exit=0 | ok records=864 bytes=326142 calls_used=236/2000
+2026-09-14T11:30:57Z | tok allocation detail kaito -o json | kaito | allocation detail | exit=0 | ok records=1 bytes=2775 calls_used=237/2000
+2026-09-14T11:30:58Z | tok unlock events kaito --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kaito | unlock events | exit=0 | ok records=24 bytes=48814 calls_used=238/2000
+2026-09-14T11:30:58Z | tok emission daily arkham --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | arkham | emission daily | exit=0 | ok records=1019 bytes=1578712 calls_used=239/2000
+2026-09-14T11:30:59Z | tok allocation detail arkham -o json | arkham | allocation detail | exit=0 | ok records=1 bytes=2241 calls_used=240/2000
+2026-09-14T11:31:00Z | tok unlock events arkham --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | arkham | unlock events | exit=0 | ok records=0 bytes=3 calls_used=241/2000
+2026-09-14T11:31:00Z | tok emission daily livepeer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | livepeer | emission daily | exit=0 | ok records=0 bytes=3 calls_used=242/2000
+2026-09-14T11:31:01Z | tok emission daily redstone-oracles --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | redstone-oracles | emission daily | exit=0 | ok records=850 bytes=816437 calls_used=243/2000
+2026-09-14T11:31:02Z | tok allocation detail redstone-oracles -o json | redstone-oracles | allocation detail | exit=0 | ok records=1 bytes=2234 calls_used=244/2000
+2026-09-14T11:31:02Z | tok unlock events redstone-oracles --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | redstone-oracles | unlock events | exit=0 | ok records=1 bytes=2154 calls_used=245/2000
+2026-09-14T11:31:03Z | tok emission daily wormhole --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | wormhole | emission daily | exit=0 | ok records=1019 bytes=678676 calls_used=246/2000
+2026-09-14T11:31:04Z | tok allocation detail wormhole -o json | wormhole | allocation detail | exit=0 | ok records=1 bytes=2269 calls_used=247/2000
+2026-09-14T11:31:04Z | tok unlock events wormhole --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | wormhole | unlock events | exit=0 | ok records=47 bytes=104185 calls_used=248/2000
+2026-09-14T11:31:05Z | tok emission daily linea --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | linea | emission daily | exit=0 | ok records=661 bytes=244374 calls_used=249/2000
+2026-09-14T11:31:06Z | tok allocation detail linea -o json | linea | allocation detail | exit=0 | ok records=1 bytes=2193 calls_used=250/2000
+2026-09-14T11:31:06Z | tok unlock events linea --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | linea | unlock events | exit=0 | ok records=22 bytes=30140 calls_used=251/2000
+2026-09-14T11:31:07Z | tok emission daily sushi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sushi | emission daily | exit=0 | ok records=0 bytes=3 calls_used=252/2000
+2026-09-14T11:31:08Z | tok emission daily berachain-bera --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | berachain-bera | emission daily | exit=0 | ok records=878 bytes=1141170 calls_used=253/2000
+2026-09-14T11:31:10Z | tok allocation detail berachain-bera -o json | berachain-bera | allocation detail | exit=0 | ok records=1 bytes=2647 calls_used=254/2000
+2026-09-14T11:31:11Z | tok unlock events berachain-bera --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | berachain-bera | unlock events | exit=0 | ok records=3 bytes=4744 calls_used=255/2000
+2026-09-14T11:31:12Z | tok emission daily spark-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | spark-2 | emission daily | exit=0 | ok records=745 bytes=546919 calls_used=256/2000
+2026-09-14T11:31:13Z | tok allocation detail spark-2 -o json | spark-2 | allocation detail | exit=0 | ok records=1 bytes=1238 calls_used=257/2000
+2026-09-14T11:31:14Z | tok unlock events spark-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | spark-2 | unlock events | exit=0 | ok records=2 bytes=2190 calls_used=258/2000
+2026-09-14T11:31:14Z | tok emission daily goplus-security --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | goplus-security | emission daily | exit=0 | ok records=899 bytes=347603 calls_used=259/2000
+2026-09-14T11:31:15Z | tok allocation detail goplus-security -o json | goplus-security | allocation detail | exit=0 | ok records=1 bytes=2481 calls_used=260/2000
+2026-09-14T11:31:16Z | tok unlock events goplus-security --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | goplus-security | unlock events | exit=0 | ok records=24 bytes=42280 calls_used=261/2000
+2026-09-14T11:31:17Z | tok emission daily nervos-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | nervos-network | emission daily | exit=0 | ok records=1019 bytes=641450 calls_used=262/2000
+2026-09-14T11:31:18Z | tok allocation detail nervos-network -o json | nervos-network | allocation detail | exit=0 | ok records=1 bytes=2959 calls_used=263/2000
+2026-09-14T11:31:18Z | tok unlock events nervos-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | nervos-network | unlock events | exit=0 | ok records=0 bytes=3 calls_used=264/2000
+2026-09-14T11:31:19Z | tok emission daily babylon --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | babylon | emission daily | exit=0 | ok records=815 bytes=520007 calls_used=265/2000
+2026-09-14T11:31:20Z | tok allocation detail babylon -o json | babylon | allocation detail | exit=0 | ok records=1 bytes=2594 calls_used=266/2000
+2026-09-14T11:31:20Z | tok unlock events babylon --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | babylon | unlock events | exit=0 | ok records=16 bytes=27497 calls_used=267/2000
+2026-09-14T11:31:21Z | tok emission daily axelar --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | axelar | emission daily | exit=0 | ok records=841 bytes=924564 calls_used=268/2000
+2026-09-14T11:31:28Z | tok allocation detail axelar -o json | axelar | allocation detail | exit=0 | ok records=1 bytes=2595 calls_used=269/2000
+2026-09-14T11:31:29Z | tok unlock events axelar --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | axelar | unlock events | exit=0 | ok records=0 bytes=3 calls_used=270/2000
+2026-09-14T11:31:30Z | tok emission daily oasis-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | oasis-network | emission daily | exit=0 | ok records=1019 bytes=365984 calls_used=271/2000
+2026-09-14T11:31:30Z | tok allocation detail oasis-network -o json | oasis-network | allocation detail | exit=0 | ok records=1 bytes=2143 calls_used=272/2000
+2026-09-14T11:31:31Z | tok unlock events oasis-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | oasis-network | unlock events | exit=0 | ok records=11 bytes=19627 calls_used=273/2000
+2026-09-14T11:31:31Z | tok emission daily astar --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | astar | emission daily | exit=0 | ok records=862 bytes=315865 calls_used=274/2000
+2026-09-14T11:31:32Z | tok allocation detail astar -o json | astar | allocation detail | exit=0 | ok records=1 bytes=3019 calls_used=275/2000
+2026-09-14T11:31:33Z | tok unlock events astar --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | astar | unlock events | exit=0 | ok records=29 bytes=26430 calls_used=276/2000
+2026-09-14T11:31:36Z | tok emission daily bio-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bio-protocol | emission daily | exit=0 | ok records=913 bytes=1329513 calls_used=277/2000
+2026-09-14T11:31:36Z | tok allocation detail bio-protocol -o json | bio-protocol | allocation detail | exit=0 | ok records=1 bytes=2863 calls_used=278/2000
+2026-09-14T11:31:37Z | tok unlock events bio-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bio-protocol | unlock events | exit=0 | ok records=2 bytes=4329 calls_used=279/2000
+2026-09-14T11:31:38Z | tok emission daily enjincoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | enjincoin | emission daily | exit=0 | ok records=0 bytes=3 calls_used=280/2000
+2026-09-14T11:31:39Z | tok emission daily blur --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | blur | emission daily | exit=0 | ok records=890 bytes=1172774 calls_used=281/2000
+2026-09-14T11:31:39Z | tok allocation detail blur -o json | blur | allocation detail | exit=0 | ok records=1 bytes=1663 calls_used=282/2000
+2026-09-14T11:31:40Z | tok unlock events blur --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | blur | unlock events | exit=0 | ok records=0 bytes=3 calls_used=283/2000
+2026-09-14T11:31:40Z | tok emission daily venus --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | venus | emission daily | exit=0 | ok records=0 bytes=3 calls_used=284/2000
+2026-09-14T11:31:41Z | tok emission daily io --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | io | emission daily | exit=0 | ok records=1019 bytes=652954 calls_used=285/2000
+2026-09-14T11:31:42Z | tok allocation detail io -o json | io | allocation detail | exit=0 | ok records=1 bytes=2501 calls_used=286/2000
+2026-09-14T11:31:43Z | tok unlock events io --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | io | unlock events | exit=0 | ok records=33 bytes=73185 calls_used=287/2000
+2026-09-14T11:31:45Z | tok emission daily celo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | celo | emission daily | exit=0 | ok records=1019 bytes=379075 calls_used=288/2000
+2026-09-14T11:31:46Z | tok allocation detail celo -o json | celo | allocation detail | exit=0 | ok records=1 bytes=2229 calls_used=289/2000
+2026-09-14T11:31:46Z | tok unlock events celo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | celo | unlock events | exit=0 | ok records=53 bytes=57167 calls_used=290/2000
+2026-09-14T11:31:47Z | tok emission daily space-id --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | space-id | emission daily | exit=0 | ok records=1019 bytes=386382 calls_used=291/2000
+2026-09-14T11:31:48Z | tok allocation detail space-id -o json | space-id | allocation detail | exit=0 | ok records=1 bytes=2999 calls_used=292/2000
+2026-09-14T11:31:48Z | tok unlock events space-id --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | space-id | unlock events | exit=0 | ok records=32 bytes=69289 calls_used=293/2000
+2026-09-14T11:31:49Z | tok emission daily flow --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | flow | emission daily | exit=0 | ok records=1019 bytes=638071 calls_used=294/2000
+2026-09-14T11:31:50Z | tok allocation detail flow -o json | flow | allocation detail | exit=0 | ok records=1 bytes=2239 calls_used=295/2000
+2026-09-14T11:31:50Z | tok unlock events flow --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | flow | unlock events | exit=0 | ok records=0 bytes=3 calls_used=296/2000
+2026-09-14T11:31:51Z | tok emission daily altlayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | altlayer | emission daily | exit=0 | ok records=1019 bytes=397097 calls_used=297/2000
+2026-09-14T11:31:52Z | tok allocation detail altlayer -o json | altlayer | allocation detail | exit=0 | ok records=1 bytes=2422 calls_used=298/2000
+2026-09-14T11:31:52Z | tok unlock events altlayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | altlayer | unlock events | exit=0 | ok records=30 bytes=84809 calls_used=299/2000
+2026-09-14T11:31:53Z | tok emission daily mask-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | mask-network | emission daily | exit=0 | ok records=0 bytes=3 calls_used=300/2000
+2026-09-14T11:31:54Z | tok emission daily lombard-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lombard-protocol | emission daily | exit=0 | ok records=654 bytes=772250 calls_used=301/2000
+2026-09-14T11:31:55Z | tok allocation detail lombard-protocol -o json | lombard-protocol | allocation detail | exit=0 | ok records=1 bytes=3080 calls_used=302/2000
+2026-09-14T11:31:55Z | tok unlock events lombard-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lombard-protocol | unlock events | exit=0 | ok records=3 bytes=4768 calls_used=303/2000
+2026-09-14T11:31:56Z | tok emission daily catizen --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | catizen | emission daily | exit=0 | ok records=1018 bytes=1027800 calls_used=304/2000
+2026-09-14T11:31:57Z | tok allocation detail catizen -o json | catizen | allocation detail | exit=0 | ok records=1 bytes=2449 calls_used=305/2000
+2026-09-14T11:31:57Z | tok unlock events catizen --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | catizen | unlock events | exit=0 | ok records=8 bytes=8430 calls_used=306/2000
+2026-09-14T11:31:58Z | tok emission daily zero-gravity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zero-gravity | emission daily | exit=0 | ok records=647 bytes=676941 calls_used=307/2000
+2026-09-14T11:31:59Z | tok allocation detail zero-gravity -o json | zero-gravity | allocation detail | exit=0 | ok records=1 bytes=2459 calls_used=308/2000
+2026-09-14T11:31:59Z | tok unlock events zero-gravity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | zero-gravity | unlock events | exit=0 | ok records=1 bytes=1300 calls_used=309/2000
+2026-09-14T11:32:00Z | tok emission daily edu-coin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | edu-coin | emission daily | exit=0 | ok records=1019 bytes=1559489 calls_used=310/2000
+2026-09-14T11:32:10Z | tok allocation detail edu-coin -o json | edu-coin | allocation detail | exit=0 | ok records=1 bytes=3176 calls_used=311/2000
+2026-09-14T11:32:11Z | tok unlock events edu-coin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | edu-coin | unlock events | exit=0 | ok records=0 bytes=3 calls_used=312/2000
+2026-09-14T11:32:11Z | tok emission daily magic-eden --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | magic-eden | emission daily | exit=0 | ok records=934 bytes=349062 calls_used=313/2000
+2026-09-14T11:32:12Z | tok allocation detail magic-eden -o json | magic-eden | allocation detail | exit=0 | ok records=1 bytes=1562 calls_used=314/2000
+2026-09-14T11:32:13Z | tok unlock events magic-eden --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | magic-eden | unlock events | exit=0 | ok records=31 bytes=45705 calls_used=315/2000
+2026-09-14T11:32:14Z | tok emission daily rocket-pool --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | rocket-pool | emission daily | exit=0 | ok records=1019 bytes=1090356 calls_used=316/2000
+2026-09-14T11:32:16Z | tok allocation detail rocket-pool -o json | rocket-pool | allocation detail | exit=0 | ok records=1 bytes=2168 calls_used=317/2000
+2026-09-14T11:32:17Z | tok unlock events rocket-pool --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | rocket-pool | unlock events | exit=0 | ok records=0 bytes=3 calls_used=318/2000
+2026-09-14T11:32:17Z | tok emission daily huma-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | huma-finance | emission daily | exit=0 | ok records=766 bytes=280559 calls_used=319/2000
+2026-09-14T11:32:18Z | tok allocation detail huma-finance -o json | huma-finance | allocation detail | exit=0 | ok records=1 bytes=3033 calls_used=320/2000
+2026-09-14T11:32:19Z | tok unlock events huma-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | huma-finance | unlock events | exit=0 | ok records=9 bytes=15043 calls_used=321/2000
+2026-09-14T11:32:20Z | tok emission daily renzo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | renzo | emission daily | exit=0 | ok records=932 bytes=396441 calls_used=322/2000
+2026-09-14T11:32:20Z | tok allocation detail renzo -o json | renzo | allocation detail | exit=0 | ok records=1 bytes=2476 calls_used=323/2000
+2026-09-14T11:32:21Z | tok unlock events renzo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | renzo | unlock events | exit=0 | ok records=24 bytes=33767 calls_used=324/2000
+2026-09-14T11:32:21Z | tok emission daily space-and-time --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | space-and-time | emission daily | exit=0 | ok records=787 bytes=298106 calls_used=325/2000
+2026-09-14T11:32:22Z | tok allocation detail space-and-time -o json | space-and-time | allocation detail | exit=0 | ok records=1 bytes=2131 calls_used=326/2000
+2026-09-14T11:32:23Z | tok unlock events space-and-time --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | space-and-time | unlock events | exit=0 | ok records=26 bytes=37120 calls_used=327/2000
+2026-09-14T11:32:23Z | tok emission daily api3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | api3 | emission daily | exit=0 | ok records=0 bytes=3 calls_used=328/2000
+2026-09-14T11:32:24Z | tok emission daily movement --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | movement | emission daily | exit=0 | ok records=934 bytes=350069 calls_used=329/2000
+2026-09-14T11:32:25Z | tok allocation detail movement -o json | movement | allocation detail | exit=0 | ok records=1 bytes=1834 calls_used=330/2000
+2026-09-14T11:32:25Z | tok unlock events movement --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | movement | unlock events | exit=0 | ok records=31 bytes=51664 calls_used=331/2000
+2026-09-14T11:32:26Z | tok emission daily succinct --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | succinct | emission daily | exit=0 | ok records=696 bytes=248310 calls_used=332/2000
+2026-09-14T11:32:26Z | tok allocation detail succinct -o json | succinct | allocation detail | exit=0 | ok records=1 bytes=1871 calls_used=333/2000
+2026-09-14T11:32:27Z | tok unlock events succinct --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | succinct | unlock events | exit=0 | ok records=3 bytes=6577 calls_used=334/2000
+2026-09-14T11:32:28Z | tok emission daily avantis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | avantis | emission daily | exit=0 | ok records=661 bytes=846602 calls_used=335/2000
+2026-09-14T11:32:29Z | tok allocation detail avantis -o json | avantis | allocation detail | exit=0 | ok records=1 bytes=2527 calls_used=336/2000
+2026-09-14T11:32:29Z | tok unlock events avantis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | avantis | unlock events | exit=0 | ok records=1 bytes=1300 calls_used=337/2000
+2026-09-14T11:32:30Z | tok emission daily memecoin-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | memecoin-2 | emission daily | exit=0 | ok records=1019 bytes=866903 calls_used=338/2000
+2026-09-14T11:32:31Z | tok allocation detail memecoin-2 -o json | memecoin-2 | allocation detail | exit=0 | ok records=1 bytes=2492 calls_used=339/2000
+2026-09-14T11:32:31Z | tok unlock events memecoin-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | memecoin-2 | unlock events | exit=0 | ok records=3 bytes=2700 calls_used=340/2000
+2026-09-14T11:32:32Z | tok emission daily lista --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lista | emission daily | exit=0 | ok records=1019 bytes=640431 calls_used=341/2000
+2026-09-14T11:32:32Z | tok allocation detail lista -o json | lista | allocation detail | exit=0 | ok records=1 bytes=2722 calls_used=342/2000
+2026-09-14T11:32:33Z | tok unlock events lista --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lista | unlock events | exit=0 | ok records=12 bytes=22861 calls_used=343/2000
+2026-09-14T11:32:34Z | tok emission daily terra-luna-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | terra-luna-2 | emission daily | exit=0 | ok records=988 bytes=795643 calls_used=344/2000
+2026-09-14T11:32:35Z | tok allocation detail terra-luna-2 -o json | terra-luna-2 | allocation detail | exit=0 | ok records=1 bytes=1934 calls_used=345/2000
+2026-09-14T11:32:35Z | tok unlock events terra-luna-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | terra-luna-2 | unlock events | exit=0 | ok records=0 bytes=3 calls_used=346/2000
+2026-09-14T11:32:36Z | tok emission daily sahara-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sahara-ai | emission daily | exit=0 | ok records=738 bytes=283220 calls_used=347/2000
+2026-09-14T11:32:36Z | tok allocation detail sahara-ai -o json | sahara-ai | allocation detail | exit=0 | ok records=1 bytes=2488 calls_used=348/2000
+2026-09-14T11:32:37Z | tok unlock events sahara-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sahara-ai | unlock events | exit=0 | ok records=25 bytes=48779 calls_used=349/2000
+2026-09-14T11:32:38Z | tok emission daily euler --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | euler | emission daily | exit=0 | ok records=463 bytes=294027 calls_used=350/2000
+2026-09-14T11:32:38Z | tok allocation detail euler -o json | euler | allocation detail | exit=0 | ok records=1 bytes=2599 calls_used=351/2000
+2026-09-14T11:32:39Z | tok unlock events euler --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | euler | unlock events | exit=0 | ok records=33 bytes=29677 calls_used=352/2000
+2026-09-14T11:32:39Z | tok emission daily momentum-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | momentum-3 | emission daily | exit=0 | ok records=605 bytes=218352 calls_used=353/2000
+2026-09-14T11:32:40Z | tok allocation detail momentum-3 -o json | momentum-3 | allocation detail | exit=0 | ok records=1 bytes=1841 calls_used=354/2000
+2026-09-14T11:32:41Z | tok unlock events momentum-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | momentum-3 | unlock events | exit=0 | ok records=20 bytes=19559 calls_used=355/2000
+2026-09-14T11:32:42Z | tok emission daily bancor --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bancor | emission daily | exit=0 | ok records=0 bytes=3 calls_used=356/2000
+2026-09-14T11:32:43Z | tok emission daily manta-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | manta-network | emission daily | exit=0 | ok records=1019 bytes=1670014 calls_used=357/2000
+2026-09-14T11:32:49Z | tok allocation detail manta-network -o json | manta-network | allocation detail | exit=0 | ok records=1 bytes=3764 calls_used=358/2000
+2026-09-14T11:32:50Z | tok unlock events manta-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | manta-network | unlock events | exit=0 | ok records=23 bytes=21062 calls_used=359/2000
+2026-09-14T11:32:50Z | tok emission daily illuvium --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | illuvium | emission daily | exit=0 | ok records=204 bytes=123568 calls_used=360/2000
+2026-09-14T11:32:52Z | tok allocation detail illuvium -o json | illuvium | allocation detail | exit=0 | ok records=1 bytes=2100 calls_used=361/2000
+2026-09-14T11:32:53Z | tok unlock events illuvium --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | illuvium | unlock events | exit=0 | ok records=0 bytes=3 calls_used=362/2000
+2026-09-14T11:32:53Z | tok emission daily kyber-network-crystal --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kyber-network-crystal | emission daily | exit=0 | ok records=0 bytes=3 calls_used=363/2000
+2026-09-14T11:32:54Z | tok emission daily sign-global --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sign-global | emission daily | exit=0 | ok records=794 bytes=290712 calls_used=364/2000
+2026-09-14T11:32:54Z | tok allocation detail sign-global -o json | sign-global | allocation detail | exit=0 | ok records=1 bytes=2107 calls_used=365/2000
+2026-09-14T11:32:55Z | tok unlock events sign-global --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sign-global | unlock events | exit=0 | ok records=19 bytes=32739 calls_used=366/2000
+2026-09-14T11:32:56Z | tok emission daily osmosis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | osmosis | emission daily | exit=0 | ok records=1019 bytes=1341485 calls_used=367/2000
+2026-09-14T11:32:58Z | tok allocation detail osmosis -o json | osmosis | allocation detail | exit=0 | ok records=1 bytes=2276 calls_used=368/2000
+2026-09-14T11:32:59Z | tok unlock events osmosis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | osmosis | unlock events | exit=0 | ok records=0 bytes=3 calls_used=369/2000
+2026-09-14T11:32:59Z | tok emission daily frax-share --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | frax-share | emission daily | exit=0 | ok records=1019 bytes=667749 calls_used=370/2000
+2026-09-14T11:33:01Z | tok allocation detail frax-share -o json | frax-share | allocation detail | exit=0 | ok records=1 bytes=2047 calls_used=371/2000
+2026-09-14T11:33:01Z | tok unlock events frax-share --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | frax-share | unlock events | exit=0 | ok records=0 bytes=3 calls_used=372/2000
+2026-09-14T11:33:02Z | tok emission daily tensor --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | tensor | emission daily | exit=0 | ok records=939 bytes=1052661 calls_used=373/2000
+2026-09-14T11:33:02Z | tok allocation detail tensor -o json | tensor | allocation detail | exit=0 | ok records=1 bytes=1913 calls_used=374/2000
+2026-09-14T11:33:03Z | tok unlock events tensor --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | tensor | unlock events | exit=0 | ok records=1 bytes=1329 calls_used=375/2000
+2026-09-14T11:33:04Z | tok emission daily solv-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solv-protocol | emission daily | exit=0 | ok records=899 bytes=350833 calls_used=376/2000
+2026-09-14T11:33:05Z | tok allocation detail solv-protocol -o json | solv-protocol | allocation detail | exit=0 | ok records=1 bytes=3862 calls_used=377/2000
+2026-09-14T11:33:05Z | tok unlock events solv-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solv-protocol | unlock events | exit=0 | ok records=28 bytes=61103 calls_used=378/2000
+2026-09-14T11:33:06Z | tok emission daily cartesi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cartesi | emission daily | exit=0 | ok records=442 bytes=273845 calls_used=379/2000
+2026-09-14T11:33:07Z | tok allocation detail cartesi -o json | cartesi | allocation detail | exit=0 | ok records=1 bytes=2720 calls_used=380/2000
+2026-09-14T11:33:08Z | tok unlock events cartesi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cartesi | unlock events | exit=0 | ok records=0 bytes=3 calls_used=381/2000
+2026-09-14T11:33:08Z | tok emission daily fogo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | fogo | emission daily | exit=0 | ok records=535 bytes=197025 calls_used=382/2000
+2026-09-14T11:33:09Z | tok allocation detail fogo -o json | fogo | allocation detail | exit=0 | ok records=1 bytes=2848 calls_used=383/2000
+2026-09-14T11:33:09Z | tok unlock events fogo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | fogo | unlock events | exit=0 | ok records=11 bytes=24747 calls_used=384/2000
+2026-09-14T11:33:10Z | tok emission daily metis-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | metis-token | emission daily | exit=0 | ok records=1019 bytes=631167 calls_used=385/2000
+2026-09-14T11:33:11Z | tok allocation detail metis-token -o json | metis-token | allocation detail | exit=0 | ok records=1 bytes=4175 calls_used=386/2000
+2026-09-14T11:33:11Z | tok unlock events metis-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | metis-token | unlock events | exit=0 | ok records=0 bytes=3 calls_used=387/2000
+2026-09-14T11:33:13Z | tok emission daily stepn --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | stepn | emission daily | exit=0 | ok records=1019 bytes=1180898 calls_used=388/2000
+2026-09-14T11:33:15Z | tok allocation detail stepn -o json | stepn | allocation detail | exit=0 | ok records=1 bytes=2247 calls_used=389/2000
+2026-09-14T11:33:16Z | tok unlock events stepn --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | stepn | unlock events | exit=0 | ok records=0 bytes=3 calls_used=390/2000
+2026-09-14T11:33:17Z | tok emission daily hyperlane --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | hyperlane | emission daily | exit=0 | ok records=801 bytes=811959 calls_used=391/2000
+2026-09-14T11:33:18Z | tok allocation detail hyperlane -o json | hyperlane | allocation detail | exit=0 | ok records=1 bytes=2504 calls_used=392/2000
+2026-09-14T11:33:18Z | tok unlock events hyperlane --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | hyperlane | unlock events | exit=0 | ok records=2 bytes=2219 calls_used=393/2000
+2026-09-14T11:33:19Z | tok emission daily home --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | home | emission daily | exit=0 | ok records=752 bytes=882562 calls_used=394/2000
+2026-09-14T11:33:29Z | tok allocation detail home -o json | home | allocation detail | exit=0 | ok records=1 bytes=2226 calls_used=395/2000
+2026-09-14T11:33:29Z | tok unlock events home --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | home | unlock events | exit=0 | ok records=3 bytes=3991 calls_used=396/2000
+2026-09-14T11:33:30Z | tok emission daily skale --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | skale | emission daily | exit=0 | ok records=1019 bytes=367063 calls_used=397/2000
+2026-09-14T11:33:30Z | tok allocation detail skale -o json | skale | allocation detail | exit=0 | ok records=1 bytes=2795 calls_used=398/2000
+2026-09-14T11:33:31Z | tok unlock events skale --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | skale | unlock events | exit=0 | ok records=6 bytes=6199 calls_used=399/2000
+2026-09-14T11:33:32Z | tok emission daily usual --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | usual | emission daily | exit=0 | ok records=962 bytes=1436378 calls_used=400/2000
+2026-09-14T11:33:32Z | tok allocation detail usual -o json | usual | allocation detail | exit=0 | ok records=1 bytes=2553 calls_used=401/2000
+2026-09-14T11:33:33Z | tok unlock events usual --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | usual | unlock events | exit=0 | ok records=2 bytes=3459 calls_used=402/2000
+2026-09-14T11:33:34Z | tok emission daily yield-guild-games --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | yield-guild-games | emission daily | exit=0 | ok records=897 bytes=354581 calls_used=403/2000
+2026-09-14T11:33:34Z | tok allocation detail yield-guild-games -o json | yield-guild-games | allocation detail | exit=0 | ok records=1 bytes=2190 calls_used=404/2000
+2026-09-14T11:33:35Z | tok unlock events yield-guild-games --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | yield-guild-games | unlock events | exit=0 | ok records=30 bytes=59531 calls_used=405/2000
+2026-09-14T11:33:35Z | tok emission daily stargate-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | stargate-finance | emission daily | exit=0 | ok records=190 bytes=159824 calls_used=406/2000
+2026-09-14T11:33:36Z | tok allocation detail stargate-finance -o json | stargate-finance | allocation detail | exit=0 | ok records=1 bytes=2501 calls_used=407/2000
+2026-09-14T11:33:37Z | tok unlock events stargate-finance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | stargate-finance | unlock events | exit=0 | ok records=0 bytes=3 calls_used=408/2000
+2026-09-14T11:33:37Z | tok emission daily liquity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | liquity | emission daily | exit=0 | ok records=1019 bytes=632948 calls_used=409/2000
+2026-09-14T11:33:38Z | tok allocation detail liquity -o json | liquity | allocation detail | exit=0 | ok records=1 bytes=2484 calls_used=410/2000
+2026-09-14T11:33:39Z | tok unlock events liquity --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | liquity | unlock events | exit=0 | ok records=8 bytes=7288 calls_used=411/2000
+2026-09-14T11:33:39Z | tok emission daily big-time --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | big-time | emission daily | exit=0 | ok records=1019 bytes=636164 calls_used=412/2000
+2026-09-14T11:33:40Z | tok allocation detail big-time -o json | big-time | allocation detail | exit=0 | ok records=1 bytes=1263 calls_used=413/2000
+2026-09-14T11:33:40Z | tok unlock events big-time --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | big-time | unlock events | exit=0 | ok records=6 bytes=8110 calls_used=414/2000
+2026-09-14T11:33:41Z | tok emission daily woo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | woo | emission daily | exit=0 | ok records=106 bytes=86258 calls_used=415/2000
+2026-09-14T11:33:42Z | tok allocation detail woo -o json | woo | allocation detail | exit=0 | ok records=1 bytes=2959 calls_used=416/2000
+2026-09-14T11:33:42Z | tok unlock events woo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | woo | unlock events | exit=0 | ok records=0 bytes=3 calls_used=417/2000
+2026-09-14T11:33:43Z | tok emission daily nillion --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | nillion | emission daily | exit=0 | ok records=829 bytes=317818 calls_used=418/2000
+2026-09-14T11:33:45Z | tok allocation detail nillion -o json | nillion | allocation detail | exit=0 | ok records=1 bytes=1962 calls_used=419/2000
+2026-09-14T11:33:45Z | tok unlock events nillion --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | nillion | unlock events | exit=0 | ok records=23 bytes=52996 calls_used=420/2000
+2026-09-14T11:33:46Z | tok emission daily aevo-exchange --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | aevo-exchange | emission daily | exit=0 | ok records=0 bytes=3 calls_used=421/2000
+2026-09-14T11:33:46Z | tok emission daily cetus-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cetus-protocol | emission daily | exit=0 | ok records=568 bytes=210641 calls_used=422/2000
+2026-09-14T11:33:47Z | tok allocation detail cetus-protocol -o json | cetus-protocol | allocation detail | exit=0 | ok records=1 bytes=1504 calls_used=423/2000
+2026-09-14T11:33:47Z | tok unlock events cetus-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cetus-protocol | unlock events | exit=0 | ok records=20 bytes=19123 calls_used=424/2000
+2026-09-14T11:33:48Z | tok emission daily chaingpt --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | chaingpt | emission daily | exit=0 | ok records=1019 bytes=1357292 calls_used=425/2000
+2026-09-14T11:33:49Z | tok allocation detail chaingpt -o json | chaingpt | allocation detail | exit=0 | ok records=1 bytes=4077 calls_used=426/2000
+2026-09-14T11:33:50Z | tok unlock events chaingpt --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | chaingpt | unlock events | exit=0 | ok records=0 bytes=3 calls_used=427/2000
+2026-09-14T11:33:50Z | tok emission daily openeden --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | openeden | emission daily | exit=0 | ok records=640 bytes=517609 calls_used=428/2000
+2026-09-14T11:33:51Z | tok allocation detail openeden -o json | openeden | allocation detail | exit=0 | ok records=1 bytes=2758 calls_used=429/2000
+2026-09-14T11:33:51Z | tok unlock events openeden --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | openeden | unlock events | exit=0 | ok records=1 bytes=2132 calls_used=430/2000
+2026-09-14T11:33:52Z | tok emission daily yield-basis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | yield-basis | emission daily | exit=0 | ok records=626 bytes=1183311 calls_used=431/2000
+2026-09-14T11:33:53Z | tok allocation detail yield-basis -o json | yield-basis | allocation detail | exit=0 | ok records=1 bytes=4080 calls_used=432/2000
+2026-09-14T11:33:53Z | tok unlock events yield-basis --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | yield-basis | unlock events | exit=0 | ok records=1 bytes=2161 calls_used=433/2000
+2026-09-14T11:33:54Z | tok emission daily bonfida --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bonfida | emission daily | exit=0 | ok records=106 bytes=132825 calls_used=434/2000
+2026-09-14T11:33:55Z | tok allocation detail bonfida -o json | bonfida | allocation detail | exit=0 | ok records=1 bytes=2228 calls_used=435/2000
+2026-09-14T11:33:56Z | tok unlock events bonfida --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bonfida | unlock events | exit=0 | ok records=0 bytes=3 calls_used=436/2000
+2026-09-14T11:33:56Z | tok emission daily biconomy --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | biconomy | emission daily | exit=0 | ok records=365 bytes=179242 calls_used=437/2000
+2026-09-14T11:33:57Z | tok allocation detail biconomy -o json | biconomy | allocation detail | exit=0 | ok records=1 bytes=2861 calls_used=438/2000
+2026-09-14T11:33:58Z | tok unlock events biconomy --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | biconomy | unlock events | exit=0 | ok records=13 bytes=12559 calls_used=439/2000
+2026-09-14T11:33:58Z | tok emission daily dodo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dodo | emission daily | exit=0 | ok records=295 bytes=105079 calls_used=440/2000
+2026-09-14T11:33:59Z | tok allocation detail dodo -o json | dodo | allocation detail | exit=0 | ok records=1 bytes=2066 calls_used=441/2000
+2026-09-14T11:34:01Z | tok unlock events dodo --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dodo | unlock events | exit=0 | ok records=10 bytes=9021 calls_used=442/2000
+2026-09-14T11:34:01Z | tok emission daily sophon --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sophon | emission daily | exit=0 | ok records=766 bytes=513092 calls_used=443/2000
+2026-09-14T11:34:02Z | tok allocation detail sophon -o json | sophon | allocation detail | exit=0 | ok records=1 bytes=2544 calls_used=444/2000
+2026-09-14T11:34:02Z | tok unlock events sophon --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sophon | unlock events | exit=0 | ok records=26 bytes=37552 calls_used=445/2000
+2026-09-14T11:34:03Z | tok emission daily anime --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | anime | emission daily | exit=0 | ok records=892 bytes=339154 calls_used=446/2000
+2026-09-14T11:34:09Z | tok allocation detail anime -o json | anime | allocation detail | exit=0 | ok records=1 bytes=2166 calls_used=447/2000
+2026-09-14T11:34:09Z | tok unlock events anime --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | anime | unlock events | exit=0 | ok records=30 bytes=53671 calls_used=448/2000
+2026-09-14T11:34:10Z | tok emission daily connect-token-wct --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | connect-token-wct | emission daily | exit=0 | ok records=808 bytes=528484 calls_used=449/2000
+2026-09-14T11:34:12Z | tok allocation detail connect-token-wct -o json | connect-token-wct | allocation detail | exit=0 | ok records=1 bytes=3667 calls_used=450/2000
+2026-09-14T11:34:12Z | tok unlock events connect-token-wct --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | connect-token-wct | unlock events | exit=0 | ok records=21 bytes=55089 calls_used=451/2000
+2026-09-14T11:34:13Z | tok emission daily portal-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | portal-2 | emission daily | exit=0 | ok records=1019 bytes=1201922 calls_used=452/2000
+2026-09-14T11:34:14Z | tok allocation detail portal-2 -o json | portal-2 | allocation detail | exit=0 | ok records=1 bytes=2879 calls_used=453/2000
+2026-09-14T11:34:15Z | tok unlock events portal-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | portal-2 | unlock events | exit=0 | ok records=0 bytes=3 calls_used=454/2000
+2026-09-14T11:34:15Z | tok emission daily synfutures --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | synfutures | emission daily | exit=0 | ok records=941 bytes=1353491 calls_used=455/2000
+2026-09-14T11:34:16Z | tok allocation detail synfutures -o json | synfutures | allocation detail | exit=0 | ok records=1 bytes=2228 calls_used=456/2000
+2026-09-14T11:34:17Z | tok unlock events synfutures --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | synfutures | unlock events | exit=0 | ok records=1 bytes=2116 calls_used=457/2000
+2026-09-14T11:34:17Z | tok emission daily endurance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | endurance | emission daily | exit=0 | ok records=1019 bytes=407922 calls_used=458/2000
+2026-09-14T11:34:18Z | tok allocation detail endurance -o json | endurance | allocation detail | exit=0 | ok records=1 bytes=4011 calls_used=459/2000
+2026-09-14T11:34:19Z | tok unlock events endurance --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | endurance | unlock events | exit=0 | ok records=91 bytes=132975 calls_used=460/2000
+2026-09-14T11:34:19Z | tok emission daily banana-gun --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | banana-gun | emission daily | exit=0 | ok records=1019 bytes=352165 calls_used=461/2000
+2026-09-14T11:34:20Z | tok allocation detail banana-gun -o json | banana-gun | allocation detail | exit=0 | ok records=1 bytes=1735 calls_used=462/2000
+2026-09-14T11:34:21Z | tok unlock events banana-gun --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | banana-gun | unlock events | exit=0 | ok records=6 bytes=5273 calls_used=463/2000
+2026-09-14T11:34:22Z | tok emission daily mira-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | mira-3 | emission daily | exit=0 | ok records=647 bytes=244423 calls_used=464/2000
+2026-09-14T11:34:22Z | tok allocation detail mira-3 -o json | mira-3 | allocation detail | exit=0 | ok records=1 bytes=2399 calls_used=465/2000
+2026-09-14T11:34:23Z | tok unlock events mira-3 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | mira-3 | unlock events | exit=0 | ok records=22 bytes=31827 calls_used=466/2000
+2026-09-14T11:34:24Z | tok emission daily xai-blockchain --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | xai-blockchain | emission daily | exit=0 | ok records=1019 bytes=1374784 calls_used=467/2000
+2026-09-14T11:34:25Z | tok allocation detail xai-blockchain -o json | xai-blockchain | allocation detail | exit=0 | ok records=1 bytes=2854 calls_used=468/2000
+2026-09-14T11:34:25Z | tok unlock events xai-blockchain --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | xai-blockchain | unlock events | exit=0 | ok records=0 bytes=3 calls_used=469/2000
+2026-09-14T11:34:26Z | tok emission daily solayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solayer | emission daily | exit=0 | ok records=871 bytes=617129 calls_used=470/2000
+2026-09-14T11:34:27Z | tok allocation detail solayer -o json | solayer | allocation detail | exit=0 | ok records=1 bytes=1592 calls_used=471/2000
+2026-09-14T11:34:27Z | tok unlock events solayer --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | solayer | unlock events | exit=0 | ok records=10 bytes=12713 calls_used=472/2000
+2026-09-14T11:34:28Z | tok emission daily coin98 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | coin98 | emission daily | exit=0 | ok records=288 bytes=111408 calls_used=473/2000
+2026-09-14T11:34:28Z | tok allocation detail coin98 -o json | coin98 | allocation detail | exit=0 | ok records=1 bytes=2725 calls_used=474/2000
+2026-09-14T11:34:29Z | tok unlock events coin98 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | coin98 | unlock events | exit=0 | ok records=10 bytes=21269 calls_used=475/2000
+2026-09-14T11:34:30Z | tok emission daily spell-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | spell-token | emission daily | exit=0 | ok records=1019 bytes=606796 calls_used=476/2000
+2026-09-14T11:34:30Z | tok allocation detail spell-token -o json | spell-token | allocation detail | exit=0 | ok records=1 bytes=1253 calls_used=477/2000
+2026-09-14T11:34:31Z | tok unlock events spell-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | spell-token | unlock events | exit=0 | ok records=7 bytes=6353 calls_used=478/2000
+2026-09-14T11:34:31Z | tok emission daily katana-network-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | katana-network-token | emission daily | exit=0 | ok records=472 bytes=179131 calls_used=479/2000
+2026-09-14T11:34:32Z | tok allocation detail katana-network-token -o json | katana-network-token | allocation detail | exit=0 | ok records=1 bytes=2171 calls_used=480/2000
+2026-09-14T11:34:32Z | tok unlock events katana-network-token --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | katana-network-token | unlock events | exit=0 | ok records=16 bytes=26342 calls_used=481/2000
+2026-09-14T11:34:33Z | tok emission daily joe --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | joe | emission daily | exit=0 | ok records=0 bytes=3 calls_used=482/2000
+2026-09-14T11:34:34Z | tok emission daily radicle --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | radicle | emission daily | exit=0 | ok records=155 bytes=124900 calls_used=483/2000
+2026-09-14T11:34:35Z | tok allocation detail radicle -o json | radicle | allocation detail | exit=0 | ok records=1 bytes=2112 calls_used=484/2000
+2026-09-14T11:34:35Z | tok unlock events radicle --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | radicle | unlock events | exit=0 | ok records=0 bytes=3 calls_used=485/2000
+2026-09-14T11:34:36Z | tok emission daily initia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | initia | emission daily | exit=0 | ok records=801 bytes=708320 calls_used=486/2000
+2026-09-14T11:34:37Z | tok allocation detail initia -o json | initia | allocation detail | exit=0 | ok records=1 bytes=3402 calls_used=487/2000
+2026-09-14T11:34:38Z | tok unlock events initia --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | initia | unlock events | exit=0 | ok records=17 bytes=26782 calls_used=488/2000
+2026-09-14T11:34:38Z | tok emission daily bubblemaps --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bubblemaps | emission daily | exit=0 | ok records=836 bytes=322411 calls_used=489/2000
+2026-09-14T11:34:48Z | tok allocation detail bubblemaps -o json | bubblemaps | allocation detail | exit=0 | ok records=1 bytes=2957 calls_used=490/2000
+2026-09-14T11:34:49Z | tok unlock events bubblemaps --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bubblemaps | unlock events | exit=0 | ok records=50 bytes=70861 calls_used=491/2000
+2026-09-14T11:34:49Z | tok emission daily my-neighbor-alice --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | my-neighbor-alice | emission daily | exit=0 | ok records=155 bytes=57503 calls_used=492/2000
+2026-09-14T11:34:51Z | tok allocation detail my-neighbor-alice -o json | my-neighbor-alice | allocation detail | exit=0 | ok records=1 bytes=2651 calls_used=493/2000
+2026-09-14T11:34:52Z | tok unlock events my-neighbor-alice --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | my-neighbor-alice | unlock events | exit=0 | ok records=6 bytes=5891 calls_used=494/2000
+2026-09-14T11:34:53Z | tok emission daily lagrange --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lagrange | emission daily | exit=0 | ok records=759 bytes=860058 calls_used=495/2000
+2026-09-14T11:34:53Z | tok allocation detail lagrange -o json | lagrange | allocation detail | exit=0 | ok records=1 bytes=2312 calls_used=496/2000
+2026-09-14T11:34:54Z | tok unlock events lagrange --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | lagrange | unlock events | exit=0 | ok records=1 bytes=1718 calls_used=497/2000
+2026-09-14T11:34:54Z | tok emission daily dolomite --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dolomite | emission daily | exit=0 | ok records=801 bytes=298880 calls_used=498/2000
+2026-09-14T11:34:55Z | tok allocation detail dolomite -o json | dolomite | allocation detail | exit=0 | ok records=1 bytes=3322 calls_used=499/2000
+2026-09-14T11:34:56Z | tok unlock events dolomite --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dolomite | unlock events | exit=0 | ok records=27 bytes=39176 calls_used=500/2000
+2026-09-14T11:34:57Z | tok emission daily maverick-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | maverick-protocol | emission daily | exit=0 | ok records=1019 bytes=1350944 calls_used=501/2000
+2026-09-14T11:34:58Z | tok allocation detail maverick-protocol -o json | maverick-protocol | allocation detail | exit=0 | ok records=1 bytes=2522 calls_used=502/2000
+2026-09-14T11:34:59Z | tok unlock events maverick-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | maverick-protocol | unlock events | exit=0 | ok records=11 bytes=14586 calls_used=503/2000
+2026-09-14T11:34:59Z | tok emission daily kernel-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kernel-2 | emission daily | exit=0 | ok records=808 bytes=798169 calls_used=504/2000
+2026-09-14T11:35:00Z | tok allocation detail kernel-2 -o json | kernel-2 | allocation detail | exit=0 | ok records=1 bytes=2841 calls_used=505/2000
+2026-09-14T11:35:01Z | tok unlock events kernel-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | kernel-2 | unlock events | exit=0 | ok records=4 bytes=4019 calls_used=506/2000
+2026-09-14T11:35:02Z | tok emission daily superrare --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | superrare | emission daily | exit=0 | ok records=288 bytes=104540 calls_used=507/2000
+2026-09-14T11:35:02Z | tok allocation detail superrare -o json | superrare | allocation detail | exit=0 | ok records=1 bytes=1829 calls_used=508/2000
+2026-09-14T11:35:03Z | tok unlock events superrare --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | superrare | unlock events | exit=0 | ok records=10 bytes=9009 calls_used=509/2000
+2026-09-14T11:35:04Z | tok emission daily newton-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | newton-protocol | emission daily | exit=0 | ok records=738 bytes=291994 calls_used=510/2000
+2026-09-14T11:35:04Z | tok allocation detail newton-protocol -o json | newton-protocol | allocation detail | exit=0 | ok records=1 bytes=3173 calls_used=511/2000
+2026-09-14T11:35:05Z | tok unlock events newton-protocol --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | newton-protocol | unlock events | exit=0 | ok records=25 bytes=63571 calls_used=512/2000
+2026-09-14T11:35:06Z | tok emission daily dymension --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dymension | emission daily | exit=0 | ok records=876 bytes=882909 calls_used=513/2000
+2026-09-14T11:35:07Z | tok allocation detail dymension -o json | dymension | allocation detail | exit=0 | ok records=1 bytes=2214 calls_used=514/2000
+2026-09-14T11:35:08Z | tok unlock events dymension --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | dymension | unlock events | exit=0 | ok records=0 bytes=3 calls_used=515/2000
+2026-09-14T11:35:08Z | tok emission daily benqi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | benqi | emission daily | exit=0 | ok records=239 bytes=85442 calls_used=516/2000
+2026-09-14T11:35:09Z | tok allocation detail benqi -o json | benqi | allocation detail | exit=0 | ok records=1 bytes=1782 calls_used=517/2000
+2026-09-14T11:35:10Z | tok unlock events benqi --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | benqi | unlock events | exit=0 | ok records=6 bytes=5493 calls_used=518/2000
+2026-09-14T11:35:10Z | tok emission daily gunz --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | gunz | emission daily | exit=0 | ok records=822 bytes=311167 calls_used=519/2000
+2026-09-14T11:35:11Z | tok allocation detail gunz -o json | gunz | allocation detail | exit=0 | ok records=1 bytes=3918 calls_used=520/2000
+2026-09-14T11:35:12Z | tok unlock events gunz --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | gunz | unlock events | exit=0 | ok records=30 bytes=59701 calls_used=521/2000
+2026-09-14T11:35:12Z | tok emission daily opinion --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | opinion | emission daily | exit=0 | ok records=486 bytes=184029 calls_used=522/2000
+2026-09-14T11:35:13Z | tok allocation detail opinion -o json | opinion | allocation detail | exit=0 | ok records=1 bytes=2403 calls_used=523/2000
+2026-09-14T11:35:13Z | tok unlock events opinion --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | opinion | unlock events | exit=0 | ok records=16 bytes=28445 calls_used=524/2000
+2026-09-14T11:35:15Z | tok emission daily cookie --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cookie | emission daily | exit=0 | ok records=1019 bytes=1742479 calls_used=525/2000
+2026-09-14T11:35:16Z | tok allocation detail cookie -o json | cookie | allocation detail | exit=0 | ok records=1 bytes=4797 calls_used=526/2000
+2026-09-14T11:35:16Z | tok unlock events cookie --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | cookie | unlock events | exit=0 | ok records=9 bytes=11949 calls_used=527/2000
+2026-09-14T11:35:17Z | tok emission daily resolv --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | resolv | emission daily | exit=0 | ok records=752 bytes=648784 calls_used=528/2000
+2026-09-14T11:35:17Z | tok allocation detail resolv -o json | resolv | allocation detail | exit=0 | ok records=1 bytes=1917 calls_used=529/2000
+2026-09-14T11:35:18Z | tok unlock events resolv --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | resolv | unlock events | exit=0 | ok records=6 bytes=5910 calls_used=530/2000
+2026-09-14T11:35:19Z | tok emission daily saga-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | saga-2 | emission daily | exit=0 | ok records=939 bytes=696709 calls_used=531/2000
+2026-09-14T11:35:21Z | tok allocation detail saga-2 -o json | saga-2 | allocation detail | exit=0 | ok records=1 bytes=2432 calls_used=532/2000
+2026-09-14T11:35:21Z | tok unlock events saga-2 --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | saga-2 | unlock events | exit=0 | ok records=1 bytes=1348 calls_used=533/2000
+2026-09-14T11:35:22Z | tok emission daily moonbeam --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | moonbeam | emission daily | exit=0 | ok records=1019 bytes=638138 calls_used=534/2000
+2026-09-14T11:35:23Z | tok allocation detail moonbeam -o json | moonbeam | allocation detail | exit=0 | ok records=1 bytes=4820 calls_used=535/2000
+2026-09-14T11:35:23Z | tok unlock events moonbeam --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | moonbeam | unlock events | exit=0 | ok records=16 bytes=21663 calls_used=536/2000
+2026-09-14T11:35:24Z | tok emission daily gitcoin --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | gitcoin | emission daily | exit=0 | ok records=0 bytes=3 calls_used=537/2000
+2026-09-14T11:35:25Z | tok emission daily treehouse --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | treehouse | emission daily | exit=0 | ok records=703 bytes=277304 calls_used=538/2000
+2026-09-14T11:35:28Z | tok allocation detail treehouse -o json | treehouse | allocation detail | exit=0 | ok records=1 bytes=3302 calls_used=539/2000
+2026-09-14T11:35:29Z | tok unlock events treehouse --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | treehouse | unlock events | exit=0 | ok records=39 bytes=62725 calls_used=540/2000
+2026-09-14T11:35:30Z | tok emission daily quickswap --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | quickswap | emission daily | exit=0 | ok records=29 bytes=17075 calls_used=541/2000
+2026-09-14T11:35:31Z | tok allocation detail quickswap -o json | quickswap | allocation detail | exit=0 | ok records=1 bytes=1801 calls_used=542/2000
+2026-09-14T11:35:31Z | tok unlock events quickswap --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | quickswap | unlock events | exit=0 | ok records=0 bytes=3 calls_used=543/2000
+2026-09-14T11:35:32Z | tok emission daily myshell --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | myshell | emission daily | exit=0 | ok records=871 bytes=1085686 calls_used=544/2000
+2026-09-14T11:35:33Z | tok allocation detail myshell -o json | myshell | allocation detail | exit=0 | ok records=1 bytes=3375 calls_used=545/2000
+2026-09-14T11:35:34Z | tok unlock events myshell --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | myshell | unlock events | exit=0 | ok records=3 bytes=4713 calls_used=546/2000
+2026-09-14T11:35:34Z | tok emission daily particle-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | particle-network | emission daily | exit=0 | ok records=829 bytes=311630 calls_used=547/2000
+2026-09-14T11:35:35Z | tok allocation detail particle-network -o json | particle-network | allocation detail | exit=0 | ok records=1 bytes=2970 calls_used=548/2000
+2026-09-14T11:35:35Z | tok unlock events particle-network --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | particle-network | unlock events | exit=0 | ok records=23 bytes=33299 calls_used=549/2000
+2026-09-14T11:35:36Z | tok emission daily scroll --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | scroll | emission daily | exit=0 | ok records=983 bytes=657430 calls_used=550/2000
+2026-09-14T11:35:37Z | tok allocation detail scroll -o json | scroll | allocation detail | exit=0 | ok records=1 bytes=2155 calls_used=551/2000
+2026-09-14T11:35:37Z | tok unlock events scroll --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | scroll | unlock events | exit=0 | ok records=3 bytes=4351 calls_used=552/2000
+2026-09-14T11:35:38Z | tok emission daily haedal --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | haedal | emission daily | exit=0 | ok records=794 bytes=496510 calls_used=553/2000
+2026-09-14T11:35:39Z | tok allocation detail haedal -o json | haedal | allocation detail | exit=0 | ok records=1 bytes=1864 calls_used=554/2000
+2026-09-14T11:35:39Z | tok unlock events haedal --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | haedal | unlock events | exit=0 | ok records=1 bytes=1320 calls_used=555/2000
+2026-09-14T11:35:40Z | tok emission daily pixels --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pixels | emission daily | exit=0 | ok records=1019 bytes=401108 calls_used=556/2000
+2026-09-14T11:35:41Z | tok allocation detail pixels -o json | pixels | allocation detail | exit=0 | ok records=1 bytes=2801 calls_used=557/2000
+2026-09-14T11:35:41Z | tok unlock events pixels --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | pixels | unlock events | exit=0 | ok records=34 bytes=84185 calls_used=558/2000
+2026-09-14T11:35:42Z | tok emission daily bouncebit --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bouncebit | emission daily | exit=0 | ok records=1019 bytes=664833 calls_used=559/2000
+2026-09-14T11:35:43Z | tok allocation detail bouncebit -o json | bouncebit | allocation detail | exit=0 | ok records=1 bytes=2754 calls_used=560/2000
+2026-09-14T11:35:43Z | tok unlock events bouncebit --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | bouncebit | unlock events | exit=0 | ok records=28 bytes=46727 calls_used=561/2000
+2026-09-14T11:35:44Z | tok emission daily sleepless-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sleepless-ai | emission daily | exit=0 | ok records=1019 bytes=389370 calls_used=562/2000
+2026-09-14T11:35:46Z | tok allocation detail sleepless-ai -o json | sleepless-ai | allocation detail | exit=0 | ok records=1 bytes=2141 calls_used=563/2000
+2026-09-14T11:35:47Z | tok unlock events sleepless-ai --start 2024-09-14 --end 2027-06-30 --page-size 10000 -o json | sleepless-ai | unlock events | exit=0 | ok records=33 bytes=68691 calls_used=564/2000
+# 2026-09-29 history-window probes (can any endpoint serve data before the 2-year window?)
+2026-09-29T10:11:08Z | tok emission daily sui --start 2022-01-01 --end 2022-03-01 --page-size 100 -o json | sui | emission daily (history probe) | exit=1 | UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-29 - 2029-09-29 
+2026-09-29T10:11:10Z | tok emission weekly sui --start 2022-01-01 --end 2024-09-01 --page-size 500 -o json | sui | emission weekly (history probe) | exit=1 | UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-29 - 2029-09-29 
+2026-09-29T10:11:12Z | tok unlock events sui --start 2022-01-01 --end 2024-09-01 --page-size 500 -o json | sui | unlock events (history probe) | exit=1 | UNKNOWN: Invalid Date Range : The available range for unlock events data are 2024-09-29 - 2029-09-29 
+2026-09-29T10:11:15Z | tok emission daily sui --start 2024-09-14 --end 2024-10-05 --page-size 100 -o json | sui | emission daily (history probe) | exit=1 | UNKNOWN: Invalid Date Range : The available range for emission data are 2024-09-29 - 2024-10-05 
+2026-09-29T10:11:17Z | tok unlock list --min-unlock-date 2022-01-01 --max-unlock-date 2024-09-01 --page-size 3 -o json | sui | unlock list (history probe) | exit=1 | UNKNOWN: unlock date must be within the allowed range: 2024-09-29 to 2029-09-29 
