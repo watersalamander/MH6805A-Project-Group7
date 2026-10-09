@@ -208,8 +208,7 @@ def plot_pdp(est, X, te):
     ax.set_ylabel("partial dependence: predicted log(rv_fwd_14d)")
     span = pd1["average"][0].max() - pd1["average"][0].min()
     ax.set_title("RF partial dependence on 30-day unlock pressure (FULL, last "
-                 f"fold)
-total range of the curve: {span:.3f} log-vol",
+                 f"fold)\ntotal range of the curve: {span:.3f} log-vol",
                  fontsize=11)
     C.savefig(fig, "rf_pdp_emis30.png")
 

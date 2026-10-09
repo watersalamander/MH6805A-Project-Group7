@@ -11,6 +11,16 @@ pip install -r requirements.txt
 ```
 Python 3.13. Run everything from the repo root.
 
+## Submission notebook
+`MH6805_token_unlock_volatility.ipynb` is the single deliverable: the whole
+analysis pipeline (harness, cleaning, folds, EDA, baselines, KNN, Random
+Forest, comparison) in one self-contained notebook that starts from
+`data/dataset_v1.csv`. It inlines `common.py` and the four scripts below, so
+it needs nothing from `scripts/` to run. Data gathering is not part of it.
+Run from the repo root with a Python 3.13 kernel; the Random Forest section
+takes hours (set `NB_SMOKE=1` in the environment before starting the kernel
+for a minutes-long code check that saves nothing).
+
 ## Run order
 | Command | What it does | Approx. time |
 |---|---|---|
