@@ -2,6 +2,9 @@
     python scripts/03_rf.py                 # everything (slow, see timings)
     python scripts/03_rf.py --skip-runs     # only importances / PDP figures,
                                             # reusing best params in results/rf.csv
+    python scripts/03_rf.py --fresh         # recompute runs already in rf.csv
+                                            # (default: finished runs are skipped,
+                                            # so an interrupted run can resume)
     RF_SMOKE=1 python scripts/03_rf.py      # tiny forests, nothing saved to
                                             # results/rf.csv (code check only)
 
@@ -34,6 +37,7 @@ import common as C
 
 NAME = "rf"
 SMOKE = os.environ.get("RF_SMOKE") == "1"
+FRESH = "--fresh" in sys.argv   # recompute runs already present in results/rf.csv
 N_TREES = 30 if SMOKE else 400
 PARAM_GRID = {"max_depth": [None, 8, 12, 16],
               "min_samples_leaf": [20, 50, 100],
@@ -58,7 +62,31 @@ def rf_factory(**params) -> Pipeline:
         n_estimators=N_TREES, n_jobs=-1, random_state=C.RANDOM_STATE, **params))])
 
 
+def finished_run(folds, fs, freq, target="y", subsample="all"):
+    """Rows already in results/rf.csv for this run, or None if incomplete.
+
+    Lets a restarted script resume after an interruption (each run is ~5-45
+    min). Pass --fresh to ignore existing rows and recompute everything.
+    """
+    path = C.RESULTS_DIR / f"{NAME}.csv"
+    if SMOKE or FRESH or not path.exists():
+        return None
+    old = pd.read_csv(path)
+    key = {"model": NAME, "feature_set": fs, "freq": freq,
+           "target": C.TARGETS[target], "subsample": subsample}
+    mask = np.logical_and.reduce([old[k].astype(str) == v for k, v in key.items()])
+    rows = old[mask]
+    if len(rows) == len(folds) and sorted(rows["fold"]) == list(range(1, len(folds) + 1)):
+        return rows.reset_index(drop=True)
+    return None
+
+
 def run(df, folds, fs, freq, budget, **kw):
+    done = finished_run(folds, fs, freq, **kw)
+    if done is not None:
+        print(f"[{NAME}|{C.run_tag(fs, freq, **kw)}] found in results/{NAME}.csv, "
+              f"skipping (mean rmse {done['rmse'].mean():.4f}); use --fresh to rerun")
+        return done
     return C.run_model(NAME, rf_factory, df, folds, fs, PARAM_GRID, freq,
                        max_configs=BUDGET[budget], save=not SMOKE, **kw)
 
@@ -221,7 +249,7 @@ def plot_pdp(est, X, te):
     cs = ax.contourf(np.expm1(ge) * 100, gb, pd2["average"][0].T, levels=12,
                      cmap=cmap)
     ax.contour(np.expm1(ge) * 100, gb, pd2["average"][0].T, levels=12,
-               colors=C.SURFACE, linewidths=0.5)
+               colors=C.SURFACE, linewidths=0.5, negative_linestyles="solid")
     fig.colorbar(cs, ax=ax, label="predicted log(rv_fwd_14d)")
     ax.grid(False)
     ax.set_xlabel("share of float unlocking in the next 30 days, %")
