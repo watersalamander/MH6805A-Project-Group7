@@ -448,6 +448,32 @@ def run_model(name, estimator_factory, df, folds, feature_set_name, param_grid,
 
 
 # --------------------------------------------------------------------------
+# Fixed log transform for the linear models (Ridge / Elastic Net / logistic)
+# --------------------------------------------------------------------------
+# Volatility levels and token age are right-skewed and enter a linear model
+# better in logs. Nothing is learned from data, so it is safe in any fold.
+LOG_COLS = ["rv_past_7d", "rv_past_14d", "rv_past_30d",
+            "btc_rv_past_14d", "eth_rv_past_14d"]
+LOG1P_COLS = ["days_since_tge"]
+
+
+def _log_columns(X, ix_log=(), ix_log1p=()):
+    X = np.array(X, dtype=float, copy=True)
+    X[:, list(ix_log)] = np.log(X[:, list(ix_log)])
+    X[:, list(ix_log1p)] = np.log1p(X[:, list(ix_log1p)])
+    return X
+
+
+def log_transformer(features: list[str]):
+    """FunctionTransformer that logs LOG_COLS and log1ps LOG1P_COLS, located
+    by position in `features` (the column order of the feature matrix)."""
+    from sklearn.preprocessing import FunctionTransformer
+    return FunctionTransformer(_log_columns, kw_args={
+        "ix_log": [i for i, f in enumerate(features) if f in LOG_COLS],
+        "ix_log1p": [i for i, f in enumerate(features) if f in LOG1P_COLS]})
+
+
+# --------------------------------------------------------------------------
 # Plot style shared by all scripts
 # --------------------------------------------------------------------------
 PALETTE = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
