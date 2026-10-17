@@ -67,7 +67,8 @@ Re-running a script replaces its earlier rows; it does not duplicate them.
 `common.py` harness | `scripts/01_eda.py` | `scripts/02_knn.py` |
 `scripts/03_rf.py` | `scripts/04_compare.py` | `scripts/05_linear.py` (Ridge,
 Elastic Net) | `scripts/06_logistic.py` (high-vol events; own schema in
-`results/logistic.csv`, not read by 04_compare) | `results/` | `figures/`
+`results/logistic.csv`, not read by 04_compare) | `scripts/07_lgbm.py`
+(LightGBM) | `results/` | `figures/`
 Linear models log the vol controls inside their Pipeline via
 `common.log_transformer` (fixed transform, nothing learned).
 Older files in `scripts/` (tok_pull, build_dataset, audit_alignment,
