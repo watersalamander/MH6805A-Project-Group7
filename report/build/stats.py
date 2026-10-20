@@ -70,6 +70,16 @@ FOLDS = folds(D)
 LOGIT = logistic()
 RFG, RFIMP = rf_groups()
 
+
+def errors():
+    g = pd.read_csv(f"{ROOT}/results/error_by_group.csv")
+    lv = pd.read_csv(f"{ROOT}/results/error_level_summary.csv").set_index("forecast")
+    bm = pd.read_csv(f"{ROOT}/results/error_big_misses.csv").set_index("rows")
+    return g, lv, bm
+
+
+ERR_G, ERR_LV, ERR_BM = errors()
+
 if __name__ == "__main__":
     for k, v in MAIN.items():
         print(k, v)
