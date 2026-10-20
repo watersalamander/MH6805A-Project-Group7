@@ -7,7 +7,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
-from stats import INTERNAL, LOGIT, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
+from stats import ERR_BM, ERR_G, ERR_LV, INTERNAL, LOGIT, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
 
 ROOT = "D:/ML-project"
 FIG = ROOT + "/figures/"
@@ -216,7 +216,7 @@ for col, lab in leg:
     box(s, x, 5.65, 0.3, 0.3, fill=col, line=LINE if col == WHITE else None, shape=MSO_SHAPE.RECTANGLE)
     text(s, x + 0.4, 5.66, 3.5, 0.3, lab, size=13)
     x += 0.55 + len(lab) * 0.085
-text(s, 0.6, 6.25, 12.1, 0.5, "Benchmarks: persistence (log trailing 14d vol) and the pooled training mean.  Every scaler and encoder is fit on the training slice only; random_state = 42.",
+text(s, 0.6, 6.25, 12.1, 0.5, "Candidates (pre-processing + model + settings) are compared on validation only; the winner is refit and the test window is scored once, never used to change a model.",
      size=14, color=MUTED)
 
 # 7 ------------------------------------------------------------- models
@@ -260,7 +260,7 @@ pl.has_data_labels = True
 dl = pl.data_labels; dl.number_format = "0.000"; dl.number_format_is_linked = False
 dl.position = XL_LABEL_POSITION.OUTSIDE_END; dl.font.size = Pt(12)
 text(s, 9.3, 1.9, 3.4, 0.4, "Out-of-sample R\u00b2 vs persistence", size=14, bold=True)
-text(s, 9.3, 2.25, 3.4, 0.4, "daily panel, mean of 5 test folds", size=13, color=MUTED)
+text(s, 9.3, 2.25, 3.4, 0.4, "daily panel, 5 test folds, same test rows for every forecast", size=13, color=MUTED)
 for i, (big, d) in enumerate([(f"{M['train_mean']['r2_oos']:.2f}", "training-mean benchmark: every model is above it"),
                               ("+0.001 to +0.006", "gain from adding 23 unlock and static features")]):
     text(s, 9.3, 3.0 + i * 1.75, 3.5, 0.7, big, size=36 if i == 0 else 30, bold=True, color=NAVY if i == 0 else FULL, font=HEAD)
@@ -293,13 +293,54 @@ for i, (big, d, col) in enumerate([("2 of 5", "folds where FULL beats CONTROLS (
     text(s, 9.3, 3.0 + i * 1.75, 3.5, 0.7, big, size=36, bold=True, color=col, font=HEAD)
     text(s, 9.3, 3.75 + i * 1.75, 3.4, 0.9, d, size=15, color=MUTED)
 
+# 9b ------------------------------------------------------------- which mistakes remain
+def eg(dim, group, col):
+    r = ERR_G[(ERR_G.dimension == dim) & (ERR_G.group == group)]
+    return float(r[col].iloc[0])
+
+
+s = content("Unlock features do not help even where unlocks are big", "Which mistakes remain?",
+            "We pool all test rows and ask where the errors are. If unlock features carried signal, FULL should beat "
+            "CONTROLS where more than 5% of the float unlocks, or where a cliff is two weeks away. The opposite happens: "
+            "positive bars mean adding unlock features made the forecast worse. What remains is regression to the mean: "
+            "too high for tokens that turn calm, too low for tokens that spike. The models' real gain over persistence "
+            "is fewer large misses.", SPK[2])
+groups = [("unlock_group", "<0.5%", "Unlock <0.5%"), ("unlock_group", "0.5-2%", "Unlock 0.5–2%"),
+          ("unlock_group", "2-5%", "Unlock 2–5%"), ("unlock_group", ">5%", "Unlock >5%"), ("cliff_14d", "cliff in 14d", "Cliff ≤14d")]
+cd = CategoryChartData()
+cd.categories = [g[2] for g in groups]
+cd.add_series("Ridge", [round(eg(d, g, "delta_rmse|Ridge"), 4) for d, g, _ in groups])
+cd.add_series("Random Forest", [round(eg(d, g, "delta_rmse|RF"), 4) for d, g, _ in groups])
+gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.6), Inches(2.2), Inches(8.3), Inches(4.55), cd)
+ch = gf.chart; style_chart(ch)
+ch.value_axis.minimum_scale, ch.value_axis.maximum_scale = -0.008, 0.016
+ch.value_axis.major_unit = 0.004
+ch.value_axis.tick_labels.number_format = "+0.000;-0.000;0"; ch.value_axis.tick_labels.number_format_is_linked = False
+ch.category_axis.tick_label_position = XL_TICK_LABEL_POSITION.LOW
+pl = ch.plots[0]; pl.gap_width = 70
+for ser, col in zip(pl.series, (NAVY, FULL)):
+    ser.format.fill.solid(); ser.format.fill.fore_color.rgb = col; ser.invert_if_negative = False
+pl.has_data_labels = True; pl.data_labels.number_format = "+0.000;-0.000;0"; pl.data_labels.number_format_is_linked = False
+pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.size = Pt(11)
+text(s, 0.6, 1.8, 8.3, 0.4, "Change in test RMSE from adding unlock features (positive = worse), by 30-day unlock share of float",
+     size=14, bold=True)
+lvs = ERR_LV
+for i, (big, d, col) in enumerate([
+        (f"{100 * lvs.loc['Persistence', 'share_off_by_2x']:.0f}% → {100 * lvs.loc['Ridge CONTROLS', 'share_off_by_2x']:.0f}%",
+         "forecasts off by more than 2×: persistence vs Ridge. The real gain is fewer large misses", NAVY),
+        (f"{100 * (1 - lvs.loc['Ridge CONTROLS', 'share_big_miss_underforecast']):.0f}%",
+         "of remaining 2× misses are over-forecasts: volatility collapsed. The rest are spikes no feature sees", FULL)]):
+    text(s, 9.3, 1.9 + i * 2.35, 3.5, 0.7, big, size=32, bold=True, color=col, font=HEAD)
+    text(s, 9.3, 2.65 + i * 2.35, 3.4, 1.2, d, size=15, color=MUTED)
+
 # 10 ------------------------------------------------------------- inside models
 s = content("Inside the models, unlock features barely register", "Interpretation",
-            "Three independent views. Random Forest permutation importance: shuffling all controls costs three times "
-            "more test RMSE than shuffling all 13 emission features. Partial dependence on unlock pressure is nearly flat "
-            "in every BTC regime. Ridge picks very strong penalties and Elastic Net zeroes out every coefficient in two "
-            "folds, falling back to the training mean. The largest unlock coefficient, 90-day unlock share, is positive "
-            "as the narrative says, but five times smaller than trailing volatility.", SPK[2])
+            "We explain each model with the tool that suits it. Random Forest permutation importance: shuffling all "
+            "controls costs three times more test RMSE than shuffling all 13 emission features, and partial dependence "
+            "on unlock pressure is flat. Coefficients: the largest unlock coefficient is positive, as the narrative "
+            "says, but five times smaller than trailing volatility, and Elastic Net drops everything in two folds. A "
+            "shallow tree never splits on an unlock feature. Neighbours: for the most unlock-heavy token-day there is "
+            "no comparable history, so KNN falls back on trailing volatility.", SPK[2])
 cd = CategoryChartData()
 cd.categories = ["Controls (9)", "Emission (13)", "Static (10)"]
 cd.add_series("RMSE increase", [round(RFG["controls"], 3), round(RFG["emission"], 3), round(RFG["static"], 3)])
@@ -318,14 +359,15 @@ pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.siz
 text(s, 0.6, 1.8, 6.0, 0.4, "Random Forest: test-RMSE increase when a feature group is shuffled", size=14, bold=True)
 text(s, 0.6, 5.95, 6.0, 0.7, "Top 5 features are all controls: trailing 30d, 14d, 7d vol, 30d return, token age. Partial dependence on unlock pressure is flat across BTC regimes.",
      size=13, color=MUTED)
-for i, (big, h, d) in enumerate([("10\u2074\u201310\u2077", "Ridge penalty chosen", "Validation prefers heavy shrinkage toward the mean"),
-                                 ("2 of 5", "folds where Elastic Net drops every feature", "It keeps at most 5 of 13 emission features in any fold"),
-                                 ("+0.008", "largest unlock coefficient (90d share)", "vs +0.040 for trailing 30d vol, per s.d.")]):
+for i, (kind, h, d) in enumerate([
+        ("COEFFICIENTS", "Ridge / Elastic Net", "Largest unlock coefficient +0.008 vs +0.040 for trailing 30d vol; EN drops every feature in 2 of 5 folds"),
+        ("A TREE", "Depth-3 tree, all 32 features", "Splits only on trailing vol, BTC/ETH vol, token age and 30d return"),
+        ("NEIGHBOURS", "KNN, most unlock-heavy row", "104% of float unlocking; neighbours' median 12.5%. Forecast 0.78, realized 0.55")]):
     y = 1.85 + i * 1.62
-    box(s, 7.1, y, 5.6, 1.42, fill=TINT, name=f"Linear stat {i}")
-    text(s, 7.35, y + 0.2, 2.2, 1.0, big, size=28, bold=True, color=FULL if i == 1 else NAVY, font=HEAD, anchor=MSO_ANCHOR.MIDDLE)
-    text(s, 9.6, y + 0.22, 3.0, 0.5, h, size=15, bold=True)
-    text(s, 9.6, y + 0.78, 3.0, 0.6, d, size=13, color=MUTED)
+    box(s, 7.1, y, 5.6, 1.42, fill=TINT, name=f"Interpretation card {i}")
+    text(s, 7.35, y + 0.18, 5.1, 0.3, kind, size=11, bold=True, color=FULL)
+    text(s, 7.35, y + 0.45, 5.1, 0.4, h, size=15, bold=True)
+    text(s, 7.35, y + 0.82, 5.1, 0.6, d, size=13, color=MUTED)
 
 # 11 ------------------------------------------------------------- logistic
 s = content("Classification view: unlock features slightly hurt", "Result 3",
@@ -383,6 +425,31 @@ text(s, 11.3, 2.0, 1.6, 0.9, "+0.017", size=30, bold=True, color=FULL, font=HEAD
 text(s, 11.3, 2.75, 1.5, 1.6, "largest gain anywhere (RF, curated tokens)", size=14, color=MUTED)
 text(s, 11.3, 4.2, 1.6, 0.9, "0.15", size=30, bold=True, color=NAVY, font=HEAD)
 text(s, 11.3, 4.95, 1.5, 1.3, "typical fold-to-fold s.d. of R\u00b2oos", size=14, color=MUTED)
+
+# 12b ------------------------------------------------------------- practical relevance
+s = content("Is any improvement useful for the decision?", "Practical relevance",
+            "Translate the errors into volatility points. The typical error is large for every forecast, and on the "
+            "median the model is no better than persistence. What it does buy is fewer forecasts that are off by a factor "
+            "of two, which is what matters for margin and position limits. Unlock features add nothing to that and cost "
+            "a data subscription and a maintenance pipeline, so our recommendation to a risk desk is not to pay for them "
+            "as a volatility input, and to keep a human in the loop for the cases on the right.", SPK[2])
+stats_ = [(f"{lvs.loc['Ridge CONTROLS', 'median_abs_vol_error']:.2f}", "median absolute error, annualized-vol points "
+           f"({100 * lvs.loc['Ridge CONTROLS', 'median_abs_pct_error']:.0f}% of the level)"),
+          (f"{100 * lvs.loc['Ridge CONTROLS', 'share_within_25pct']:.0f}%", f"of forecasts within 25% of realized "
+           f"(persistence {100 * lvs.loc['Persistence', 'share_within_25pct']:.0f}%)"),
+          ("None", "useful gain from unlock features, at the cost of a data subscription and upkeep")]
+for i, (big, d) in enumerate(stats_):
+    y = 1.9 + i * 1.6
+    text(s, 0.6, y, 2.6, 0.9, big, size=40, bold=True, color=FULL if i == 2 else NAVY, font=HEAD)
+    text(s, 3.3, y + 0.15, 3.6, 1.2, d, size=15, color=MUTED)
+box(s, 7.3, 1.9, 5.4, 4.8, fill=TINT, name="Human review")
+text(s, 7.6, 2.1, 4.9, 0.5, "Still needs human review", size=20, bold=True, font=HEAD)
+for i, it in enumerate(["Tokens entering a spike (listings, delistings, hacks): the forecast is too low",
+                        "Tokens whose volatility is collapsing: most remaining 2× misses are over-forecasts",
+                        "New listings with under 30 days of history: the model cannot score them",
+                        "Regime shifts not seen in 2024–26 training data"]):
+    badge(s, 7.6, 2.8 + i * 0.95, str(i + 1), fill=NAVY, d=0.42, size=13)
+    text(s, 8.2, 2.8 + i * 0.95, 4.3, 0.9, it, size=15)
 
 # 13 ------------------------------------------------------------- conclusion (dark)
 s = prs.slides.add_slide(BLANK); bg(s, NAVY)
