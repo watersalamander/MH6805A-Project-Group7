@@ -188,7 +188,7 @@ para("MH6805 Machine Learning in Finance  |  Group 7  |  Final Report (DRAFT)", 
 t = doc.add_paragraph(); t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 add_runs(t, "Do Scheduled Token Unlocks Help Forecast Crypto Volatility?", size=TITLE, bold=True, color=INK)
 t.paragraph_format.space_after = Pt(2)
-para("Walk-forward evidence from 176 tokens and five machine-learning models", italic=True,
+para("Walk-forward evidence from 176 tokens and six machine-learning models", italic=True,
      align=WD_ALIGN_PARAGRAPH.CENTER, color=MUTED, after=4)
 para("[[Member 1 name, NTU email]]   [[Member 2 name, NTU email]]   [[Member 3 name, NTU email]]",
      align=WD_ALIGN_PARAGRAPH.CENTER, after=1)
@@ -197,11 +197,11 @@ para("Contribution of each member: see Table A3 in the appendix.", size=SMALL, i
 
 para("We ask whether a token's published unlock (emission) schedule adds forecasting power for its forward 14-day "
      "realized volatility beyond what trailing volatility and the market regime already explain. On a panel of "
-     "176 tokens over 2024-09 to 2026-08 (101,393 token-days) we run K-nearest neighbours, Random Forest, Ridge, "
-     "Elastic Net and logistic regression twice, once on nine control features and once on controls plus 23 emission "
+     "176 tokens over 2024-09 to 2026-08 (101,393 token-days) we run K-nearest neighbours, Random Forest, LightGBM, "
+     "Ridge, Elastic Net and logistic regression twice, once on nine control features and once on controls plus 23 emission "
      "and static features, under a five-fold walk-forward protocol with embargo. Every regressor beats both the "
-     f"persistence forecast and the pooled-mean baseline ({R2} of {m['knn']['CONTROLS']['r2_oos']:.2f} to "
-     f"{m['ridge']['CONTROLS']['r2_oos']:.2f} against persistence), but that gain comes from the controls. Adding the "
+     f"persistence forecast and the pooled-mean baseline ({R2} of {min(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} to "
+     f"{max(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} against persistence), but that gain comes from the controls. Adding the "
      f"unlock features changes {R2} by +0.001 to +0.006 on average, against a fold-to-fold standard deviation of "
      "about 0.15, and the sign of the change flips between folds. Error analysis shows that the unlock features do not "
      "help even where unlocks are largest, and the classification view shows a small loss in ROC-AUC. We conclude "
@@ -229,7 +229,7 @@ para("The question is about incremental value, not about whether a good volatili
      "difference is a valid result. Our objectives are:")
 bullets([
     "**O1.** Define the output Y and inputs X and build a leakage-free token-day panel in which every input is known at the close of day D.",
-    "**O2.** Forecast Y with four regression models (KNN, Random Forest, Ridge, Elastic Net) and compare them with two "
+    "**O2.** Forecast Y with five regression models (KNN, Random Forest, LightGBM, Ridge, Elastic Net) and compare them with two "
     "simple baselines on the same test cases.",
     "**O3.** Measure the incremental contribution of unlock features per model and per fold, check its stability, and "
     "find which mistakes remain.",
@@ -314,6 +314,11 @@ para("400 bootstrapped regression trees with random feature subsets (Breiman, 20
      "\u00d7 min_samples_leaf \u2208 {20, 50, 100} \u00d7 max_features \u2208 {sqrt, 0.33, 0.5}; daily runs evaluate a fixed "
      "seeded subset of 12 configurations for run time. Validation consistently chose large leaves (50 to 100 rows).",
      lead="Random Forest (RF). ")
+para("Gradient-boosted regression trees (Ke et al., 2017), each tree fit to the residuals of the previous ones. "
+     "Grid: n_estimators ∈ {200, 500} × learning_rate ∈ {0.02, 0.05} × num_leaves ∈ {7, 15} × "
+     "min_child_samples ∈ {100, 400} × reg_lambda ∈ {1, 10}, shifted toward strong regularization after a first grid "
+     "overfit the small weekly folds; daily runs evaluate a fixed seeded subset of 12 configurations. Validation chose "
+     "the slowest setting (learning rate 0.02, 200 trees) in nine of the ten daily runs.", lead="LightGBM. ")
 para("Linear regression with an L2 penalty (Hoerl and Kennard, 1970), a strong benchmark for correlated predictors "
      "such as the three trailing-volatility windows. Volatility controls are logged inside the pipeline (a fixed "
      "transform) and all features standardized. Grid: \u03b1 \u2208 {0.1, \u2026, 10^{7}}. **Elastic Net** adds an L1 "
@@ -341,16 +346,16 @@ table(["Model", f"{R2} CTRL", f"{R2} FULL", "\u0394", "FULL wins", "RMSE CTRL", 
       rows, [2.8, 1.8, 1.8, 1.4, 1.5, 1.9, 1.9, 1.6, 1.6],
       f"Table 3. Test-set results, daily panel, Y = log RV_{{14}}, mean of 5 folds. \u0394 = FULL \u2212 CONTROLS in "
       f"{R2}; \u201cFULL wins\u201d = folds with \u0394 > 0; \u03c1 = Spearman.")
-para("Table 3 and Figure 2 give the main result. **All four regressors beat both baselines** on the same test rows: "
-     f"{R2} is {m['knn']['CONTROLS']['r2_oos']:.2f} to {m['ridge']['CONTROLS']['r2_oos']:.2f} on controls alone, against "
+para("Table 3 and Figure 2 give the main result. **All five regressors beat both baselines** on the same test rows: "
+     f"{R2} is {min(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} to {max(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} on controls alone, against "
      f"{m['train_mean']['r2_oos']:.2f} for the training mean, and RMSE falls from {m['persistence']['rmse']:.3f} "
      f"(persistence) to about 0.443. Linear models are as good as non-linear ones: Ridge on controls "
      f"({m['ridge']['CONTROLS']['r2_oos']:.3f}) ties the Random Forest on all features ({m['rf']['FULL']['r2_oos']:.3f}). "
      "**Adding the 23 unlock and static features barely moves any model**: the mean \u0394 is +0.001 to +0.006, while "
      f"the fold-to-fold standard deviation of {R2} is {min(m[k]['CONTROLS']['r2_std'] for k in REG):.2f} to "
-     f"{max(m[k]['CONTROLS']['r2_std'] for k in REG):.2f}, and FULL wins in only two or three of five folds. Table 4 "
+     f"{max(m[k]['CONTROLS']['r2_std'] for k in REG):.2f}, and FULL wins in only one to three of five folds. Table 4 "
      "shows why the small averages are not a signal: for the Random Forest the gain is +0.031 and +0.030 in the two oldest "
-     "folds and negative in the three most recent ones (which are trained on the most data); KNN swings more; the linear "
+     "folds and negative in the three most recent ones (which are trained on the most data); KNN swings more, and LightGBM gains only in fold 2; the linear "
      "models keep the unlock coefficients near zero, so their |\u0394| stays below 0.008.")
 figure("compare_r2_oos.png", 15, f"Figure 2. {R2} against persistence, controls only (blue) vs FULL (orange); "
        "bars = \u00b11 s.d. across folds; dotted line = training-mean baseline.")
@@ -368,17 +373,18 @@ rows = []
 for d, g, lab in dims:
     rows.append([lab, f"{int(eg(d, g, 'n')):,}", f3(eg(d, g, "rmse|Persistence")), f3(eg(d, g, "rmse|Train mean")),
                  f3(eg(d, g, "rmse|Ridge CONTROLS")), f3(eg(d, g, "rmse|RF FULL")),
-                 sg(eg(d, g, "delta_rmse|Ridge")), sg(eg(d, g, "delta_rmse|RF"))])
-table(["Test rows", "n", "Persist.", "Train mean", "Ridge CTRL", "RF FULL", "\u0394 Ridge", "\u0394 RF"], rows,
-      [5.0, 1.6, 1.6, 1.8, 1.8, 1.6, 1.6, 1.6],
+                 sg(eg(d, g, "delta_rmse|Ridge")), sg(eg(d, g, "delta_rmse|RF")), sg(eg(d, g, "delta_rmse|LGBM"))])
+table(["Test rows", "n", "Persist.", "Train mean", "Ridge CTRL", "RF FULL", "Δ Ridge", "Δ RF", "Δ LGBM"], rows,
+      [4.4, 1.5, 1.5, 1.7, 1.7, 1.5, 1.5, 1.5, 1.6],
       "Table 5. Test RMSE by subgroup, all folds pooled (73,414 rows). \u0394 = RMSE(FULL) \u2212 RMSE(CONTROLS): "
       "negative means the unlock features help. *Grouped by the outcome, to describe errors only.")
 ri, rf_ = eg("unlock_group", ">5%", "delta_rmse|Ridge"), eg("unlock_group", ">5%", "delta_rmse|RF")
+lg_ = eg("unlock_group", ">5%", "delta_rmse|LGBM")
 lv = ERR_LV
 under = 1 - lv.loc["Ridge CONTROLS", "share_big_miss_underforecast"]
 para("Pooling the five test windows lets us ask where the errors are (Table 5, Figures A1\u2013A2). **The unlock features "
      "do not help where they should**: in the rows where more than 5% of the float unlocks within 30 days, adding them "
-     f"raises RMSE by {ri:+.3f} for Ridge and {rf_:+.3f} for the Random Forest, and they also hurt in the rows with a cliff "
+     f"raises RMSE by {ri:+.3f} for Ridge and {rf_:+.3f} for the Random Forest (LightGBM: {sg(lg_)}, no gain), and Ridge and RF are also worse in the rows with a cliff "
      "unlock in the next 14 days; their small gains come from rows with almost no unlocks, i.e. noise. The errors that "
      "remain are **regression to the mean**: every model forecasts too high for tokens that turn calm and too low for "
      "tokens that spike (bottom and top realized quintiles), while being accurate in the middle. The models' clearest gain "
@@ -402,6 +408,10 @@ para("Permutation importance on the last fold's test set (Figure A4) ranks trail
      "(Figure A5). An illustrative depth-3 tree on all 32 features (Figure A6) splits only on trailing volatility, BTC and "
      "ETH volatility, token age and the trailing return: no unlock feature makes the top three levels.",
      lead="Trees (Random Forest). ")
+para(f"Controls account for {pct(stats.LGBG['controls'])} of LightGBM's total split gain on the last fold, "
+     f"emission features for {pct(stats.LGBG['emission'])} and static features for {pct(stats.LGBG['static'])}; "
+     "the top three are ETH volatility, BTC volatility and trailing 30-day volatility, and the best emission feature "
+     "(30-day unlocks as a share of total supply) has 1% (Figure A11).", lead="Gain importance (LightGBM). ")
 para("For the most unlock-heavy test row (a token with 104% of its float unlocking within 30 days), the 250 nearest "
      "training rows have a median unlock share of only 12.5%: no comparable history exists, so the forecast (0.78) is "
      "driven by trailing volatility and overshoots the realized 0.55 (Figure A7). With 23 extra dimensions the "
@@ -428,20 +438,22 @@ doc.add_heading("5.5  Robustness", 2)
 W = WEEKLY
 para("On the **weekly panel**, which removes most overlap between rows, \u0394 is "
      f"{sg(W['rf']['delta'])} (RF), {sg(W['knn']['delta'])} (KNN), {sg(W['ridge']['delta'])} (Ridge) and "
-     f"{sg(W['enet']['delta'])} (Elastic Net); the Ridge gain comes almost entirely from fold 1 (+0.082). For "
+     f"{sg(W['enet']['delta'])} (Elastic Net) and {sg(W['lightgbm']['delta'])} (LightGBM); the Ridge gain comes almost entirely from fold 1 (+0.082). On this smaller panel LightGBM on controls falls just below the training mean ({W['lightgbm']['CONTROLS']['r2_oos']:.3f} vs {W['train_mean']['r2_oos']:.3f}), with a negative fold 1. For "
      "**alternative targets** (7-day, 30-day and Parkinson high-low 14-day volatility) the linear models' \u0394 stays "
-     "between +0.001 and +0.011, while the RF FULL model reaches "
+     "between +0.001 and +0.011 and LightGBM's between +0.002 and +0.017, while the RF FULL model reaches "
      f"{R2} of {TARGETS['log_rv_fwd_14d_parkinson']['rf']['FULL']['r2_oos']:.2f}, "
      f"{TARGETS['log_rv_fwd_7d']['rf']['FULL']['r2_oos']:.2f} and {TARGETS['log_rv_fwd_30d']['rf']['FULL']['r2_oos']:.2f}, "
      "so the pipeline and controls generalise. On the **hand-curated subsample** (where schedules should be cleanest) the "
      f"RF gap is the largest we observe, {sg(INTERNAL['rf']['delta'])}, still about a tenth of the fold spread "
-     f"({sg(INTERNAL['ridge']['delta'])} for Ridge, {sg(INTERNAL['enet']['delta'])} for Elastic Net). Full numbers are in Table A2.")
+     f"({sg(INTERNAL['lightgbm']['delta'])} for LightGBM, "
+     f"{sg(INTERNAL['ridge']['delta'])} for Ridge, {sg(INTERNAL['enet']['delta'])} for Elastic Net). Full numbers are in Table A2.")
 
 doc.add_heading("5.6  Model comparison and practical relevance", 2)
 para("For forecasting, **Ridge on the control features** is our recommended model: best or joint-best RMSE, the highest "
      "rank correlation, seconds to train and interpretable coefficients. The Random Forest is a close second and better on "
-     "the 30-day and Parkinson targets; Elastic Net confirms the feature-selection reading; KNN is weakest and sensitive "
-     "to the dimension of the feature space. For the research question the model does not matter: none extracts reliable "
+     "the 30-day and Parkinson targets; Elastic Net confirms the feature-selection reading. LightGBM, despite boosting, is the weakest daily "
+     "regressor: validation picked its slowest, most regularized settings, a sign that there is little structure to "
+     "boost beyond persistence and mean reversion. KNN is next and sensitive to the dimension of the feature space. For the research question the model does not matter: none extracts reliable "
      "incremental information from unlock schedules.", lead="Comparison. ")
 para("In volatility units the typical error is large for every forecast: the median absolute error is about "
      f"{lv.loc['Ridge CONTROLS', 'median_abs_vol_error']:.2f} annualized-volatility points "
@@ -458,7 +470,7 @@ para("In volatility units the typical error is large for every forecast: the med
 # ---------------------------------------------------------------- 6 conclusion
 doc.add_heading("6  Discussion and Conclusion", 1)
 para("Once trailing volatility and the market regime are controlled for, scheduled token unlocks do not add reliable "
-     "forecasting power for 14-day forward realized volatility in this panel. Five model families agree, the average gain "
+     "forecasting power for 14-day forward realized volatility in this panel. Six models agree, the average gain "
      "is tiny relative to fold-to-fold variation, its sign is unstable, the unlock features hurt where unlocks are "
      "largest, and the classification view shows a small loss. Settings were chosen on validation data and the test "
      "results were reported without changing the models in response.", lead="Answer. ")
@@ -486,6 +498,7 @@ refs = [
     "Corsi, F. (2009). A simple approximate long-memory model of realized volatility. Journal of Financial Econometrics, 7(2), 174\u2013196.",
     "Fama, E. F. (1970). Efficient capital markets: A review of theory and empirical work. Journal of Finance, 25(2), 383\u2013417.",
     "Hoerl, A. E., and Kennard, R. W. (1970). Ridge regression: Biased estimation for nonorthogonal problems. Technometrics, 12(1), 55\u201367.",
+    "Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., and Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. Advances in Neural Information Processing Systems, 30.",
     "L\u00f3pez de Prado, M. (2018). Advances in Financial Machine Learning. Wiley.",
     "Parkinson, M. (1980). The extreme value method for estimating the variance of the rate of return. Journal of Business, 53(1), 61\u201365.",
     "Pedregosa, F., et al. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825\u20132830.",
@@ -554,6 +567,7 @@ figure("knn_neighbour_illustration.png", 15, "Figure A7. KNN: the most unlock-he
 figure("logistic_auc.png", 15, "Figure A8. Logistic regression test ROC-AUC, controls vs FULL; dashed = rank by trailing 14d volatility.")
 figure("knn_val_rmse_vs_k.png", 12, "Figure A9. KNN validation RMSE against k (mean over folds), by feature set.")
 figure("eda_correlation_heatmap.png", 13, "Figure A10. Spearman correlations between target, controls and emission features.")
+figure("lgbm_importance.png", 13, "Figure A11. LightGBM (FULL, last fold): share of total split gain by feature, coloured by feature group.")
 para("Code and data: the full pipeline is in MH6805_token_unlock_volatility.ipynb (repository "
      "github.com/watersalamander/MH6805A-Project-Group7), with per-fold results in results/ and figures in figures/.",
      size=SMALL, align=WD_ALIGN_PARAGRAPH.LEFT)

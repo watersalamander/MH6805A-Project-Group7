@@ -3,8 +3,8 @@ import json
 import pandas as pd
 
 ROOT = "D:/ML-project"
-REG = ["knn", "rf", "ridge", "enet"]
-NAMES = {"knn": "KNN", "rf": "Random Forest", "ridge": "Ridge", "enet": "Elastic Net",
+REG = ["knn", "rf", "lightgbm", "ridge", "enet"]
+NAMES = {"knn": "KNN", "rf": "Random Forest", "lightgbm": "LightGBM", "ridge": "Ridge", "enet": "Elastic Net",
          "persistence": "Persistence", "train_mean": "Train mean"}
 
 
@@ -69,6 +69,7 @@ TARGETS = {t: summary(D, target=t) for t in ["log_rv_fwd_7d", "log_rv_fwd_30d", 
 FOLDS = folds(D)
 LOGIT = logistic()
 RFG, RFIMP = rf_groups()
+LGBG = pd.read_csv(f"{ROOT}/results/lgbm_importance.csv").groupby("group").gain_share.sum().to_dict()
 
 
 def errors():
