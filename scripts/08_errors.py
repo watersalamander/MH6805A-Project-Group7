@@ -1,5 +1,5 @@
-"""Step 8 - Error analysis and practical relevance. Run from the repo root:
-    python scripts/07_errors.py
+"""Step 9 - Error analysis and practical relevance. Run from the repo root:
+    python scripts/08_errors.py
 Reads the saved test-set predictions of the main daily runs (no refitting of
 the four regressors), so it takes about a minute. Writes
 results/error_by_group.csv, results/error_level_summary.csv,
@@ -36,6 +36,7 @@ RUNS = {  # label -> (model, feature set)
     "RF CONTROLS": ("rf", "CONTROLS"), "RF FULL": ("rf", "FULL"),
     "KNN CONTROLS": ("knn", "CONTROLS"), "KNN FULL": ("knn", "FULL"),
     "EN CONTROLS": ("enet", "CONTROLS"), "EN FULL": ("enet", "FULL"),
+    "LGBM CONTROLS": ("lightgbm", "CONTROLS"), "LGBM FULL": ("lightgbm", "FULL"),
 }
 SHOW = ["Persistence", "Train mean", "Ridge CONTROLS", "RF CONTROLS", "RF FULL"]
 BIG_MISS = np.log(2.0)   # forecast off by more than a factor of 2
@@ -82,7 +83,7 @@ def group_table(t: pd.DataFrame) -> pd.DataFrame:
                 err = sub["y"] - sub[lab]
                 r[f"rmse|{lab}"] = float(np.sqrt(np.mean(err ** 2)))
                 r[f"bias|{lab}"] = float(np.mean(err))   # >0: forecast too low
-            for m in ["Ridge", "RF", "KNN", "EN"]:
+            for m in ["Ridge", "RF", "KNN", "EN", "LGBM"]:
                 r[f"delta_rmse|{m}"] = r[f"rmse|{m} FULL"] - r[f"rmse|{m} CONTROLS"]
             recs.append(r)
     return pd.DataFrame(recs)
@@ -208,7 +209,7 @@ def main() -> None:
     bm.to_csv(C.RESULTS_DIR / "error_big_misses.csv", index=False)
 
     pd.set_option("display.width", 200)
-    cols = ["dimension", "group", "n"] + [f"rmse|{s}" for s in SHOW] + ["delta_rmse|Ridge", "delta_rmse|RF"]
+    cols = ["dimension", "group", "n"] + [f"rmse|{s}" for s in SHOW] + ["delta_rmse|Ridge", "delta_rmse|RF", "delta_rmse|LGBM"]
     print(g[cols].round(4).to_string(index=False))
     print(lv.round(3).to_string(index=False))
     print(bm.round(3).to_string(index=False))
