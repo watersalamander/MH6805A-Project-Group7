@@ -528,5 +528,27 @@ if os.environ.get("FULL_DECK") != "1":
         for sh in sl.shapes:
             if sh.name == "Slide number":
                 sh.text_frame.paragraphs[0].runs[0].text = str(n)
+
+    # speaker notes = the spoken script, so slides and script never drift apart
+    import re
+    script = open(ROOT + "/report/PRESENTATION_SCRIPT.md", encoding="utf-8").read()
+    lines = re.findall(r"## Slide (\d+) \((Member \d), ~(\d+) s\)\nTitle: [^\n]*\n\n(.*?)(?=\n## |\n---)", script, re.S)
+    assert len(lines) == len(prs.slides), f"script has {len(lines)} slides, deck has {len(prs.slides)}"
+    for (n, who, sec, body), sl in zip(lines, prs.slides):
+        paras = []
+        for para in re.sub(r"\*([^*]+)\*", r"\1", body.strip()).split("\n\n"):
+            out = []
+            for ln in para.split("\n"):
+                if ln.startswith("- "):                      # bullet
+                    out.append("• " + ln[2:])
+                elif ln.startswith("  ") and out:            # bullet continuation
+                    out[-1] += " " + ln.strip()
+                elif out and not out[-1].startswith("•"):  # wrapped prose line
+                    out[-1] += " " + ln
+                else:
+                    out.append(ln)
+            paras.append("\n".join(out))
+        spoken = "\n\n".join(paras)
+        sl.notes_slide.notes_text_frame.text = f"Speaker: [{who}]  (~{sec} s)\n\n{spoken}"
 prs.save(OUT)
 print("saved", OUT, len(prs.slides))
