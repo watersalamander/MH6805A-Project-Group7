@@ -136,8 +136,10 @@ text(s, 0.6, 6.25, 12.1, 0.5, [[("Our question: ", {"bold": True}), ("does the u
      ("beyond", {"bold": True, "color": FULL}), (" volatility persistence and the market regime?", {})]], size=18)
 
 # 3 ------------------------------------------------------------- design
-s = content("One paired comparison answers the question", "Research design",
-            "Every model is trained twice with the same rows, folds and tuning grid: once on the nine controls and "
+s = content("Do unlocks add anything beyond persistence?", "Question and design",
+            "Motivation: most token supply is locked at launch and released on a published schedule, and traders treat "
+            "big unlocks as volatility events. The schedule is public in advance, so it is a legitimate forward-looking "
+            "input, but volatility is very persistent, so the bar is high. Design: every model is trained twice with the same rows, folds and tuning grid: once on the nine controls and "
             "once with the 23 unlock and static features added. The difference in out-of-sample R squared is the "
             "finding. We decided up front that a null result is a valid result and we did not tune to change it.", SPK[0])
 box(s, 0.6, 2.0, 3.9, 3.7, fill=RGBColor(0xE6, 0xF0, 0xFB), name="Controls card")
@@ -153,8 +155,7 @@ arrow.fill.solid(); arrow.fill.fore_color.rgb = NAVY; arrow.line.fill.background
 box(s, 9.75, 2.0, 3.0, 3.7, fill=NAVY, name="Delta card")
 text(s, 9.75, 2.4, 3.0, 1.0, "\u0394 R\u00b2", size=48, bold=True, color=WHITE, font=HEAD, align=PP_ALIGN.CENTER)
 text(s, 10.0, 3.6, 2.5, 1.8, "FULL minus CONTROLS, per fold, same model, same data", size=15, color=ICE, align=PP_ALIGN.CENTER)
-text(s, 0.6, 6.05, 12.1, 0.6, "Target: log of annualized realized volatility over the next 14 days. Metric: R\u00b2 out-of-sample vs the "
-     "persistence forecast (0 = ties \u201cnext 14 days look like the last 14\u201d).", size=15, color=MUTED)
+text(s, 0.6, 6.05, 12.1, 0.6, "Why ask: traders treat big unlocks as volatility events, and the schedule is public in advance. Y = log forward 14-day realized volatility; metric = out-of-sample R² vs the persistence forecast.", size=15, color=MUTED)
 
 # 4 ------------------------------------------------------------- data
 s = content("A daily panel of 176 tokens over two years", "Dataset",
@@ -177,18 +178,24 @@ text(s, 0.9, 5.55, 11.5, 1.0, [[("Prices: ", {"bold": True}), ("Binance spot dai
      [("Weekly panel (14,623 rows) used as a robustness check because daily 14-day targets overlap.", {"color": MUTED})]], size=15, spacing=6)
 
 # 5 ------------------------------------------------------------- EDA
-s = content("In the raw data, volatility does rise with unlocks", "Exploratory analysis",
-            "This is the hook: unconditionally, there is a relationship. Forward volatility climbs from about 0.97 in the "
+s = content("In the raw data, volatility does rise with unlocks", "Data and first look",
+            "Data first: 176 tokens, one row per token per day from September 2024 to August 2026, prices from Binance "
+            "and unlock schedules from Tokenomist; every feature is known at the close of the day. Then the hook: "
+            "unconditionally, there is a relationship. Forward volatility climbs from about 0.97 in the "
             "lowest unlock decile to 1.14 in the highest, and the correlation is positive for three quarters of tokens. "
             "But heavy-unlock tokens are young, small and already volatile, so the question is whether this survives "
             "once trailing volatility is in the model.", SPK[0])
-s.shapes.add_picture(FIG + "eda_decile_emission_vs_rv.png", Inches(0.6), Inches(1.75), height=Inches(5.0))
+s.shapes.add_picture(FIG + "eda_decile_emission_vs_rv.png", Inches(0.6), Inches(2.45), height=Inches(4.3))
+box(s, 0.6, 1.7, 12.1, 0.55, fill=TINT, name="Data strip")
+text(s, 0.85, 1.7, 11.7, 0.55, [[("176 tokens", {"bold": True}), ("  ·  101,393 token-days, 2024-09-14 to 2026-08-15  ·  ", {}),
+     ("prices: ", {"bold": True}), ("Binance daily klines  ·  ", {}), ("unlocks: ", {"bold": True}),
+     ("Tokenomist schedules  ·  32 features", {})]], size=14, anchor=MSO_ANCHOR.MIDDLE)
 for i, (big, d) in enumerate([("0.14", "pooled Spearman \u03c1 between 30-day unlock pressure and forward volatility"),
                               ("74%", "of tokens show a positive correlation (per-token median \u03c1 = 0.22)")]):
-    text(s, 8.7, 1.9 + i * 1.65, 4.0, 0.8, big, size=44, bold=True, color=NAVY, font=HEAD)
-    text(s, 8.7, 2.75 + i * 1.65, 4.0, 0.8, d, size=15, color=MUTED)
-box(s, 8.7, 5.3, 4.0, 1.4, fill=RGBColor(0xFD, 0xEC, 0xE4), name="But")
-text(s, 8.95, 5.45, 3.5, 1.15, [[("But: ", {"bold": True, "color": FULL}), ("heavy-unlock tokens are young and already volatile. Is this just persistence in disguise?", {})]], size=15)
+    text(s, 8.7, 2.5 + i * 1.5, 4.0, 0.8, big, size=40, bold=True, color=NAVY, font=HEAD)
+    text(s, 8.7, 3.25 + i * 1.5, 4.0, 0.8, d, size=14, color=MUTED)
+box(s, 8.7, 5.55, 4.0, 1.2, fill=RGBColor(0xFD, 0xEC, 0xE4), name="But")
+text(s, 8.95, 5.65, 3.5, 1.0, [[("But: ", {"bold": True, "color": FULL}), ("heavy-unlock tokens are young and already volatile. Is this just persistence in disguise?", {})]], size=15)
 
 # 6 ------------------------------------------------------------- protocol
 s = content("Walk-forward validation: never shuffle, never peek", "Protocol",
@@ -302,7 +309,8 @@ s = content("Inside the models, unlock features barely register", "Interpretatio
             "on unlock pressure is flat. Coefficients: the largest unlock coefficient is positive, as the narrative "
             "says, but five times smaller than trailing volatility, and Elastic Net drops everything in two folds. A "
             "shallow tree never splits on an unlock feature. Neighbours: for the most unlock-heavy token-day there is "
-            "no comparable history, so KNN falls back on trailing volatility.", SPK[1])
+            "no comparable history, so KNN falls back on trailing volatility. Hand over: on average the answer is no; "
+            "[Member 3] shows where the remaining errors are and whether any of this matters in practice.", SPK[1])
 cd = CategoryChartData()
 cd.categories = ["Controls (9)", "Emission (13)", "Static (10)"]
 cd.add_series("RMSE increase", [round(RFG["controls"], 3), round(RFG["emission"], 3), round(RFG["static"], 3)])
@@ -400,12 +408,14 @@ for i, (big, d, col) in enumerate([
     text(s, 9.3, 2.65 + i * 2.35, 3.4, 1.2, d, size=15, color=MUTED)
 
 # 12 ------------------------------------------------------------- robustness
-s = content("The null result survives every robustness check", "Robustness",
+s = content("The null result survives every robustness check", "Robustness and classification",
             "We re-ran the comparison on the weekly panel, on three alternative volatility targets and on the tokens "
             "Tokenomist curates by hand, where schedules should be most accurate. The largest gain anywhere is +0.017, "
             "for the Random Forest on the curated subsample, still about a tenth of the fold-to-fold spread. Ridge on "
             "the Parkinson target is the only case that wins all five folds, by 0.011. LightGBM shows the same picture, "
-            "and on the small weekly panel it falls just below the training mean.", SPK[2])
+            "and on the small weekly panel it falls just below the training mean. Classification tells the same story: "
+            "logistic regression on controls beats ranking by recent volatility (AUC 0.69 vs 0.65), and adding unlock "
+            "features lowers AUC for both high-volatility events.", SPK[2])
 rows = [("Specification", "KNN", "Random Forest", "LightGBM", "Ridge", "Elastic Net")]
 fmt = lambda d, k: f"{d[k]['delta']:+.3f}" if k in d and "delta" in d[k] else "\u2013"
 rows.append(("Daily panel (main)",) + tuple(fmt(M, k) for k in REG))
@@ -425,10 +435,11 @@ for i, row in enumerate(rows):
         r.font.bold = i == 0; r.font.color.rgb = WHITE if i == 0 else INK
         cell.vertical_anchor = MSO_ANCHOR.MIDDLE
 text(s, 0.6, 6.5, 10.5, 0.4, "Cells: mean \u0394 R\u00b2oos (FULL \u2212 CONTROLS) over 5 folds.  \u2013 = controls-only run not done for that specification.", size=12, color=MUTED)
-text(s, 11.3, 2.0, 1.6, 0.9, "+0.017", size=30, bold=True, color=FULL, font=HEAD)
-text(s, 11.3, 2.75, 1.5, 1.6, "largest gain anywhere (RF curated; LightGBM 30d vol)", size=14, color=MUTED)
-text(s, 11.3, 4.2, 1.6, 0.9, "0.15", size=30, bold=True, color=NAVY, font=HEAD)
-text(s, 11.3, 4.95, 1.5, 1.3, "typical fold-to-fold s.d. of R\u00b2oos", size=14, color=MUTED)
+text(s, 11.1, 2.0, 1.9, 0.9, "+0.017", size=30, bold=True, color=FULL, font=HEAD)
+text(s, 11.1, 2.75, 1.8, 1.4, "largest gain anywhere (RF curated; LightGBM 30d vol)", size=14, color=MUTED)
+dauc = [LOGIT.loc[(e, "daily", "FULL")].auc - LOGIT.loc[(e, "daily", "CONTROLS")].auc for e in ("top20_xs", "spike_1.5x")]
+text(s, 11.1, 4.2, 1.9, 0.9, f"{dauc[0]:+.3f}", size=30, bold=True, color=NAVY, font=HEAD)
+text(s, 11.1, 4.95, 1.8, 1.5, f"logistic AUC change from unlocks: top-20% event (spike: {dauc[1]:+.3f})", size=14, color=MUTED)
 
 # 12b ------------------------------------------------------------- practical relevance
 s = content("Is any improvement useful for the decision?", "Practical relevance",
@@ -468,11 +479,13 @@ for i, (n, h, d) in enumerate(pts):
     badge(s, x, y, n, fill=FULL, d=0.6, size=18)
     text(s, x + 0.85, y - 0.02, 5.0, 0.5, h, size=20, bold=True, color=WHITE, font=HEAD)
     text(s, x + 0.85, y + 0.55, 5.0, 1.3, d, size=16, color=ICE)
-text(s, 0.6, 6.55, 12, 0.4, "A null result is a valid result: nothing was tuned to make it disappear.", size=16, color=ICE)
+text(s, 0.6, 6.55, 12, 0.4, "Limits: one 2024–26 regime; schedules as curated in Sept 2026, so revisions are back-filled.   Thank you. Questions?", size=16, color=ICE)
 s.notes_slide.notes_text_frame.text = ("Speaker: [Member 3]\n\nState the answer plainly: once you know a token's recent "
     "volatility and the market regime, its unlock calendar does not help forecast the next two weeks. Give the "
     "interpretation: the unconditional correlation comes from young, volatile tokens having big unlocks. Practical "
-    "takeaway: do not bump a volatility forecast just because an unlock is coming.")
+    "takeaway: do not bump a volatility forecast just because an unlock is coming. Limitations in one breath: one "
+    "calm-to-moderate regime, and back-filled schedule revisions, which can only flatter the unlock features. Then "
+    "invite questions; each member takes questions on their own block.")
 
 # 14 ------------------------------------------------------------- limits & next
 s = content("Limitations and next steps", "Discussion",
@@ -503,5 +516,17 @@ text(s, 0.8, 4.6, 11.5, 0.4, "CONTRIBUTIONS", size=12, color=FULL, bold=True)
 text(s, 0.8, 5.0, 11.5, 1.4, [[("[Member 1]: [part / %]     [Member 2]: [part / %]     [Member 3]: [part / %]", {"color": RGBColor(0xFF, 0x9F, 0x80), "bold": True})]], size=16)
 s.notes_slide.notes_text_frame.text = "All members: take questions. Each member should be ready to answer on the model they built."
 
+import os
+if os.environ.get("FULL_DECK") != "1":
+    DROP = ("Unlocks are widely watched as volatility events", "A daily panel of 176 tokens over two years",
+            "Classification view: unlock features slightly hurt", "Limitations and next steps", "Thank you. Questions?")
+    ids = prs.slides._sldIdLst
+    for sl, sid in reversed(list(zip(prs.slides, list(ids)))):
+        if any(sh.has_text_frame and sh.text_frame.text in DROP for sh in sl.shapes):
+            prs.part.drop_rel(sid.rId); ids.remove(sid)
+    for n, sl in enumerate(prs.slides, 1):
+        for sh in sl.shapes:
+            if sh.name == "Slide number":
+                sh.text_frame.paragraphs[0].runs[0].text = str(n)
 prs.save(OUT)
 print("saved", OUT, len(prs.slides))
