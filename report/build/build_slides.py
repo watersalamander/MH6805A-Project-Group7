@@ -195,7 +195,7 @@ s = content("Walk-forward validation: never shuffle, never peek", "Protocol",
             "Five folds cut by calendar date, all tokens pooled. Training expands; a 30-day embargo separates train from "
             "test because the target looks 14 days ahead. Inside each fold the last 90 days of training are the "
             "validation slice used for tuning; the winner is refit on all training data and scored once on the next "
-            "90 days. Scalers live inside the sklearn pipeline, so nothing is fit on test data.", SPK[1])
+            "90 days. Scalers live inside the sklearn pipeline, so nothing is fit on test data. Hand over: with the protocol fixed, [Member 2] shows what six models do under it.", SPK[0])
 import datetime as dt
 t0, t1 = dt.date(2024, 9, 14), dt.date(2026, 8, 15)
 X0, XW = 2.0, 10.6
@@ -295,6 +295,70 @@ for i, (big, d, col) in enumerate([("1–2 of 5", "folds where FULL beats CONTRO
     text(s, 9.3, 3.0 + i * 1.75, 3.5, 0.7, big, size=36, bold=True, color=col, font=HEAD)
     text(s, 9.3, 3.75 + i * 1.75, 3.4, 0.9, d, size=15, color=MUTED)
 
+# 10 ------------------------------------------------------------- inside models
+s = content("Inside the models, unlock features barely register", "Interpretation",
+            "We explain each model with the tool that suits it. Random Forest permutation importance: shuffling all "
+            "controls costs three times more test RMSE than shuffling all 13 emission features, and partial dependence "
+            "on unlock pressure is flat. Coefficients: the largest unlock coefficient is positive, as the narrative "
+            "says, but five times smaller than trailing volatility, and Elastic Net drops everything in two folds. A "
+            "shallow tree never splits on an unlock feature. Neighbours: for the most unlock-heavy token-day there is "
+            "no comparable history, so KNN falls back on trailing volatility.", SPK[1])
+cd = CategoryChartData()
+cd.categories = ["Controls (9)", "Emission (13)", "Static (10)"]
+cd.add_series("RMSE increase", [round(RFG["controls"], 3), round(RFG["emission"], 3), round(RFG["static"], 3)])
+gf = s.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Inches(0.6), Inches(2.25), Inches(6.0), Inches(3.6), cd)
+ch = gf.chart; style_chart(ch, legend=False); ch.has_title = False
+ch.value_axis.minimum_scale = 0; ch.value_axis.maximum_scale = 0.036
+ch.value_axis.tick_labels.number_format = "0.000"; ch.value_axis.tick_labels.number_format_is_linked = False
+ch.category_axis.reverse_order = True
+from pptx.enum.chart import XL_TICK_LABEL_POSITION as TLP
+pl = ch.plots[0]; pl.gap_width = 55; pl.vary_by_categories = False
+pl.series[0].format.fill.solid(); pl.series[0].format.fill.fore_color.rgb = NAVY
+for idx, col in ((1, FULL), (2, RGBColor(0x9A, 0xA3, 0xB2))):
+    pt = pl.series[0].points[idx]; pt.format.fill.solid(); pt.format.fill.fore_color.rgb = col
+pl.has_data_labels = True; pl.data_labels.number_format = "0.000"; pl.data_labels.number_format_is_linked = False
+pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.size = Pt(12)
+text(s, 0.6, 1.8, 6.0, 0.4, "Random Forest: test-RMSE increase when a feature group is shuffled", size=14, bold=True)
+text(s, 0.6, 5.95, 6.0, 0.7, f"Top 5 RF features are all controls; partial dependence on unlock pressure is flat. LightGBM: controls take {100 * LGBG['controls']:.0f}% of split gain, emission {100 * LGBG['emission']:.0f}%.",
+     size=13, color=MUTED)
+for i, (kind, h, d) in enumerate([
+        ("COEFFICIENTS", "Ridge / Elastic Net", "Largest unlock coefficient +0.008 vs +0.040 for trailing 30d vol; EN drops every feature in 2 of 5 folds"),
+        ("A TREE", "Depth-3 tree, all 32 features", "Splits only on trailing vol, BTC/ETH vol, token age and 30d return"),
+        ("NEIGHBOURS", "KNN, most unlock-heavy row", "104% of float unlocking; neighbours' median 12.5%. Forecast 0.78, realized 0.55")]):
+    y = 1.85 + i * 1.62
+    box(s, 7.1, y, 5.6, 1.42, fill=TINT, name=f"Interpretation card {i}")
+    text(s, 7.35, y + 0.18, 5.1, 0.3, kind, size=11, bold=True, color=FULL)
+    text(s, 7.35, y + 0.45, 5.1, 0.4, h, size=15, bold=True)
+    text(s, 7.35, y + 0.82, 5.1, 0.6, d, size=13, color=MUTED)
+
+# 11 ------------------------------------------------------------- logistic
+s = content("Classification view: unlock features slightly hurt", "Result 3",
+            "Same question as classification. The model on controls does pick out high-volatility tokens better than just "
+            "ranking by recent volatility, AUC 0.69 against 0.65. Adding unlock features lowers AUC, PR-AUC and the "
+            "Brier skill score for both events, on both panels. Hand over: on average the answer is no; [Member 3] shows where the "
+            "remaining errors are and whether any of this matters in practice.", SPK[1])
+L = LOGIT
+rows = [("Event", "Base rate", "Naive AUC", "AUC controls", "AUC + unlocks", "\u0394 AUC")]
+for lab, name, br in (("top20_xs", "Top 20% most volatile tokens on the date", "20%"), ("spike_1.5x", "Vol jumps above 1.5\u00d7 own 30d level", "14%")):
+    c, f = L.loc[(lab, "daily", "CONTROLS")], L.loc[(lab, "daily", "FULL")]
+    nv = f"{L.loc[(lab, 'daily', 'NONE')]['auc']:.3f}" if (lab, "daily", "NONE") in L.index else "\u2013"
+    rows.append((name, br, nv, f"{c.auc:.3f}", f"{f.auc:.3f}", f"{f.auc - c.auc:+.3f}"))
+widths = [4.6, 1.4, 1.5, 1.6, 1.6, 1.4]
+tbl = s.shapes.add_table(len(rows), len(widths), Inches(0.6), Inches(2.0), Inches(sum(widths)), Inches(2.1)).table
+for j, wd in enumerate(widths): tbl.columns[j].width = Inches(wd)
+for i, row in enumerate(rows):
+    for j, v in enumerate(row):
+        cell = tbl.cell(i, j); cell.text = ""
+        cell.fill.solid(); cell.fill.fore_color.rgb = NAVY if i == 0 else (TINT if i % 2 == 0 else WHITE)
+        p = cell.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.LEFT if j == 0 else PP_ALIGN.CENTER
+        r = p.add_run(); r.text = v; r.font.size = Pt(15); r.font.name = BODY
+        r.font.bold = i == 0 or j == 5; r.font.color.rgb = WHITE if i == 0 else (FULL if j == 5 else INK)
+        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+s.shapes.add_picture(FIG + "logistic_auc.png", Inches(0.6), Inches(4.35), height=Inches(2.45))
+box(s, 7.3, 4.45, 5.4, 1.75, fill=TINT, name="Logistic takeaway")
+text(s, 7.6, 4.65, 4.9, 1.9, [[("Daily panel, mean of 5 folds. ", {"bold": True}),
+     ("PR-AUC and Brier skill fall too, on both panels. Unlock schedules do not help pick the most volatile tokens, nor anticipate a token's own volatility jump.", {})]], size=15)
+
 # 9b ------------------------------------------------------------- which mistakes remain
 def eg(dim, group, col):
     r = ERR_G[(ERR_G.dimension == dim) & (ERR_G.group == group)]
@@ -334,69 +398,6 @@ for i, (big, d, col) in enumerate([
          "of remaining 2× misses are over-forecasts: volatility collapsed. The rest are spikes no feature sees", FULL)]):
     text(s, 9.3, 1.9 + i * 2.35, 3.5, 0.7, big, size=32, bold=True, color=col, font=HEAD)
     text(s, 9.3, 2.65 + i * 2.35, 3.4, 1.2, d, size=15, color=MUTED)
-
-# 10 ------------------------------------------------------------- inside models
-s = content("Inside the models, unlock features barely register", "Interpretation",
-            "We explain each model with the tool that suits it. Random Forest permutation importance: shuffling all "
-            "controls costs three times more test RMSE than shuffling all 13 emission features, and partial dependence "
-            "on unlock pressure is flat. Coefficients: the largest unlock coefficient is positive, as the narrative "
-            "says, but five times smaller than trailing volatility, and Elastic Net drops everything in two folds. A "
-            "shallow tree never splits on an unlock feature. Neighbours: for the most unlock-heavy token-day there is "
-            "no comparable history, so KNN falls back on trailing volatility.", SPK[2])
-cd = CategoryChartData()
-cd.categories = ["Controls (9)", "Emission (13)", "Static (10)"]
-cd.add_series("RMSE increase", [round(RFG["controls"], 3), round(RFG["emission"], 3), round(RFG["static"], 3)])
-gf = s.shapes.add_chart(XL_CHART_TYPE.BAR_CLUSTERED, Inches(0.6), Inches(2.25), Inches(6.0), Inches(3.6), cd)
-ch = gf.chart; style_chart(ch, legend=False); ch.has_title = False
-ch.value_axis.minimum_scale = 0; ch.value_axis.maximum_scale = 0.036
-ch.value_axis.tick_labels.number_format = "0.000"; ch.value_axis.tick_labels.number_format_is_linked = False
-ch.category_axis.reverse_order = True
-from pptx.enum.chart import XL_TICK_LABEL_POSITION as TLP
-pl = ch.plots[0]; pl.gap_width = 55; pl.vary_by_categories = False
-pl.series[0].format.fill.solid(); pl.series[0].format.fill.fore_color.rgb = NAVY
-for idx, col in ((1, FULL), (2, RGBColor(0x9A, 0xA3, 0xB2))):
-    pt = pl.series[0].points[idx]; pt.format.fill.solid(); pt.format.fill.fore_color.rgb = col
-pl.has_data_labels = True; pl.data_labels.number_format = "0.000"; pl.data_labels.number_format_is_linked = False
-pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.size = Pt(12)
-text(s, 0.6, 1.8, 6.0, 0.4, "Random Forest: test-RMSE increase when a feature group is shuffled", size=14, bold=True)
-text(s, 0.6, 5.95, 6.0, 0.7, f"Top 5 RF features are all controls; partial dependence on unlock pressure is flat. LightGBM: controls take {100 * LGBG['controls']:.0f}% of split gain, emission {100 * LGBG['emission']:.0f}%.",
-     size=13, color=MUTED)
-for i, (kind, h, d) in enumerate([
-        ("COEFFICIENTS", "Ridge / Elastic Net", "Largest unlock coefficient +0.008 vs +0.040 for trailing 30d vol; EN drops every feature in 2 of 5 folds"),
-        ("A TREE", "Depth-3 tree, all 32 features", "Splits only on trailing vol, BTC/ETH vol, token age and 30d return"),
-        ("NEIGHBOURS", "KNN, most unlock-heavy row", "104% of float unlocking; neighbours' median 12.5%. Forecast 0.78, realized 0.55")]):
-    y = 1.85 + i * 1.62
-    box(s, 7.1, y, 5.6, 1.42, fill=TINT, name=f"Interpretation card {i}")
-    text(s, 7.35, y + 0.18, 5.1, 0.3, kind, size=11, bold=True, color=FULL)
-    text(s, 7.35, y + 0.45, 5.1, 0.4, h, size=15, bold=True)
-    text(s, 7.35, y + 0.82, 5.1, 0.6, d, size=13, color=MUTED)
-
-# 11 ------------------------------------------------------------- logistic
-s = content("Classification view: unlock features slightly hurt", "Result 3",
-            "Same question as classification. The model on controls does pick out high-volatility tokens better than just "
-            "ranking by recent volatility, AUC 0.69 against 0.65. Adding unlock features lowers AUC, PR-AUC and the "
-            "Brier skill score for both events, on both panels.", SPK[2])
-L = LOGIT
-rows = [("Event", "Base rate", "Naive AUC", "AUC controls", "AUC + unlocks", "\u0394 AUC")]
-for lab, name, br in (("top20_xs", "Top 20% most volatile tokens on the date", "20%"), ("spike_1.5x", "Vol jumps above 1.5\u00d7 own 30d level", "14%")):
-    c, f = L.loc[(lab, "daily", "CONTROLS")], L.loc[(lab, "daily", "FULL")]
-    nv = f"{L.loc[(lab, 'daily', 'NONE')]['auc']:.3f}" if (lab, "daily", "NONE") in L.index else "\u2013"
-    rows.append((name, br, nv, f"{c.auc:.3f}", f"{f.auc:.3f}", f"{f.auc - c.auc:+.3f}"))
-widths = [4.6, 1.4, 1.5, 1.6, 1.6, 1.4]
-tbl = s.shapes.add_table(len(rows), len(widths), Inches(0.6), Inches(2.0), Inches(sum(widths)), Inches(2.1)).table
-for j, wd in enumerate(widths): tbl.columns[j].width = Inches(wd)
-for i, row in enumerate(rows):
-    for j, v in enumerate(row):
-        cell = tbl.cell(i, j); cell.text = ""
-        cell.fill.solid(); cell.fill.fore_color.rgb = NAVY if i == 0 else (TINT if i % 2 == 0 else WHITE)
-        p = cell.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.LEFT if j == 0 else PP_ALIGN.CENTER
-        r = p.add_run(); r.text = v; r.font.size = Pt(15); r.font.name = BODY
-        r.font.bold = i == 0 or j == 5; r.font.color.rgb = WHITE if i == 0 else (FULL if j == 5 else INK)
-        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
-s.shapes.add_picture(FIG + "logistic_auc.png", Inches(0.6), Inches(4.35), height=Inches(2.45))
-box(s, 7.3, 4.45, 5.4, 1.75, fill=TINT, name="Logistic takeaway")
-text(s, 7.6, 4.65, 4.9, 1.9, [[("Daily panel, mean of 5 folds. ", {"bold": True}),
-     ("PR-AUC and Brier skill fall too, on both panels. Unlock schedules do not help pick the most volatile tokens, nor anticipate a token's own volatility jump.", {})]], size=15)
 
 # 12 ------------------------------------------------------------- robustness
 s = content("The null result survives every robustness check", "Robustness",
