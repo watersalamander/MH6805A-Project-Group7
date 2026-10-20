@@ -7,7 +7,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
-from stats import ERR_BM, ERR_G, ERR_LV, INTERNAL, LOGIT, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
+from stats import ERR_BM, ERR_G, ERR_LV, LGBG, INTERNAL, LOGIT, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
 
 ROOT = "D:/ML-project"
 FIG = ROOT + "/figures/"
@@ -109,7 +109,7 @@ SPK = ["[Member 1]", "[Member 2]", "[Member 3]"]
 s = prs.slides.add_slide(BLANK); bg(s, NAVY)
 text(s, 0.8, 1.2, 11, 0.4, "MH6805 MACHINE LEARNING IN FINANCE  |  GROUP 7", size=14, color=FULL, bold=True)
 text(s, 0.8, 1.9, 11.5, 2.2, "Do scheduled token unlocks help forecast crypto volatility?", size=46, color=WHITE, font=HEAD, bold=True)
-text(s, 0.8, 4.25, 11, 0.6, "Walk-forward evidence from 176 tokens and five machine-learning models", size=20, color=ICE)
+text(s, 0.8, 4.25, 11, 0.6, "Walk-forward evidence from 176 tokens and six machine-learning models", size=20, color=ICE)
 text(s, 0.8, 5.7, 11, 0.4, [[("[Member 1]   [Member 2]   [Member 3]", {"color": RGBColor(0xFF, 0x9F, 0x80), "bold": True})]], size=16)
 text(s, 0.8, 6.15, 11, 0.4, "[Presentation date]", size=14, color=ICE)
 s.notes_slide.notes_text_frame.text = ("Speaker: [Member 1]\n\nIntroduce the group and the question in one sentence: crypto tokens publish "
@@ -220,25 +220,27 @@ text(s, 0.6, 6.25, 12.1, 0.5, "Candidates (pre-processing + model + settings) ar
      size=14, color=MUTED)
 
 # 7 ------------------------------------------------------------- models
-s = content("Five models, one shared harness", "Methods",
+s = content("Six models, one shared harness", "Methods",
             "Each model sees identical rows, folds and features. KNN tests a local, similarity-based view; Random Forest "
-            "can find non-linear effects and interactions, for example unlocks mattering only in calm markets; Ridge "
+            "can find non-linear effects and interactions, for example unlocks mattering only in calm markets, and "
+            "LightGBM boosts small trees on the residuals; Ridge "
             "and Elastic Net are strong linear benchmarks, and Elastic Net can drop features entirely; logistic "
             "regression re-asks the question as classifying high-volatility events. Note what tuning chose: very large "
             "neighbourhoods, large leaves and strong penalties, all signs of a noisy target.", SPK[1])
 cards = [("KNN", "Quantile-scaled distance; k from 5 to 250", "Tuned: k = 100\u2013250", "Regression"),
          ("Random Forest", "400 trees, depth \u00d7 leaf \u00d7 features grid", "Tuned: leaves of 50\u2013100 rows", "Regression"),
+         ("LightGBM", "Boosted trees; 200 or 500 trees, 7 or 15 leaves", "Tuned: slowest, lr 0.02", "Regression"),
          ("Ridge", "L2 penalty; \u03b1 from 0.1 to 10\u2077", "Tuned: \u03b1 = 10\u2074\u201310\u2077", "Regression"),
          ("Elastic Net", "L1 + L2, \u03b1 \u00d7 l1_ratio grid", "Tuned: all-zero in 2 of 5 folds", "Regression"),
          ("Logistic", "L2; C from 10\u207b\u2075 to 10, log-loss tuning", "Events: top-20% vol, 1.5\u00d7 spike", "Classification")]
 for i, (h, d, t, kind) in enumerate(cards):
-    x = 0.6 + i * 2.46
-    box(s, x, 1.95, 2.28, 4.6, fill=NAVY if i == 4 else TINT, name=f"Model card {h}")
-    fg = WHITE if i == 4 else INK
-    text(s, x + 0.22, 2.2, 1.9, 0.3, kind.upper(), size=11, bold=True, color=FULL)
-    text(s, x + 0.22, 2.55, 1.9, 0.9, h, size=22, bold=True, color=fg, font=HEAD)
-    text(s, x + 0.22, 3.5, 1.9, 1.4, d, size=15, color=ICE if i == 4 else MUTED)
-    text(s, x + 0.22, 5.0, 1.9, 1.3, t, size=15, bold=True, color=fg)
+    x = 0.6 + i * 2.05
+    box(s, x, 1.95, 1.88, 4.6, fill=NAVY if i == 5 else TINT, name=f"Model card {h}")
+    fg = WHITE if i == 5 else INK
+    text(s, x + 0.19, 2.2, 1.5, 0.3, kind.upper(), size=11, bold=True, color=FULL)
+    text(s, x + 0.19, 2.55, 1.5, 0.9, h, size=20, bold=True, color=fg, font=HEAD)
+    text(s, x + 0.19, 3.5, 1.5, 1.4, d, size=14, color=ICE if i == 5 else MUTED)
+    text(s, x + 0.19, 5.0, 1.5, 1.3, t, size=14, bold=True, color=fg)
 
 # 8 ------------------------------------------------------------- headline chart
 s = content("All models beat the benchmarks on controls alone", "Result 1",
@@ -274,7 +276,7 @@ s = content("The small gain is noise: it flips sign across folds", "Result 2",
             "by about 0.15 from fold to fold, so a difference of 0.006 is far inside the noise.", SPK[1])
 cd = CategoryChartData()
 cd.categories = [f"Fold {i}" for i in range(1, 6)]
-cols = {"knn": RGBColor(0x9A, 0xA3, 0xB2), "rf": FULL, "ridge": NAVY, "enet": CTRL}
+cols = {"knn": RGBColor(0x9A, 0xA3, 0xB2), "rf": FULL, "lightgbm": RGBColor(0x1B, 0xAF, 0x7A), "ridge": NAVY, "enet": CTRL}
 for k in REG:
     cd.add_series(NAMES[k], [round(v, 3) for v in M[k]["delta_folds"]])
 gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.6), Inches(1.75), Inches(8.3), Inches(5.0), cd)
@@ -288,7 +290,7 @@ for ser, k in zip(pl.series, REG):
     ser.format.fill.solid(); ser.format.fill.fore_color.rgb = cols[k]; ser.invert_if_negative = False
 text(s, 9.3, 1.9, 3.4, 0.4, "\u0394 R\u00b2oos = FULL \u2212 CONTROLS", size=14, bold=True)
 text(s, 9.3, 2.25, 3.4, 0.4, "per test fold, in calendar order", size=13, color=MUTED)
-for i, (big, d, col) in enumerate([("2 of 5", "folds where FULL beats CONTROLS (RF and KNN); 3 of 5 for the linear models", FULL),
+for i, (big, d, col) in enumerate([("1–2 of 5", "folds where FULL beats CONTROLS for the tree models and KNN; 3 of 5 for the linear ones", FULL),
                                    ("\u00b10.15", "fold-to-fold s.d. of R\u00b2oos itself, 25\u00d7 the largest mean gain", NAVY)]):
     text(s, 9.3, 3.0 + i * 1.75, 3.5, 0.7, big, size=36, bold=True, color=col, font=HEAD)
     text(s, 9.3, 3.75 + i * 1.75, 3.4, 0.9, d, size=15, color=MUTED)
@@ -311,6 +313,7 @@ cd = CategoryChartData()
 cd.categories = [g[2] for g in groups]
 cd.add_series("Ridge", [round(eg(d, g, "delta_rmse|Ridge"), 4) for d, g, _ in groups])
 cd.add_series("Random Forest", [round(eg(d, g, "delta_rmse|RF"), 4) for d, g, _ in groups])
+cd.add_series("LightGBM", [round(eg(d, g, "delta_rmse|LGBM"), 4) for d, g, _ in groups])
 gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.6), Inches(2.2), Inches(8.3), Inches(4.55), cd)
 ch = gf.chart; style_chart(ch)
 ch.value_axis.minimum_scale, ch.value_axis.maximum_scale = -0.008, 0.016
@@ -318,10 +321,9 @@ ch.value_axis.major_unit = 0.004
 ch.value_axis.tick_labels.number_format = "+0.000;-0.000;0"; ch.value_axis.tick_labels.number_format_is_linked = False
 ch.category_axis.tick_label_position = XL_TICK_LABEL_POSITION.LOW
 pl = ch.plots[0]; pl.gap_width = 70
-for ser, col in zip(pl.series, (NAVY, FULL)):
+for ser, col in zip(pl.series, (NAVY, FULL, RGBColor(0x1B, 0xAF, 0x7A))):
     ser.format.fill.solid(); ser.format.fill.fore_color.rgb = col; ser.invert_if_negative = False
-pl.has_data_labels = True; pl.data_labels.number_format = "+0.000;-0.000;0"; pl.data_labels.number_format_is_linked = False
-pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.size = Pt(11)
+pl.has_data_labels = False
 text(s, 0.6, 1.8, 8.3, 0.4, "Change in test RMSE from adding unlock features (positive = worse), by 30-day unlock share of float",
      size=14, bold=True)
 lvs = ERR_LV
@@ -357,7 +359,7 @@ for idx, col in ((1, FULL), (2, RGBColor(0x9A, 0xA3, 0xB2))):
 pl.has_data_labels = True; pl.data_labels.number_format = "0.000"; pl.data_labels.number_format_is_linked = False
 pl.data_labels.position = XL_LABEL_POSITION.OUTSIDE_END; pl.data_labels.font.size = Pt(12)
 text(s, 0.6, 1.8, 6.0, 0.4, "Random Forest: test-RMSE increase when a feature group is shuffled", size=14, bold=True)
-text(s, 0.6, 5.95, 6.0, 0.7, "Top 5 features are all controls: trailing 30d, 14d, 7d vol, 30d return, token age. Partial dependence on unlock pressure is flat across BTC regimes.",
+text(s, 0.6, 5.95, 6.0, 0.7, f"Top 5 RF features are all controls; partial dependence on unlock pressure is flat. LightGBM: controls take {100 * LGBG['controls']:.0f}% of split gain, emission {100 * LGBG['emission']:.0f}%.",
      size=13, color=MUTED)
 for i, (kind, h, d) in enumerate([
         ("COEFFICIENTS", "Ridge / Elastic Net", "Largest unlock coefficient +0.008 vs +0.040 for trailing 30d vol; EN drops every feature in 2 of 5 folds"),
@@ -401,28 +403,29 @@ s = content("The null result survives every robustness check", "Robustness",
             "We re-ran the comparison on the weekly panel, on three alternative volatility targets and on the tokens "
             "Tokenomist curates by hand, where schedules should be most accurate. The largest gain anywhere is +0.017, "
             "for the Random Forest on the curated subsample, still about a tenth of the fold-to-fold spread. Ridge on "
-            "the Parkinson target is the only case that wins all five folds, by 0.011.", SPK[2])
-rows = [("Specification", "KNN", "Random Forest", "Ridge", "Elastic Net")]
+            "the Parkinson target is the only case that wins all five folds, by 0.011. LightGBM shows the same picture, "
+            "and on the small weekly panel it falls just below the training mean.", SPK[2])
+rows = [("Specification", "KNN", "Random Forest", "LightGBM", "Ridge", "Elastic Net")]
 fmt = lambda d, k: f"{d[k]['delta']:+.3f}" if k in d and "delta" in d[k] else "\u2013"
 rows.append(("Daily panel (main)",) + tuple(fmt(M, k) for k in REG))
 rows.append(("Weekly panel",) + tuple(fmt(WEEKLY, k) for k in REG))
 rows.append(("Hand-curated tokens only",) + tuple(fmt(INTERNAL, k) for k in REG))
 for t, lab in (("log_rv_fwd_7d", "Target: 7-day vol"), ("log_rv_fwd_30d", "Target: 30-day vol"), ("log_rv_fwd_14d_parkinson", "Target: Parkinson 14-day")):
     rows.append((lab,) + tuple(fmt(TARGETS[t], k) for k in REG))
-widths = [3.6, 1.6, 1.9, 1.6, 1.8]
-tbl = s.shapes.add_table(len(rows), 5, Inches(0.6), Inches(1.9), Inches(sum(widths)), Inches(4.5)).table
+widths = [3.2, 1.2, 1.7, 1.4, 1.2, 1.5]
+tbl = s.shapes.add_table(len(rows), 6, Inches(0.6), Inches(1.9), Inches(sum(widths)), Inches(4.5)).table
 for j, wd in enumerate(widths): tbl.columns[j].width = Inches(wd)
 for i, row in enumerate(rows):
     for j, v in enumerate(row):
         cell = tbl.cell(i, j); cell.text = ""
         cell.fill.solid(); cell.fill.fore_color.rgb = NAVY if i == 0 else (TINT if i % 2 == 0 else WHITE)
         p = cell.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.LEFT if j == 0 else PP_ALIGN.CENTER
-        r = p.add_run(); r.text = v.replace("-0.000", "0.000"); r.font.size = Pt(15); r.font.name = BODY
+        r = p.add_run(); r.text = v.replace("-0.000", "0.000"); r.font.size = Pt(14); r.font.name = BODY
         r.font.bold = i == 0; r.font.color.rgb = WHITE if i == 0 else INK
         cell.vertical_anchor = MSO_ANCHOR.MIDDLE
 text(s, 0.6, 6.5, 10.5, 0.4, "Cells: mean \u0394 R\u00b2oos (FULL \u2212 CONTROLS) over 5 folds.  \u2013 = controls-only run not done for that specification.", size=12, color=MUTED)
 text(s, 11.3, 2.0, 1.6, 0.9, "+0.017", size=30, bold=True, color=FULL, font=HEAD)
-text(s, 11.3, 2.75, 1.5, 1.6, "largest gain anywhere (RF, curated tokens)", size=14, color=MUTED)
+text(s, 11.3, 2.75, 1.5, 1.6, "largest gain anywhere (RF curated; LightGBM 30d vol)", size=14, color=MUTED)
 text(s, 11.3, 4.2, 1.6, 0.9, "0.15", size=30, bold=True, color=NAVY, font=HEAD)
 text(s, 11.3, 4.95, 1.5, 1.3, "typical fold-to-fold s.d. of R\u00b2oos", size=14, color=MUTED)
 
@@ -456,7 +459,7 @@ s = prs.slides.add_slide(BLANK); bg(s, NAVY)
 text(s, 0.6, 0.35, 12, 0.3, "CONCLUSION", size=12, color=FULL, bold=True)
 text(s, 0.6, 0.65, 12.1, 0.9, "Unlocks are not a reliable incremental volatility signal", size=32, color=WHITE, font=HEAD, bold=True)
 pts = [("1", "Raw link is real, not incremental", "Heavy-unlock tokens are young and already volatile; trailing volatility absorbs the effect."),
-       ("2", "Five model families agree", "Regressors gain only +0.001 to +0.006 R\u00b2, with unstable sign; logistic AUC falls slightly."),
+       ("2", "Six models agree", "Regressors gain only +0.001 to +0.006 R\u00b2, with unstable sign; logistic AUC falls slightly."),
        ("3", "Best forecaster: Ridge on controls", "Best RMSE and rank correlation, seconds to train, interpretable. RF close second."),
        ("4", "Consistent with an efficient market", "Schedules are public months ahead, so any predictable effect is likely priced before the date.")]
 for i, (n, h, d) in enumerate(pts):
