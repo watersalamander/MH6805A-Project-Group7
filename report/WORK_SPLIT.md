@@ -60,6 +60,11 @@ Slides 9-12, report 5.2, 5.4, 5.5, 5.6 and 6.
 - [ ] Conclusion (slide 12, report 6) says "six models agree", answers the question on slide 2, and names the two limits (one regime, back-filled schedule revisions).
 - **Be ready for:** Is a null result useful? Could unlocks matter in a crash? Does schedule revision bias the result? Why no SMOTE in the logistic model? What would you do next? What should a risk desk actually do with this?
 
+## Script
+The word-for-word script, timed per slide, is in `PRESENTATION_SCRIPT.md`. The slide
+speaker notes are built from it, so edit the script and rebuild rather than editing
+the notes in PowerPoint.
+
 ## Hand-overs (already in the speaker notes)
 - End of slide 4, Member 1 to Member 2: "With the protocol fixed, [Member 2] will show what six models do under it."
 - End of slide 8, Member 2 to Member 3: "On average the answer is no; [Member 3] will show where the remaining errors are and whether any of this matters in practice."
