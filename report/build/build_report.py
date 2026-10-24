@@ -16,7 +16,7 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 import stats
-from stats import (ERR_BM, ERR_G, ERR_LV, FOLDS, INTERNAL, LOGIT, MAIN, NAMES, REG,
+from stats import (ERR_BM, ERR_G, ERR_LV, FOLDS, INTERNAL, MAIN, NAMES, REG,
                    RFG, TARGETS, WEEKLY)
 
 ROOT = "D:/ML-project"
@@ -188,7 +188,7 @@ para("MH6805 Machine Learning in Finance  |  Group 7  |  Final Report (DRAFT)", 
 t = doc.add_paragraph(); t.alignment = WD_ALIGN_PARAGRAPH.CENTER
 add_runs(t, "Do Scheduled Token Unlocks Help Forecast Crypto Volatility?", size=TITLE, bold=True, color=INK)
 t.paragraph_format.space_after = Pt(2)
-para("Walk-forward evidence from 176 tokens and six machine-learning models", italic=True,
+para("Walk-forward evidence from 176 tokens and five machine-learning models", italic=True,
      align=WD_ALIGN_PARAGRAPH.CENTER, color=MUTED, after=4)
 para("[[Member 1 name, NTU email]]   [[Member 2 name, NTU email]]   [[Member 3 name, NTU email]]",
      align=WD_ALIGN_PARAGRAPH.CENTER, after=1)
@@ -198,13 +198,13 @@ para("Contribution of each member: see Table A3 in the appendix.", size=SMALL, i
 para("We ask whether a token's published unlock (emission) schedule adds forecasting power for its forward 14-day "
      "realized volatility beyond what trailing volatility and the market regime already explain. On a panel of "
      "176 tokens over 2024-09 to 2026-08 (101,393 token-days) we run K-nearest neighbours, Random Forest, LightGBM, "
-     "Ridge, Elastic Net and logistic regression twice, once on nine control features and once on controls plus 23 emission "
+     "Ridge and Elastic Net twice, once on nine control features and once on controls plus 23 emission "
      "and static features, under a five-fold walk-forward protocol with embargo. Every regressor beats both the "
      f"persistence forecast and the pooled-mean baseline ({R2} of {min(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} to "
      f"{max(m[k]['CONTROLS']['r2_oos'] for k in REG):.2f} against persistence), but that gain comes from the controls. Adding the "
      f"unlock features changes {R2} by +0.001 to +0.006 on average, against a fold-to-fold standard deviation of "
      "about 0.15, and the sign of the change flips between folds. Error analysis shows that the unlock features do not "
-     "help even where unlocks are largest, and the classification view shows a small loss in ROC-AUC. We conclude "
+     "help even where unlocks are largest. We conclude "
      "that, in this panel, scheduled unlocks are not a reliable incremental volatility signal.", lead="Abstract. ")
 
 # ---------------------------------------------------------------- 1 intro
@@ -233,8 +233,7 @@ bullets([
     "simple baselines on the same test cases.",
     "**O3.** Measure the incremental contribution of unlock features per model and per fold, check its stability, and "
     "find which mistakes remain.",
-    "**O4.** Re-ask the question as classification (logistic regression), interpret what each model uses, and judge "
-    "whether any improvement is useful in practice.",
+    "**O4.** Interpret what each model uses, and judge whether any improvement is useful in practice.",
 ])
 
 # ---------------------------------------------------------------- 3 data
@@ -325,11 +324,6 @@ para("Linear regression with an L2 penalty (Hoerl and Kennard, 1970), a strong b
      "penalty (Zou and Hastie, 2005) that can set coefficients exactly to zero, so it performs feature selection: if "
      "unlock features carry signal, Elastic Net should keep them. Grid: \u03b1 \u2208 {10^{-4}, \u2026, 1} \u00d7 "
      "l1_ratio \u2208 {0.1, 0.5, 0.9}.", lead="Ridge and Elastic Net. ")
-para("An L2-penalised classifier (C \u2208 {10^{-5}, \u2026, 10}, tuned by validation log loss) for two events defined "
-     "from the forward target: **top20_xs**, the token is in the top 20% of forward volatility across all tokens on date D "
-     "(base rate 20%), and **spike_1.5x**, forward volatility exceeds 1.5\u00d7 the token's own trailing 30-day volatility "
-     "(base rate 14%). We report ROC-AUC, PR-AUC and the Brier skill score against the training base rate; no resampling "
-     "is used, since it would distort the probabilities.", lead="Logistic regression. ")
 
 # ---------------------------------------------------------------- 5 results
 doc.add_heading("5  Results", 1)
@@ -411,30 +405,14 @@ para("Permutation importance on the last fold's test set (Figure A4) ranks trail
 para(f"Controls account for {pct(stats.LGBG['controls'])} of LightGBM's total split gain on the last fold, "
      f"emission features for {pct(stats.LGBG['emission'])} and static features for {pct(stats.LGBG['static'])}; "
      "the top three are ETH volatility, BTC volatility and trailing 30-day volatility, and the best emission feature "
-     "(30-day unlocks as a share of total supply) has 1% (Figure A11).", lead="Gain importance (LightGBM). ")
+     "(30-day unlocks as a share of total supply) has 1% (Figure A10).", lead="Gain importance (LightGBM). ")
 para("For the most unlock-heavy test row (a token with 104% of its float unlocking within 30 days), the 250 nearest "
      "training rows have a median unlock share of only 12.5%: no comparable history exists, so the forecast (0.78) is "
      "driven by trailing volatility and overshoots the realized 0.55 (Figure A7). With 23 extra dimensions the "
      f"neighbourhoods are diluted, which is why KNN does best on CONTROLS+EMIS5 ({m['knn']['CONTROLS+EMIS5']['r2_oos']:.3f}) "
      f"rather than FULL ({m['knn']['FULL']['r2_oos']:.3f}).", lead="Neighbours (KNN). ")
 
-doc.add_heading("5.4  Classification view (logistic regression)", 2)
-L = LOGIT
-rows = []
-for lab, name in (("top20_xs", "Top 20% cross-section"), ("spike_1.5x", "Spike > 1.5\u00d7 own 30d vol")):
-    c, f = L.loc[(lab, "daily", "CONTROLS")], L.loc[(lab, "daily", "FULL")]
-    naive = f3(L.loc[(lab, "daily", "NONE")]["auc"]) if (lab, "daily", "NONE") in L.index else "\u2013"
-    rows.append([name, naive, f3(c.auc), f3(f.auc), sg(f.auc - c.auc), f3(c.pr_auc), f3(f.pr_auc), f3(c.brier_skill), f3(f.brier_skill)])
-table(["Event", "AUC naive", "AUC CTRL", "AUC FULL", "\u0394AUC", "PR-AUC CTRL", "PR-AUC FULL", "BSS CTRL", "BSS FULL"],
-      rows, [3.6, 1.6, 1.6, 1.6, 1.4, 1.8, 1.8, 1.5, 1.5],
-      "Table 6. Logistic regression, daily panel, mean of 5 folds. Naive = rank by trailing 14d volatility; "
-      "BSS = Brier skill score vs the training base rate.")
-para("On controls, logistic regression identifies high-volatility tokens clearly better than ranking by trailing "
-     "volatility (AUC 0.694 vs 0.653). Its coefficients rank token age (younger tokens are more often in the top 20%) and "
-     "trailing volatility first; the 90-day unlock share enters with an odds ratio of about 1.1 per s.d., yet adding the "
-     "unlock features lowers ROC-AUC, PR-AUC and Brier skill for both events on both panels (Figure A8).")
-
-doc.add_heading("5.5  Robustness", 2)
+doc.add_heading("5.4  Robustness", 2)
 W = WEEKLY
 para("On the **weekly panel**, which removes most overlap between rows, \u0394 is "
      f"{sg(W['rf']['delta'])} (RF), {sg(W['knn']['delta'])} (KNN), {sg(W['ridge']['delta'])} (Ridge) and "
@@ -448,7 +426,7 @@ para("On the **weekly panel**, which removes most overlap between rows, \u0394 i
      f"({sg(INTERNAL['lightgbm']['delta'])} for LightGBM, "
      f"{sg(INTERNAL['ridge']['delta'])} for Ridge, {sg(INTERNAL['enet']['delta'])} for Elastic Net). Full numbers are in Table A2.")
 
-doc.add_heading("5.6  Model comparison and practical relevance", 2)
+doc.add_heading("5.5  Model comparison and practical relevance", 2)
 para("For forecasting, **Ridge on the control features** is our recommended model: best or joint-best RMSE, the highest "
      "rank correlation, seconds to train and interpretable coefficients. The Random Forest is a close second and better on "
      "the 30-day and Parkinson targets; Elastic Net confirms the feature-selection reading. LightGBM, despite boosting, is the weakest daily "
@@ -470,9 +448,9 @@ para("In volatility units the typical error is large for every forecast: the med
 # ---------------------------------------------------------------- 6 conclusion
 doc.add_heading("6  Discussion and Conclusion", 1)
 para("Once trailing volatility and the market regime are controlled for, scheduled token unlocks do not add reliable "
-     "forecasting power for 14-day forward realized volatility in this panel. Six models agree, the average gain "
-     "is tiny relative to fold-to-fold variation, its sign is unstable, the unlock features hurt where unlocks are "
-     "largest, and the classification view shows a small loss. Settings were chosen on validation data and the test "
+     "forecasting power for 14-day forward realized volatility in this panel. Five models agree, the average gain "
+     "is tiny relative to fold-to-fold variation, its sign is unstable, and the unlock features hurt where unlocks are "
+     "largest. Settings were chosen on validation data and the test "
      "results were reported without changing the models in response.", lead="Answer. ")
 para("The models improve on the baselines because they combine persistence with mean reversion: persistence over-reacts "
      "to the last two weeks, the training mean ignores them, and a shrunk combination of trailing volatility at several "
@@ -553,7 +531,7 @@ table(["Specification", "Model", f"{R2} CTRL", f"{R2} FULL", "\u0394", "FULL win
 table(["Member", "Models", "Data & EDA", "Methods", "Results", "Report", "Slides"], [
     ["[[Member 1]]", "[[e.g. KNN, RF]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]"],
     ["[[Member 2]]", "[[e.g. Ridge, Elastic Net]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]"],
-    ["[[Member 3]]", "[[e.g. Logistic]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]"],
+    ["[[Member 3]]", "[[e.g. LightGBM]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]", "[[%]]"],
 ], [2.8, 3.6, 1.8, 1.8, 1.8, 1.8, 1.8], "Table A3. Contribution of each member (to be completed by the group).")
 
 figure("errors_by_group.png", 17, "Figure A1. Test RMSE by ex-ante subgroup for the two baselines and three models, all folds pooled.")
@@ -564,10 +542,9 @@ figure("rf_permutation_importance_top15.png", 13, "Figure A4. Random Forest (FUL
 figure("rf_pdp_emis30_x_btc.png", 11, "Figure A5. Random Forest partial dependence on 30-day unlock pressure across BTC volatility regimes.")
 figure("tree_depth3_full.png", 17, "Figure A6. Illustrative depth-3 regression tree on all 32 features, fit on the last fold's training rows only.")
 figure("knn_neighbour_illustration.png", 15, "Figure A7. KNN: the most unlock-heavy test row of the last fold and its nearest training rows.")
-figure("logistic_auc.png", 15, "Figure A8. Logistic regression test ROC-AUC, controls vs FULL; dashed = rank by trailing 14d volatility.")
-figure("knn_val_rmse_vs_k.png", 12, "Figure A9. KNN validation RMSE against k (mean over folds), by feature set.")
-figure("eda_correlation_heatmap.png", 13, "Figure A10. Spearman correlations between target, controls and emission features.")
-figure("lgbm_importance.png", 13, "Figure A11. LightGBM (FULL, last fold): share of total split gain by feature, coloured by feature group.")
+figure("knn_val_rmse_vs_k.png", 12, "Figure A8. KNN validation RMSE against k (mean over folds), by feature set.")
+figure("eda_correlation_heatmap.png", 13, "Figure A9. Spearman correlations between target, controls and emission features.")
+figure("lgbm_importance.png", 13, "Figure A10. LightGBM (FULL, last fold): share of total split gain by feature, coloured by feature group.")
 para("Code and data: the full pipeline is in MH6805_token_unlock_volatility.ipynb (repository "
      "github.com/watersalamander/MH6805A-Project-Group7), with per-fold results in results/ and figures in figures/.",
      size=SMALL, align=WD_ALIGN_PARAGRAPH.LEFT)
