@@ -448,7 +448,7 @@ def run_model(name, estimator_factory, df, folds, feature_set_name, param_grid,
 
 
 # --------------------------------------------------------------------------
-# Fixed log transform for the linear models (Ridge / Elastic Net / logistic)
+# Fixed log transform for the linear models (Ridge / Elastic Net)
 # --------------------------------------------------------------------------
 # Volatility levels and token age are right-skewed and enter a linear model
 # better in logs. Nothing is learned from data, so it is safe in any fold.

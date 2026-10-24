@@ -1,7 +1,7 @@
-# Group 7 presentation script (8 minutes, 12 slides)
+# Group 7 presentation script (8 minutes, 13 slides)
 
-About 940 words in total. At 130 words a minute that is about 7 min 20 s, so each
-member speaks 300-330 words in about 2.5 minutes, leaving about 40 s for slide changes and hand-overs. Every number below comes from
+About 970 words in total. At 130 words a minute that is about 7 min 30 s, so each
+member speaks 300-390 words in 2.3 to 3 minutes, leaving about 30 s for slide changes and hand-overs. Every number below comes from
 `results/` and matches the slides and the report. The lines for each slide are also
 in that slide's speaker notes (PowerPoint: Slide Show > Presenter View), so nobody
 needs a printout.
@@ -10,9 +10,9 @@ Practise with a timer. If you run long, slow down on the numbers and trim the ex
 
 | Block | Slides | Speaker | Target time |
 |---|---|---|---|
-| Question, data and protocol | 1-4 | Member 1 | 2:35 |
-| Models and headline results | 5-8 | Member 2 | 2:20 |
-| Errors, relevance and conclusion | 9-12 | Member 3 | 2:25 |
+| Question, data, protocol and benchmarks | 1-5 | Member 1 | 3:05 |
+| Models and headline results | 6-9 | Member 2 | 2:20 |
+| Errors, relevance and conclusion | 10-13 | Member 3 | 2:25 |
 
 ---
 
@@ -56,24 +56,33 @@ and is tested on the next 90 days.
 
 Each candidate, meaning pre-processing, model and settings together, is chosen on a
 validation slice at the end of the training window. It is then refit and scored once
-on test, and no model was changed after seeing test results. Two simple baselines,
-persistence and the training mean, are scored on exactly the same rows.
+on test, and no model was changed after seeing test results.
 
-With the protocol fixed, [Member 2] will show what six models do under it.
+## Slide 5 (Member 1, ~35 s)
+Title: Two simple benchmarks every model must beat
 
-## Slide 5 (Member 2, ~30 s)
-Title: Six models, one shared harness
+Every model is judged against two benchmarks that need no machine learning, scored
+on exactly the same test rows. Persistence forecasts the next two weeks with the last
+two; it is the zero point of our R-squared. The training mean ignores recent
+volatility and forecasts the average, yet it beats persistence in four of five folds,
+R-squared 0.17, because volatility mean-reverts. So a model has to beat 0.17, not
+just zero, to be useful.
 
-Thank you. We ran six models on that same harness:
+With the protocol and the benchmarks fixed, [Member 2] will show what five models do
+under it.
+
+## Slide 6 (Member 2, ~30 s)
+Title: Five models, one shared harness
+
+Thank you. We ran five models on that same harness:
 - K-nearest neighbours, for similarity;
 - Random Forest and LightGBM, for non-linear effects;
-- Ridge and Elastic Net, as linear benchmarks (Elastic Net can drop features entirely);
-- logistic regression, for classifying high-volatility events.
+- Ridge and Elastic Net, as linear benchmarks (Elastic Net can drop features entirely).
 
 Notice what validation chose: huge neighbourhoods, large leaves, strong penalties, the
 slowest boosting. That already hints that the target is noisy relative to the signal.
 
-## Slide 6 (Member 2, ~30 s)
+## Slide 7 (Member 2, ~30 s)
 Title: All models beat the benchmarks on controls alone
 
 Here is the headline. Blue is controls only, orange adds the unlock features. Every
@@ -84,7 +93,7 @@ built.
 But compare each blue bar with its orange partner. Adding 23 unlock features raises
 R-squared by only 0.001 to 0.006.
 
-## Slide 7 (Member 2, ~35 s)
+## Slide 8 (Member 2, ~35 s)
 Title: The small gain is noise: it flips sign across folds
 
 Is even that gain real? Fold by fold, in calendar order, the Random Forest gains about
@@ -94,11 +103,12 @@ training data. KNN swings more, and LightGBM gains in just one fold.
 Meanwhile R-squared itself moves by about 0.15 from fold to fold, 25 times the largest
 average gain. A gain that flips sign like this is noise, not signal.
 
-## Slide 8 (Member 2, ~45 s)
+## Slide 9 (Member 2, ~45 s)
 Title: Inside the models, unlock features barely register
 
 We also looked inside each model with the tool that suits it. In the Random Forest,
-shuffling the controls hurts three times more than shuffling all emission features.
+the five most important features are all controls; the best unlock feature ranks
+sixth, at about a fifth of trailing 30-day volatility.
 In LightGBM, controls take 92% of the split gain. Ridge's largest unlock coefficient is
 positive, as the story predicts, but five times smaller than trailing volatility. A
 shallow tree never splits on an unlock feature. And for the most unlock-heavy token,
@@ -107,7 +117,7 @@ KNN finds no comparable history at all.
 So on average the answer is no. [Member 3] will show where the remaining errors are,
 and whether this matters in practice.
 
-## Slide 9 (Member 3, ~45 s)
+## Slide 10 (Member 3, ~45 s)
 Title: Unlock features do not help even where unlocks are big
 
 Thank you. If unlocks carried signal, it would show where unlocks are largest. Bars
@@ -119,17 +129,14 @@ What the models really fix is large mistakes. Forecasts off by more than a facto
 two fall from 18% under persistence to 12%. Most misses that remain are over-forecasts
 for tokens that suddenly calm down.
 
-## Slide 10 (Member 3, ~25 s)
+## Slide 11 (Member 3, ~25 s)
 Title: The null result survives every robustness check
 
 The result holds with weekly data, three other volatility measures, and only the
 hand-curated tokens. The largest gain anywhere is 0.017, a tenth of the fold-to-fold
 spread.
 
-Classification agrees. Logistic regression on controls spots the most volatile tokens
-better than ranking by recent volatility, but unlock features slightly *lower* its AUC.
-
-## Slide 11 (Member 3, ~40 s)
+## Slide 12 (Member 3, ~40 s)
 Title: Is any improvement useful for the decision?
 
 Is any of this useful in practice? Errors are still large: the typical miss is about
@@ -141,12 +148,12 @@ Unlock features add nothing there, yet cost a data subscription and a pipeline. 
 advice to a risk desk: don't pay for them as a volatility input, and keep a person in
 the loop for the cases on the right.
 
-## Slide 12 (Member 3, ~35 s)
+## Slide 13 (Member 3, ~35 s)
 Title: Unlocks are not a reliable incremental volatility signal
 
 To conclude:
 - The raw link is real, but trailing volatility already explains it.
-- Six models agree.
+- Five models agree.
 - The best forecaster is a simple Ridge model on the controls.
 - This fits an efficient market: schedules are public months ahead, so the effect is
   likely priced in early.

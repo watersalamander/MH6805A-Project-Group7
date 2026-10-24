@@ -7,7 +7,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
-from stats import ERR_BM, ERR_G, ERR_LV, LGBG, INTERNAL, LOGIT, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
+from stats import ERR_BM, ERR_G, ERR_LV, LGBG, INTERNAL, MAIN, NAMES, REG, RFG, TARGETS, WEEKLY
 
 ROOT = "D:/ML-project"
 FIG = ROOT + "/figures/"
@@ -109,7 +109,7 @@ SPK = ["[Member 1]", "[Member 2]", "[Member 3]"]
 s = prs.slides.add_slide(BLANK); bg(s, NAVY)
 text(s, 0.8, 1.2, 11, 0.4, "MH6805 MACHINE LEARNING IN FINANCE  |  GROUP 7", size=14, color=FULL, bold=True)
 text(s, 0.8, 1.9, 11.5, 2.2, "Do scheduled token unlocks help forecast crypto volatility?", size=46, color=WHITE, font=HEAD, bold=True)
-text(s, 0.8, 4.25, 11, 0.6, "Walk-forward evidence from 176 tokens and six machine-learning models", size=20, color=ICE)
+text(s, 0.8, 4.25, 11, 0.6, "Walk-forward evidence from 176 tokens and five machine-learning models", size=20, color=ICE)
 text(s, 0.8, 5.7, 11, 0.4, [[("[Member 1]   [Member 2]   [Member 3]", {"color": RGBColor(0xFF, 0x9F, 0x80), "bold": True})]], size=16)
 text(s, 0.8, 6.15, 11, 0.4, "[Presentation date]", size=14, color=ICE)
 s.notes_slide.notes_text_frame.text = ("Speaker: [Member 1]\n\nIntroduce the group and the question in one sentence: crypto tokens publish "
@@ -202,7 +202,7 @@ s = content("Walk-forward validation: never shuffle, never peek", "Protocol",
             "Five folds cut by calendar date, all tokens pooled. Training expands; a 30-day embargo separates train from "
             "test because the target looks 14 days ahead. Inside each fold the last 90 days of training are the "
             "validation slice used for tuning; the winner is refit on all training data and scored once on the next "
-            "90 days. Scalers live inside the sklearn pipeline, so nothing is fit on test data. Hand over: with the protocol fixed, [Member 2] shows what six models do under it.", SPK[0])
+            "90 days. Scalers live inside the sklearn pipeline, so nothing is fit on test data. Hand over: with the protocol fixed, [Member 2] shows what five models do under it.", SPK[0])
 import datetime as dt
 t0, t1 = dt.date(2024, 9, 14), dt.date(2026, 8, 15)
 X0, XW = 2.0, 10.6
@@ -227,27 +227,24 @@ text(s, 0.6, 6.25, 12.1, 0.5, "Candidates (pre-processing + model + settings) ar
      size=14, color=MUTED)
 
 # 7 ------------------------------------------------------------- models
-s = content("Six models, one shared harness", "Methods",
+s = content("Five models, one shared harness", "Methods",
             "Each model sees identical rows, folds and features. KNN tests a local, similarity-based view; Random Forest "
             "can find non-linear effects and interactions, for example unlocks mattering only in calm markets, and "
             "LightGBM boosts small trees on the residuals; Ridge "
-            "and Elastic Net are strong linear benchmarks, and Elastic Net can drop features entirely; logistic "
-            "regression re-asks the question as classifying high-volatility events. Note what tuning chose: very large "
-            "neighbourhoods, large leaves and strong penalties, all signs of a noisy target.", SPK[1])
+            "and Elastic Net are strong linear benchmarks, and Elastic Net can drop features entirely. Note what tuning "
+            "chose: very large neighbourhoods, large leaves and strong penalties, all signs of a noisy target.", SPK[1])
 cards = [("KNN", "Quantile-scaled distance; k from 5 to 250", "Tuned: k = 100\u2013250", "Regression"),
          ("Random Forest", "400 trees, depth \u00d7 leaf \u00d7 features grid", "Tuned: leaves of 50\u2013100 rows", "Regression"),
          ("LightGBM", "Boosted trees; 200 or 500 trees, 7 or 15 leaves", "Tuned: slowest, lr 0.02", "Regression"),
          ("Ridge", "L2 penalty; \u03b1 from 0.1 to 10\u2077", "Tuned: \u03b1 = 10\u2074\u201310\u2077", "Regression"),
-         ("Elastic Net", "L1 + L2, \u03b1 \u00d7 l1_ratio grid", "Tuned: all-zero in 2 of 5 folds", "Regression"),
-         ("Logistic", "L2; C from 10\u207b\u2075 to 10, log-loss tuning", "Events: top-20% vol, 1.5\u00d7 spike", "Classification")]
+         ("Elastic Net", "L1 + L2, \u03b1 \u00d7 l1_ratio grid", "Tuned: all-zero in 2 of 5 folds", "Regression")]
 for i, (h, d, t, kind) in enumerate(cards):
-    x = 0.6 + i * 2.05
-    box(s, x, 1.95, 1.88, 4.6, fill=NAVY if i == 5 else TINT, name=f"Model card {h}")
-    fg = WHITE if i == 5 else INK
-    text(s, x + 0.19, 2.2, 1.5, 0.3, kind.upper(), size=11, bold=True, color=FULL)
-    text(s, x + 0.19, 2.55, 1.5, 0.9, h, size=20, bold=True, color=fg, font=HEAD)
-    text(s, x + 0.19, 3.5, 1.5, 1.4, d, size=14, color=ICE if i == 5 else MUTED)
-    text(s, x + 0.19, 5.0, 1.5, 1.3, t, size=14, bold=True, color=fg)
+    x = 0.6 + i * 2.45
+    box(s, x, 1.95, 2.28, 4.6, fill=TINT, name=f"Model card {h}")
+    text(s, x + 0.19, 2.2, 1.9, 0.3, kind.upper(), size=11, bold=True, color=FULL)
+    text(s, x + 0.19, 2.55, 1.9, 0.9, h, size=20, bold=True, color=INK, font=HEAD)
+    text(s, x + 0.19, 3.5, 1.9, 1.4, d, size=14, color=MUTED)
+    text(s, x + 0.19, 5.0, 1.9, 1.3, t, size=14, bold=True, color=INK)
 
 # 8 ------------------------------------------------------------- headline chart
 s = content("All models beat the benchmarks on controls alone", "Result 1",
@@ -339,34 +336,6 @@ for i, (kind, h, d) in enumerate([
     text(s, 7.35, y + 0.45, 5.1, 0.4, h, size=15, bold=True)
     text(s, 7.35, y + 0.82, 5.1, 0.6, d, size=13, color=MUTED)
 
-# 11 ------------------------------------------------------------- logistic
-s = content("Classification view: unlock features slightly hurt", "Result 3",
-            "Same question as classification. The model on controls does pick out high-volatility tokens better than just "
-            "ranking by recent volatility, AUC 0.69 against 0.65. Adding unlock features lowers AUC, PR-AUC and the "
-            "Brier skill score for both events, on both panels. Hand over: on average the answer is no; [Member 3] shows where the "
-            "remaining errors are and whether any of this matters in practice.", SPK[1])
-L = LOGIT
-rows = [("Event", "Base rate", "Naive AUC", "AUC controls", "AUC + unlocks", "\u0394 AUC")]
-for lab, name, br in (("top20_xs", "Top 20% most volatile tokens on the date", "20%"), ("spike_1.5x", "Vol jumps above 1.5\u00d7 own 30d level", "14%")):
-    c, f = L.loc[(lab, "daily", "CONTROLS")], L.loc[(lab, "daily", "FULL")]
-    nv = f"{L.loc[(lab, 'daily', 'NONE')]['auc']:.3f}" if (lab, "daily", "NONE") in L.index else "\u2013"
-    rows.append((name, br, nv, f"{c.auc:.3f}", f"{f.auc:.3f}", f"{f.auc - c.auc:+.3f}"))
-widths = [4.6, 1.4, 1.5, 1.6, 1.6, 1.4]
-tbl = s.shapes.add_table(len(rows), len(widths), Inches(0.6), Inches(2.0), Inches(sum(widths)), Inches(2.1)).table
-for j, wd in enumerate(widths): tbl.columns[j].width = Inches(wd)
-for i, row in enumerate(rows):
-    for j, v in enumerate(row):
-        cell = tbl.cell(i, j); cell.text = ""
-        cell.fill.solid(); cell.fill.fore_color.rgb = NAVY if i == 0 else (TINT if i % 2 == 0 else WHITE)
-        p = cell.text_frame.paragraphs[0]; p.alignment = PP_ALIGN.LEFT if j == 0 else PP_ALIGN.CENTER
-        r = p.add_run(); r.text = v; r.font.size = Pt(15); r.font.name = BODY
-        r.font.bold = i == 0 or j == 5; r.font.color.rgb = WHITE if i == 0 else (FULL if j == 5 else INK)
-        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
-s.shapes.add_picture(FIG + "logistic_auc.png", Inches(0.6), Inches(4.35), height=Inches(2.45))
-box(s, 7.3, 4.45, 5.4, 1.75, fill=TINT, name="Logistic takeaway")
-text(s, 7.6, 4.65, 4.9, 1.9, [[("Daily panel, mean of 5 folds. ", {"bold": True}),
-     ("PR-AUC and Brier skill fall too, on both panels. Unlock schedules do not help pick the most volatile tokens, nor anticipate a token's own volatility jump.", {})]], size=15)
-
 # 9b ------------------------------------------------------------- which mistakes remain
 def eg(dim, group, col):
     r = ERR_G[(ERR_G.dimension == dim) & (ERR_G.group == group)]
@@ -408,14 +377,12 @@ for i, (big, d, col) in enumerate([
     text(s, 9.3, 2.65 + i * 2.35, 3.4, 1.2, d, size=15, color=MUTED)
 
 # 12 ------------------------------------------------------------- robustness
-s = content("The null result survives every robustness check", "Robustness and classification",
+s = content("The null result survives every robustness check", "Robustness",
             "We re-ran the comparison on the weekly panel, on three alternative volatility targets and on the tokens "
             "Tokenomist curates by hand, where schedules should be most accurate. The largest gain anywhere is +0.017, "
             "for the Random Forest on the curated subsample, still about a tenth of the fold-to-fold spread. Ridge on "
             "the Parkinson target is the only case that wins all five folds, by 0.011. LightGBM shows the same picture, "
-            "and on the small weekly panel it falls just below the training mean. Classification tells the same story: "
-            "logistic regression on controls beats ranking by recent volatility (AUC 0.69 vs 0.65), and adding unlock "
-            "features lowers AUC for both high-volatility events.", SPK[2])
+            "and on the small weekly panel it falls just below the training mean.", SPK[2])
 rows = [("Specification", "KNN", "Random Forest", "LightGBM", "Ridge", "Elastic Net")]
 fmt = lambda d, k: f"{d[k]['delta']:+.3f}" if k in d and "delta" in d[k] else "\u2013"
 rows.append(("Daily panel (main)",) + tuple(fmt(M, k) for k in REG))
@@ -437,9 +404,8 @@ for i, row in enumerate(rows):
 text(s, 0.6, 6.5, 10.5, 0.4, "Cells: mean \u0394 R\u00b2oos (FULL \u2212 CONTROLS) over 5 folds.  \u2013 = controls-only run not done for that specification.", size=12, color=MUTED)
 text(s, 11.1, 2.0, 1.9, 0.9, "+0.017", size=30, bold=True, color=FULL, font=HEAD)
 text(s, 11.1, 2.75, 1.8, 1.4, "largest gain anywhere (RF curated; LightGBM 30d vol)", size=14, color=MUTED)
-dauc = [LOGIT.loc[(e, "daily", "FULL")].auc - LOGIT.loc[(e, "daily", "CONTROLS")].auc for e in ("top20_xs", "spike_1.5x")]
-text(s, 11.1, 4.2, 1.9, 0.9, f"{dauc[0]:+.3f}", size=30, bold=True, color=NAVY, font=HEAD)
-text(s, 11.1, 4.95, 1.8, 1.5, f"logistic AUC change from unlocks: top-20% event (spike: {dauc[1]:+.3f})", size=14, color=MUTED)
+text(s, 11.1, 4.2, 1.9, 0.9, "±0.15", size=30, bold=True, color=NAVY, font=HEAD)
+text(s, 11.1, 4.95, 1.8, 1.5, "fold-to-fold s.d. of R²oos itself, about ten times the largest gain", size=14, color=MUTED)
 
 # 12b ------------------------------------------------------------- practical relevance
 s = content("Is any improvement useful for the decision?", "Practical relevance",
@@ -471,7 +437,7 @@ s = prs.slides.add_slide(BLANK); bg(s, NAVY)
 text(s, 0.6, 0.35, 12, 0.3, "CONCLUSION", size=12, color=FULL, bold=True)
 text(s, 0.6, 0.65, 12.1, 0.9, "Unlocks are not a reliable incremental volatility signal", size=32, color=WHITE, font=HEAD, bold=True)
 pts = [("1", "Raw link is real, not incremental", "Heavy-unlock tokens are young and already volatile; trailing volatility absorbs the effect."),
-       ("2", "Six models agree", "Regressors gain only +0.001 to +0.006 R\u00b2, with unstable sign; logistic AUC falls slightly."),
+       ("2", "Five models agree", "They gain only +0.001 to +0.006 R\u00b2, and the sign flips between folds."),
        ("3", "Best forecaster: Ridge on controls", "Best RMSE and rank correlation, seconds to train, interpretable. RF close second."),
        ("4", "Consistent with an efficient market", "Schedules are public months ahead, so any predictable effect is likely priced before the date.")]
 for i, (n, h, d) in enumerate(pts):
@@ -519,7 +485,7 @@ s.notes_slide.notes_text_frame.text = "All members: take questions. Each member 
 import os
 if os.environ.get("FULL_DECK") != "1":
     DROP = ("Unlocks are widely watched as volatility events", "A daily panel of 176 tokens over two years",
-            "Classification view: unlock features slightly hurt", "Limitations and next steps", "Thank you. Questions?")
+            "Limitations and next steps", "Thank you. Questions?")
     ids = prs.slides._sldIdLst
     for sl, sid in reversed(list(zip(prs.slides, list(ids)))):
         if any(sh.has_text_frame and sh.text_frame.text in DROP for sh in sl.shapes):

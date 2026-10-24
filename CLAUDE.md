@@ -66,9 +66,7 @@ Re-running a script replaces its earlier rows; it does not duplicate them.
 ## Layout
 `common.py` harness | `scripts/01_eda.py` | `scripts/02_knn.py` |
 `scripts/03_rf.py` | `scripts/04_compare.py` | `scripts/05_linear.py` (Ridge,
-Elastic Net) | `scripts/06_logistic.py` (high-vol events; own schema in
-`results/logistic.csv`, not read by 04_compare) | `scripts/07_lgbm.py`
-(LightGBM) | `scripts/08_errors.py` (error analysis by subgroup + practical
+Elastic Net) | `scripts/07_lgbm.py` (LightGBM) | `scripts/08_errors.py` (error analysis by subgroup + practical
 relevance from the saved test predictions; run after 02/03/05/07) |
 `results/` | `figures/` | `report/` (draft report and slides; `report/build/`
 regenerates them from results/ and figures/)

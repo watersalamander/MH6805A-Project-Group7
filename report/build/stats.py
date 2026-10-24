@@ -48,13 +48,6 @@ def best_params(d, m, fs):
     return [json.loads(s) for s in x.sort_values("fold").best_params]
 
 
-def logistic():
-    l = pd.read_csv(f"{ROOT}/results/logistic.csv")
-    l = l[l.subsample == "all"]
-    g = l.groupby(["label", "freq", "feature_set"])[["auc", "pr_auc", "brier_skill"]].mean()
-    return g
-
-
 def rf_groups():
     p = pd.read_csv(f"{ROOT}/results/rf_permutation_importance.csv")
     p = p[p.model_variant == "FULL"]
@@ -67,7 +60,6 @@ WEEKLY = summary(D, freq="weekly")
 INTERNAL = summary(D, sub="INTERNAL")
 TARGETS = {t: summary(D, target=t) for t in ["log_rv_fwd_7d", "log_rv_fwd_30d", "log_rv_fwd_14d_parkinson"]}
 FOLDS = folds(D)
-LOGIT = logistic()
 RFG, RFIMP = rf_groups()
 LGBG = pd.read_csv(f"{ROOT}/results/lgbm_importance.csv").groupby("group").gain_share.sum().to_dict()
 
@@ -87,5 +79,4 @@ if __name__ == "__main__":
     print(WEEKLY["ridge"], WEEKLY["knn"])
     print({t: {m: round(TARGETS[t][m].get("delta", float("nan")), 4) for m in REG if m in TARGETS[t]} for t in TARGETS})
     print({m: round(INTERNAL[m].get("delta", float("nan")), 4) for m in REG if m in INTERNAL})
-    print(LOGIT)
     print(RFG)
